@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using respapi.eshop.Data;
 
@@ -11,9 +12,11 @@ using respapi.eshop.Data;
 namespace respapi.eshop.data.migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230904231512_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,7 +302,7 @@ namespace respapi.eshop.data.migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("SubCategoryId")
+                    b.Property<int?>("SubCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("TechnicalInfo")
@@ -311,6 +314,22 @@ namespace respapi.eshop.data.migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("respapi.eshop.Models.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubCategoryId", "ProductId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.SubCategory", b =>
@@ -383,7 +402,7 @@ namespace respapi.eshop.data.migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("UserAdresses");
+                    b.ToTable("UserAdress");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -440,10 +459,27 @@ namespace respapi.eshop.data.migrations
             modelBuilder.Entity("respapi.eshop.Models.Entities.Product", b =>
                 {
                     b.HasOne("respapi.eshop.Models.Entities.SubCategory", "SubCategory")
-                        .WithMany("Products")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId");
+
+                    b.Navigation("SubCategory");
+                });
+
+            modelBuilder.Entity("respapi.eshop.Models.Entities.ProductCategory", b =>
+                {
+                    b.HasOne("respapi.eshop.Models.Entities.Product", "Product")
+                        .WithOne("ProductCategory")
+                        .HasForeignKey("respapi.eshop.Models.Entities.ProductCategory", "ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("respapi.eshop.Models.Entities.SubCategory", "SubCategory")
+                        .WithMany("ProductCategory")
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("SubCategory");
                 });
@@ -480,9 +516,15 @@ namespace respapi.eshop.data.migrations
                     b.Navigation("SubCategories");
                 });
 
+            modelBuilder.Entity("respapi.eshop.Models.Entities.Product", b =>
+                {
+                    b.Navigation("ProductCategory")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("respapi.eshop.Models.Entities.SubCategory", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductCategory");
                 });
 #pragma warning restore 612, 618
         }

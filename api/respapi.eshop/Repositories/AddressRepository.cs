@@ -20,5 +20,48 @@ namespace respapi.eshop.Repositories
             await _dbContext.SaveChangesAsync();
             return userAdress;
         }
+
+        public async Task<bool?> ChangeMainAddress(UserAdress currentMain, UserAdress nextMain)
+        {
+             var previousMain = await (from p in _dbContext.UserAdresses
+                                where p == currentMain select p)
+                                .SingleOrDefaultAsync();
+
+            if (previousMain == null) { return false; }
+
+            previousMain.IsMain = false;
+
+
+            var newMain = await (from p in _dbContext.UserAdresses
+                                  where p == nextMain
+                                  select p)
+                                .SingleOrDefaultAsync();
+
+            if (newMain == null) { return false; }
+            newMain.IsMain = true;
+
+            return await SaveChanges();
+
+        }
+
+        public async Task<bool> DeleteUserAddress(UserAdress userAdress)
+        {
+            _dbContext.UserAdresses.Remove(userAdress);
+            var isDeleted = await _dbContext.SaveChangesAsync();
+
+            return await SaveChanges();
+        }
+
+        public async Task<UserAdress?> GetUserAddressById(int id)
+        {
+            return await _dbContext.UserAdresses.FindAsync(id);
+        }
+
+        private async Task<bool> SaveChanges()
+        {
+            var isSaved = await _dbContext.SaveChangesAsync();
+            if (isSaved == 0) { return false; }
+            return true;
+        }
     }
 }

@@ -12,6 +12,10 @@ namespace respapi.eshop.Helpers
             CreateMap<AppUser, MemberDto>();
             CreateMap<AddressDto, UserAdress>();
             CreateMap<UserAdress, AddressDto>();
+            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<SubCategoryDto, SubCategory>().ReverseMap();
+            CreateMap<AddCategoryDto, Category>().ReverseMap();
+            CreateMap<CategoryDto, Category>().ReverseMap();
         }
     }
 }

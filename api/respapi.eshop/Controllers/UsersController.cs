@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 using respapi.eshop.Extensions;
 using respapi.eshop.Interfaces;
@@ -39,7 +40,7 @@ namespace respapi.eshop.Controllers
             return BadRequest();
         }
 
-        [HttpPost("registerAdress/{cep}")]
+        [HttpPost("register-adress/{cep}")]
         public async Task<ActionResult<AddressDto>> AddAdress(string cep, RegisterAdressDto registerAdress)
         {
             var apiresp = await _cepService.GetAdressByCep(cep);
@@ -70,5 +71,42 @@ namespace respapi.eshop.Controllers
             return NotFound("was not possible to finish operation");
             
         }
+
+        [HttpDelete("delete-address/{addressId}")]
+        public async Task<ActionResult> DeleteAddress(int addressId) 
+        {
+            var userAddress = await _addressRepository.GetUserAddressById(addressId);
+
+            if (userAddress == null) return NotFound();
+
+            if (userAddress.IsMain) return BadRequest("You cannot delete your main address");
+
+            var isDeleted = await _addressRepository.DeleteUserAddress(userAddress);
+
+            if (isDeleted == false) { return BadRequest("Something went wrong"); }
+
+            return Ok("Addres got deleted successfully");  
+        }
+
+        [HttpPost("set-main-address/{addressId}")]
+        public async Task<ActionResult> SetMainAddress(int addressId)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            var userAddress = user.Adresses.FirstOrDefault(x=> x.Id == addressId);
+
+            if (userAddress == null) { return BadRequest("Address not found"); }
+
+            if (userAddress.IsMain) { return BadRequest("This is already your main address"); }
+
+            var currentMain = user.Adresses.FirstOrDefault(x => x.IsMain);
+
+            if (currentMain == null) { return BadRequest("Main Address not found"); }
+
+            var isDone = _addressRepository.ChangeMainAddress(currentMain, userAddress);
+
+            return Ok("Main address changed successfully");
+        }
+
     }
 }

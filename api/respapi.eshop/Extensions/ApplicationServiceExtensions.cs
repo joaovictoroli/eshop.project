@@ -16,10 +16,14 @@ namespace respapi.eshop.Extensions
                 opt.UseSqlServer(config.GetConnectionString("DatabaseConnection"));
             });
             services.AddCors();
+            services.AddHttpContextAccessor();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ICepService, CepService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
