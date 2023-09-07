@@ -1,4 +1,6 @@
-﻿using respapi.eshop.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using respapi.eshop.Data;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.Entities;
 
@@ -19,16 +21,40 @@ namespace respapi.eshop.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<bool> CheckDuplicate(string fileName)
+        {
+            var list = await _dbContext.Images.Where(x => x.FileName == fileName).ToListAsync();
+            if (list.IsNullOrEmpty()) { return false; }
+            return true;
+
+        }
+
+        public async Task<int> DeleteImage(string imageUrl)
+        {
+            int gotDeleted = 0;
+            var image = await _dbContext.Images.FirstOrDefaultAsync(x => x.FilePath == imageUrl);
+
+            if (image == null) { return gotDeleted; }
+            var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images",
+                $"{image.FileName}{image.FileExtension}");
+
+            if (File.Exists(localFilePath))
+            {
+                File.Delete(localFilePath);
+                _dbContext.Images.Remove(image);
+                gotDeleted = await _dbContext.SaveChangesAsync();
+            }
+            return gotDeleted;
+        }
+
         public async Task<Image> Upload(Image image)
         {
             var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images",
                 $"{image.FileName}{image.FileExtension}");
 
-            // Upload Image to Local Path
+            
             using var stream = new FileStream(localFilePath, FileMode.Create);
             await image.File.CopyToAsync(stream);
-
-            // https://localhost:1234/images/image.jpg
 
             var urlFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.PathBase}/Images/{image.FileName}{image.FileExtension}";
             image.FilePath = urlFilePath;
@@ -38,5 +64,7 @@ namespace respapi.eshop.Repositories
 
             return image;
         }
+
+
     }
 }

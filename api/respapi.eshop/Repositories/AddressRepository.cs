@@ -38,10 +38,9 @@ namespace respapi.eshop.Repositories
                                 .SingleOrDefaultAsync();
 
             if (newMain == null) { return false; }
+            
             newMain.IsMain = true;
-
             return await SaveChanges();
-
         }
 
         public async Task<bool> DeleteUserAddress(UserAdress userAdress)

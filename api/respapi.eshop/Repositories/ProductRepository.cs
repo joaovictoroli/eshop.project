@@ -61,9 +61,27 @@ namespace respapi.eshop.Repositories
                userParams.PageNumber, userParams.PageSize);
         }
 
-        public Task<Product> GetProductById(int id)
+        
+        public async Task<Product> GetProductById(int productId)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Products.SingleOrDefaultAsync(x => x.Id == productId);
+        }
+
+        public async Task<Product> GetProductByName(string productName)
+        {
+            return await _dbContext.Products.SingleOrDefaultAsync(x => x.Name == productName);
+        }
+
+        public async Task<int> DeleteProductById(int productId)
+        {
+            int deleted = 0;
+            var product = await _dbContext.Products.SingleOrDefaultAsync(x => x.Id == productId);
+            if (product != null)
+            {
+                _dbContext.Products.Remove(product);
+                deleted = await _dbContext.SaveChangesAsync();
+            }
+            return deleted;
         }
     }
 }

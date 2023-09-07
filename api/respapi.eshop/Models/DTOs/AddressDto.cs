@@ -2,6 +2,7 @@
 {
     public class AddressDto
     {
+        public int Id { get; set; }
         public string Cep { get; set; }
         public string Uf { get; set; }
         public string Bairro { get; set; }

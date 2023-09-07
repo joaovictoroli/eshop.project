@@ -93,9 +93,11 @@ namespace respapi.eshop.Controllers
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var userAddress = user.Adresses.FirstOrDefault(x=> x.Id == addressId);
+            var userAddress = user.Adresses.FirstOrDefault(x=> x.Id == addressId);            
 
             if (userAddress == null) { return BadRequest("Address not found"); }
+
+            if (userAddress.AppUserId != user.Id) { return BadRequest("Addres is not yours"); }
 
             if (userAddress.IsMain) { return BadRequest("This is already your main address"); }
 
@@ -103,9 +105,16 @@ namespace respapi.eshop.Controllers
 
             if (currentMain == null) { return BadRequest("Main Address not found"); }
 
-            var isDone = _addressRepository.ChangeMainAddress(currentMain, userAddress);
+            var isDone = await _addressRepository.ChangeMainAddress(currentMain, userAddress);
 
-            return Ok("Main address changed successfully");
+            if (isDone == true)
+            {
+                return Ok("Main address changed successfully");
+            } else
+            {
+                return Ok("Something went wrong");
+            }
+
         }
 
     }

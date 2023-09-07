@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using respapi.eshop.Extensions;
@@ -8,7 +6,6 @@ using respapi.eshop.Helpers;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.DTOs;
 using respapi.eshop.Models.Entities;
-using respapi.eshop.Repositories;
 
 namespace respapi.eshop.Controllers
 {
@@ -56,6 +53,10 @@ namespace respapi.eshop.Controllers
                     FileName = Path.GetFileNameWithoutExtension(imageDto.File.FileName)
                 };
 
+                bool isDuplicate = await _imageRepository.CheckDuplicate(image.FileName);
+
+                if (isDuplicate) { return BadRequest("Already has a file with this name"); }
+
                 var persistedImage = await _imageRepository.Upload(image);
                 productDto.ImageUrl = persistedImage.FilePath;
 
@@ -65,10 +66,7 @@ namespace respapi.eshop.Controllers
                 {
                     var subCategory = await _categoryRepository.GetSubCategoryByName(productDto.SubCategoryName);
                     if (subCategory != null) { product.SubCategory = subCategory; product.SubCategoryId = subCategory.Id; }
-                } else
-                {
-                    return BadRequest("No SubCategory was found");
-                }
+                } else { return BadRequest("No SubCategory was found"); }
 
                 await _productRepository.AddProduct(product);
 
@@ -76,6 +74,47 @@ namespace respapi.eshop.Controllers
             }
 
             return BadRequest("Something went wrong");
+        }
+
+        [HttpGet("Name={productName}")]
+
+        public async Task<ActionResult> GetProductByName(string productName)
+        {
+            var product = await _productRepository.GetProductByName(productName);
+
+            if (product == null) { return NotFound("No product was found"); }
+
+            var productDto = _mapper.Map<ProductDto>(product);
+            return Ok(productDto);
+        }
+
+        [HttpGet("Id={productId}")]
+
+        public async Task<ActionResult> GetProductById(int productId)
+        {
+            var product = await _productRepository.GetProductById(productId);
+
+            if (product == null) { return NotFound("No product was found"); }
+
+            var productDto = _mapper.Map<ProductDto>(product);
+            return Ok(productDto);
+        }
+
+        [HttpDelete("delete-product/{productId}")]
+
+        public async Task<ActionResult> DeleteProduct(int productId)
+        {
+            var product = await _productRepository.GetProductById(productId);
+
+            var gotDeleted = await _imageRepository.DeleteImage(product.ImageUrl);
+
+            if (gotDeleted == 0) { return NotFound("Something went wrong with ImageUrl"); }
+
+            gotDeleted = await _productRepository.DeleteProductById(productId);
+
+            if (gotDeleted == 0) { return NotFound("Something went wrong with Product."); }           
+
+            return Ok("Product got deleted");
         }
 
         private void ValidateFileUpload(ImageUploadDto request)
