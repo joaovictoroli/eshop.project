@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using respapi.eshop.Extensions;
@@ -38,6 +39,7 @@ namespace respapi.eshop.Controllers
             return Ok(productsDto);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-product")]
         public async Task<ActionResult<ProductDto>> AddProduct([FromForm] ProductDto productDto, [FromForm] ImageUploadDto imageDto)
         {
@@ -70,7 +72,7 @@ namespace respapi.eshop.Controllers
 
                 await _productRepository.AddProduct(product);
 
-                return Ok(product);
+                return Ok(productDto);
             }
 
             return BadRequest("Something went wrong");
@@ -100,8 +102,8 @@ namespace respapi.eshop.Controllers
             return Ok(productDto);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("delete-product/{productId}")]
-
         public async Task<ActionResult> DeleteProduct(int productId)
         {
             var product = await _productRepository.GetProductById(productId);

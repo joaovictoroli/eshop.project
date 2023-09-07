@@ -20,11 +20,11 @@ namespace respapi.eshop.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Product> AddProduct(Product product)
+        public async Task<int> AddProduct(Product product)
         {
             _dbContext.Add(product);
-            await _dbContext.SaveChangesAsync();
-            return product;
+            int gotAdded = await _dbContext.SaveChangesAsync();
+            return gotAdded;
         }
 
         public async Task<PagedList<Product>> GetAllProducts(UserParams userParams)

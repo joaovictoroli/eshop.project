@@ -34,6 +34,10 @@ namespace respapi.eshop.Controllers
 
             if (!result.Succeeded) return BadRequest(result.Errors);
 
+            var roleResult = await _userManager.AddToRoleAsync(user, "CommonUser");
+
+            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+
             return new UserDto
             {
                 Username = user.UserName,

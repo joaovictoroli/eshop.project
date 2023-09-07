@@ -20,7 +20,8 @@ namespace respapi.eshop.Extensions
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireDigit = false;
             })
-                .AddRoles<IdentityRole<int>>()
+                .AddRoles<AppRole>()
+                .AddRoleManager<RoleManager<AppRole>>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -35,6 +36,11 @@ namespace respapi.eshop.Extensions
                         ValidateAudience = false
                     };
                 });
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            });
 
             return services;
         }

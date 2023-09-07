@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace respapi.eshop.data.migrations
+namespace respapi.eshop.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class approles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -190,7 +190,7 @@ namespace respapi.eshop.data.migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAdress",
+                name: "UserAdresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -207,9 +207,9 @@ namespace respapi.eshop.data.migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAdress", x => x.Id);
+                    table.PrimaryKey("PK_UserAdresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAdress_AspNetUsers_AppUserId",
+                        name: "FK_UserAdresses_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -248,36 +248,13 @@ namespace respapi.eshop.data.migrations
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     TechnicalInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubCategoryId = table.Column<int>(type: "int", nullable: true)
+                    SubCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Products_SubCategories_SubCategoryId",
-                        column: x => x.SubCategoryId,
-                        principalTable: "SubCategories",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductCategory",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    SubCategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductCategory", x => new { x.SubCategoryId, x.ProductId });
-                    table.ForeignKey(
-                        name: "FK_ProductCategory_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProductCategory_SubCategories_SubCategoryId",
                         column: x => x.SubCategoryId,
                         principalTable: "SubCategories",
                         principalColumn: "Id",
@@ -324,12 +301,6 @@ namespace respapi.eshop.data.migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategory_ProductId",
-                table: "ProductCategory",
-                column: "ProductId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_SubCategoryId",
                 table: "Products",
                 column: "SubCategoryId");
@@ -340,8 +311,8 @@ namespace respapi.eshop.data.migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAdress_AppUserId",
-                table: "UserAdress",
+                name: "IX_UserAdresses_AppUserId",
+                table: "UserAdresses",
                 column: "AppUserId");
         }
 
@@ -367,22 +338,19 @@ namespace respapi.eshop.data.migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "ProductCategory");
+                name: "Products");
 
             migrationBuilder.DropTable(
-                name: "UserAdress");
+                name: "UserAdresses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "SubCategories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "SubCategories");
 
             migrationBuilder.DropTable(
                 name: "Categories");

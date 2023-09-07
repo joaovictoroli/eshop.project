@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using respapi.eshop.Models.Entities;
-using static respapi.eshop.Data.AppDbContext;
 
 namespace respapi.eshop.Data
 {
-    public class AppDbContext : IdentityDbContext<AppUser, IdentityRole<int>, int>       
-    {       
+    public class AppDbContext : IdentityDbContext<AppUser, AppRole, int,
+        IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
+        IdentityRoleClaim<int>, IdentityUserToken<int>>
+    {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<UserAdress> UserAdresses { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -20,6 +21,18 @@ namespace respapi.eshop.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<AppUser>()
+                .HasMany(ur => ur.UserRoles)
+                .WithOne(u => u.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+
+            modelBuilder.Entity<AppRole>()
+                .HasMany(ur => ur.UserRoles)
+                .WithOne(u => u.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
+
+            modelBuilder.Entity<AppUser>()
                .HasMany(p => p.Adresses)
                .WithOne(c => c.AppUser)
                .HasForeignKey(c => c.AppUserId)
@@ -28,7 +41,7 @@ namespace respapi.eshop.Data
             modelBuilder.Entity<Category>()
                 .HasMany(x => x.SubCategories)
                 .WithOne(x => x.Category)
-                .HasForeignKey(x=> x.CategoryId)
+                .HasForeignKey(x => x.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Product>()

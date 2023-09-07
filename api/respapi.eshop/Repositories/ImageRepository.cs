@@ -4,6 +4,7 @@ using respapi.eshop.Data;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.Entities;
 
+
 namespace respapi.eshop.Repositories
 {
     public class ImageRepository : IImageRepository
@@ -12,10 +13,11 @@ namespace respapi.eshop.Repositories
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly AppDbContext _dbContext;
 
-        public ImageRepository(IWebHostEnvironment webHostEnvironment,
+        public ImageRepository(
+            IWebHostEnvironment webHostEnvironment,
             IHttpContextAccessor httpContextAccessor,
             AppDbContext dbContext)
-        {
+        {          
             _webHostEnvironment = webHostEnvironment;
             _httpContextAccessor = httpContextAccessor;
             _dbContext = dbContext;
@@ -65,6 +67,19 @@ namespace respapi.eshop.Repositories
             return image;
         }
 
+        public string GetImageUrl(string fileName)
+        {
+            var urlFilePath = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}{_httpContextAccessor.HttpContext.Request.PathBase}/Images/{fileName}";
 
+            return urlFilePath;
+        }
+
+        public string GetImagePath(string fileName)
+        {
+            var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images",
+               $"{fileName}");
+
+            return localFilePath;
+        }
     }
 }

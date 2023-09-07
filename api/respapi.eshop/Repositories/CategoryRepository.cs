@@ -18,24 +18,25 @@ namespace respapi.eshop.Repositories
             _mapper = mapper;
         }
 
-        public async Task<Category> AddCategory(Category category)
+        public async Task<int> AddCategory(Category category)
         {
             _dbContext.Categories.Add(category);
-            await _dbContext.SaveChangesAsync();
-            return category;
+            var gotAdded = await _dbContext.SaveChangesAsync();
+            return gotAdded;
         }
 
-        public async Task<SubCategory> AddSubCategory(SubCategory subCategory, int categoryId)
-        {            
+        public async Task<int> AddSubCategory(SubCategory subCategory, int categoryId)
+        {
+            int gotAdded = 0;
             var category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
             if (category != null)
             {
-                subCategory.Category = category;                
+                subCategory.Category = category;        
                 _dbContext.SubCategories.Add(subCategory);
-                await _dbContext.SaveChangesAsync();
-                return subCategory;
+                gotAdded = await _dbContext.SaveChangesAsync();
+                return gotAdded;
             }
-            return subCategory;
+            return gotAdded;
         }
 
         public Task<Category> DeleteCategory(int id)

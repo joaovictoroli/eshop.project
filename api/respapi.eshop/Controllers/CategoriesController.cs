@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.DTOs;
 using respapi.eshop.Models.Entities;
@@ -27,20 +29,24 @@ namespace respapi.eshop.Controllers
             return Ok(categories);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-category")]
         public async Task<ActionResult<AddCategoryDto>> AddCategory(AddCategoryDto addCategoryDto)
         {
             var category = _mapper.Map<Category>(addCategoryDto);
-            await _categoryRepository.AddCategory(category);
+            int gotAdded = await _categoryRepository.AddCategory(category);
+            if (gotAdded == 0) { return BadRequest("Something went wrong."); }
             return Ok(addCategoryDto);
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-subcategory")]
         public async Task<ActionResult<SubCategoryDto>> AddSubCategory(SubCategoryDto subCategoryDto)
         {
             var subCategory = _mapper.Map<SubCategory>(subCategoryDto);
-            await _categoryRepository.AddSubCategory(subCategory, subCategoryDto.CategoryId);
-            return Ok(subCategory);
+            int gotAdded = await _categoryRepository.AddSubCategory(subCategory, subCategoryDto.CategoryId);
+            if (gotAdded == 0) { return BadRequest("Something went wrong."); }
+            return Ok(subCategoryDto);
         }
     }
 }

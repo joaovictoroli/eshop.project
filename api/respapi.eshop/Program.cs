@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
+using respapi.eshop.Data;
 using respapi.eshop.Extensions;
+using respapi.eshop.Interfaces;
+using respapi.eshop.Models.Entities;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -30,5 +34,26 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<AppDbContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+    var categoryRepository = services.GetRequiredService<ICategoryRepository>();
+    var productRepository = services.GetRequiredService<IProductRepository>();
+    var imageRepository = services.GetRequiredService<IImageRepository>();
+
+    //await Seed.ClearConnections(context);
+    var seed = new Seed(userManager, roleManager, categoryRepository, productRepository, imageRepository);
+    await seed.SeedAsync();
+}
+catch (Exception ex)
+{
+    var logger = services.GetService<ILogger<Program>>();
+    logger.LogError(ex, "An error occured during migration");
+}
 
 app.Run();
