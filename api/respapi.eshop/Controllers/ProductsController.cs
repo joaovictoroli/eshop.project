@@ -35,7 +35,7 @@ namespace respapi.eshop.Controllers
             var productsDto = _mapper.Map<List<ProductDto>>(products);
             Response.AddPaginationHeader(new PaginationHeader(products.CurrentPage, products.PageSize,
                                         products.TotalCount, products.TotalPages));
-            if (productsDto.Count() == 0 ) { return Ok("No product has been found"); }
+            //if (productsDto.Count() == 0 ) { return Ok("No product has been found"); }
             return Ok(productsDto);
         }
 

@@ -19,9 +19,17 @@ builder.Services.AddControllers()
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseRouting();
+
 // Configure the HTTP request pipeline.
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod()
-    .WithOrigins("https://localhost:4200"));
+    .WithOrigins("http://localhost:4200"));
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

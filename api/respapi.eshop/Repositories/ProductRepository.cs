@@ -48,7 +48,7 @@ namespace respapi.eshop.Repositories
 
             if (!userParams.SubCategoryName.IsNullOrEmpty())
             {
-                var subCategory = await  _dbContext.SubCategories.FirstOrDefaultAsync(x => x.Name == userParams.SubCategoryName);
+                var subCategory = await  _dbContext.SubCategories.FirstOrDefaultAsync(x => x.Name.Contains(userParams.SubCategoryName));
                 if (subCategory != null)
                 {
                     query = query.Where(x => x.SubCategoryId == subCategory.Id);

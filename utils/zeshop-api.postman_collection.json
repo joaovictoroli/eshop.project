@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "e264bcb9-2c45-4861-8dd3-9811466977c7",
+		"name": "zeshop-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27126285",
+		"_collection_link": "https://gold-desert-41472.postman.co/workspace/DattingAppCrouse~8922492e-ac60-4877-a4dc-a5fa58e41e26/collection/27126285-e264bcb9-2c45-4861-8dd3-9811466977c7?action=share&source=collection_link&creator=27126285"
+	},
+	"item": [
+		{
+			"name": "Products Requests",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "hello",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "hello",
+									"type": "text"
+								},
+								{
+									"key": "ImageUrl",
+									"value": "teste",
+									"type": "text"
+								},
+								{
+									"key": "Price",
+									"value": "40",
+									"type": "text"
+								},
+								{
+									"key": "TechnicalInfo",
+									"value": "hello",
+									"type": "text"
+								},
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/C:/Users/joaov/OneDrive/Imagens/jery.jpg"
+								},
+								{
+									"key": "SubCategoryName",
+									"value": "itens de cozinha",
+									"type": "text"
+								},
+								{
+									"key": "Authorization",
+									"value": "Bearer {{eshopToken}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/products/add-product",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"products",
+								"add-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7011/api/products?SubCategoryName=CPU&pageNumber=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "a",
+									"disabled": true
+								},
+								{
+									"key": "MinPrice",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "MaxPrice",
+									"value": "200",
+									"disabled": true
+								},
+								{
+									"key": "SubCategoryName",
+									"value": "CPU"
+								},
+								{
+									"key": "pageNumber",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7011/api/products/Id=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"products",
+								"Id=1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7011/api/products/Name=Hello",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"products",
+								"Name=Hello"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7011/api/products/delete-product/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"products",
+								"delete-product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"Name\": \"eletronico\",\r\n\t\"Description\": \"coisa limdra de viver\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/categories/add-category",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"categories",
+								"add-category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Sub Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"Name\": \"itens de cozinha\",\r\n\t\"Description\": \"cozinha po\",\r\n    \"categoryId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/categories/add-subcategory",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"categories",
+								"add-subcategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/categories",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User, Address Requests",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const user = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Has properties\", function () {\r",
+									"    pm.expect(user).to.have.property('username');\r",
+									"    pm.expect(user).to.have.property('token');\r",
+									"});\r",
+									"\r",
+									"if (pm.test(\"Has properties\")) {\r",
+									"    pm.globals.set('eshopToken', user.token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"admin\",\r\n\t\"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/account/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\": \"joao\",\r\n    \"KnownAs\": \"Super Joao\",\r\n\t\"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/account/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"account",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7011/api/users/Admin",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"users",
+								"Admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post adress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"numero\": \"150\",\r\n\t\"apartamento\": \"212\",\r\n    \"infoAdicional\": \"bloco tal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/users/register-adress/91790072",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"users",
+								"register-adress",
+								"91790072"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remover address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7011/api/users/delete-address/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"users",
+								"delete-address",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set main address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:7011/api/users/set-main-address/2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"users",
+								"set-main-address",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

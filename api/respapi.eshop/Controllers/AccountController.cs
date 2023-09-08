@@ -61,7 +61,7 @@ namespace respapi.eshop.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = await _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),                
                 KnownAs = user.KnownAs,
             };
         }
