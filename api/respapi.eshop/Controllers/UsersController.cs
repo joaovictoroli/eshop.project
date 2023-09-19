@@ -45,16 +45,22 @@ namespace respapi.eshop.Controllers
         {
             var apiresp = await _cepService.GetAdressByCep(cep);
 
-            if (apiresp != null)
+            if (apiresp != null
+                && apiresp.Cep != null
+                && apiresp.Uf != null
+                && apiresp.Bairro != null
+                && apiresp.Complemento != null
+                && apiresp.Logradouro != null
+                && apiresp.Localidade != null)            
             {
                 AppUser user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());                
 
-                UserAdress userAdress = new UserAdress()
+                UserAdress userAdress = new ()
                 {
-                    Cep = apiresp.cep,
-                    Uf = apiresp.uf,
-                    Bairro = apiresp.bairro,
-                    Complemento = apiresp.complemento,
+                    Cep = apiresp.Cep,
+                    Uf =  apiresp.Uf,
+                    Bairro = apiresp.Bairro,
+                    Complemento = apiresp.Complemento,
                     Numero = registerAdress.Numero,
                     Apartamento = registerAdress.Apartamento,
                     InfoAdicinal = registerAdress.InfoAdicional,
@@ -62,7 +68,7 @@ namespace respapi.eshop.Controllers
                     IsMain = false
                 };
 
-                if (user.Adresses.Count == 0) { userAdress.IsMain = true; }
+                if (user?.Adresses?.Count == 0) { userAdress.IsMain = true; }
 
                 await _addressRepository.AddUserAdress(userAdress);
                 return _mapper.Map<AddressDto>(userAdress);
@@ -93,7 +99,7 @@ namespace respapi.eshop.Controllers
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var userAddress = user.Adresses.FirstOrDefault(x=> x.Id == addressId);            
+            var userAddress = user.Adresses!.FirstOrDefault(x=> x.Id == addressId);          
 
             if (userAddress == null) { return BadRequest("Address not found"); }
 
@@ -101,7 +107,7 @@ namespace respapi.eshop.Controllers
 
             if (userAddress.IsMain) { return BadRequest("This is already your main address"); }
 
-            var currentMain = user.Adresses.FirstOrDefault(x => x.IsMain);
+            var currentMain = user.Adresses!.FirstOrDefault(x => x.IsMain);
 
             if (currentMain == null) { return BadRequest("Main Address not found"); }
 

@@ -10,16 +10,15 @@ namespace respapi.eshop.Services
     {
         static HttpClient client = new HttpClient();
         const string baseURL = "https://viacep.com.br/ws/";
-        public async Task<CepApiResponse> GetAdressByCep(string cep)
+        public async Task<CepApiResponse?> GetAdressByCep(string cep)
         {
-            CepApiResponse cepApi = null;
+            CepApiResponse? cepApi = new ();
 
             HttpResponseMessage response  = await client.GetAsync(GetApiUri(baseURL + cep));
             if (response.IsSuccessStatusCode)
             {
                 string result = response.Content.ReadAsStringAsync().Result;
                 cepApi = JsonConvert.DeserializeObject<CepApiResponse>(result);
-
             }
 
             return cepApi;

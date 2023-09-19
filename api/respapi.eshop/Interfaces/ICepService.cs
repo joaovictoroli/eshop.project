@@ -5,6 +5,6 @@ namespace respapi.eshop.Interfaces
 {
     public interface ICepService
     {
-        Task<CepApiResponse> GetAdressByCep(string cep);
+        Task<CepApiResponse?> GetAdressByCep(string cep);
     }
 }

@@ -1,10 +1,12 @@
-﻿namespace respapi.eshop.Models.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace respapi.eshop.Models.DTOs
 {
     public class CategoryDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<SubCategoryDto> SubCategories { get; set; }
+        public int? Id { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public List<SubCategoryDto>? SubCategories { get; set; }
     }
 }

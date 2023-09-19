@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.Entities;
@@ -15,7 +16,7 @@ namespace respapi.eshop.Services
         public TokenService(IConfiguration config, UserManager<AppUser> userManager)
         {
             _userManager = userManager;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Constants.JWTSECRET));
         }
 
         public async Task<string> CreateToken(AppUser user)

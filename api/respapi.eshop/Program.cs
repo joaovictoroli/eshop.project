@@ -58,10 +58,11 @@ try
     var seed = new Seed(userManager, roleManager, categoryRepository, productRepository, imageRepository);
     await seed.SeedAsync();
 }
-catch (Exception ex)
+catch (Exception)
 {
-    var logger = services.GetService<ILogger<Program>>();
-    logger.LogError(ex, "An error occured during migration");
+    Console.WriteLine("An error occured during migration");
+    // var logger = services.GetService<ILogger<Program>>();
+    // logger.LogError(ex, "An error occured during migration");
 }
 
 app.Run();

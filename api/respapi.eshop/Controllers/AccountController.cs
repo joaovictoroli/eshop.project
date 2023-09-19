@@ -23,12 +23,12 @@ namespace respapi.eshop.Controllers
 
         [HttpPost("register")] 
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
-        {
-            if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+        {            
+            if (await UserExists(registerDto.Username!)) return BadRequest("Username is taken");
 
             var user = _mapper.Map<AppUser>(registerDto);
 
-            user.UserName = registerDto.Username.ToLower();
+            user.UserName = registerDto.Username!.ToLower();
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
