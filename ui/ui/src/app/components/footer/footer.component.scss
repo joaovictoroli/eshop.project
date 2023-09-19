@@ -1,0 +1,23 @@
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #333; // cor similar à do navbar
+
+  .rights {
+    color: #eaeaea;
+  }
+
+  .social-icons {
+    a {
+      color: #eaeaea;
+      margin-left: 15px;
+      font-size: 24px;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}

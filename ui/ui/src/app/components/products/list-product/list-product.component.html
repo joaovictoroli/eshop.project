@@ -1,1 +1,36 @@
-<p>list-product works!</p>
+<div class="container p-sm-3 p-md-4 p-lg-5 mt-sm-3 mt-md-4 mt-lg-5">
+  <!-- Filtros -->
+  <div class="filters mb-3">
+    <input type="number" placeholder="Preço Mínimo" class="form-control" />
+    <input type="number" placeholder="Preço Máximo" class="form-control" />
+    <input type="text" placeholder="Nome" class="form-control" />
+    <select class="form-control">
+      <option value="">Categoria</option>
+      <!-- Adicione as categorias aqui -->
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <a
+      href="link_para_pagina_do_produto"
+      class="text-decoration-none text-dark"
+    >
+      <div class="card product-card">
+        <img src="path_to_image" alt="Nome do Produto" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">Nome do Produto</h5>
+          <p class="card-text">Preço: R$00,00</p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Paginação -->
+  <nav aria-label="Page navigation" class="mt-3">
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+      <!-- Adicione os números das páginas aqui -->
+      <li class="page-item"><a class="page-link" href="#">Próxima</a></li>
+    </ul>
+  </nav>
+</div>

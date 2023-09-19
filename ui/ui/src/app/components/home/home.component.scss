@@ -1,0 +1,20 @@
+.home-container {
+  padding: 40px;
+  text-align: center;
+  height: 100vh;
+  color: #eaeaea;
+
+  h1 {
+    color: #f2f2f2;
+  }
+
+  p {
+    color: #ccc;
+  }
+
+  img {
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+}

@@ -1,0 +1,21 @@
+.login-container {
+  height: 100vh;
+}
+
+.login-form {
+  border: solid white;
+  width: 300px; // Largura fixa para o formulário de login
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(34, 34, 34, 0.8); // Fundo semi-transparente
+
+  .form-control {
+    border-radius: 0;
+  }
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
