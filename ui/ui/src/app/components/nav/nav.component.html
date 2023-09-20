@@ -20,7 +20,28 @@
           >
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
+
+      <ul
+        class="navbar-nav ml-auto"
+        *ngIf="authService.currentUser$ | async as user"
+      >
+        <li class="nav-item logout">
+          <a class="nav-link" (click)="logout()"
+            ><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> Logout</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="profile"
+            ><fa-icon [icon]="['fas', 'user']"></fa-icon> Profile</a
+          >
+        </li>
+      </ul>
+
+      <!-- not logged -->
+      <ul
+        class="navbar-nav ml-auto"
+        *ngIf="!(authService.currentUser$ | async)"
+      >
         <li class="nav-item">
           <a class="nav-link" href="login"
             ><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Login</a

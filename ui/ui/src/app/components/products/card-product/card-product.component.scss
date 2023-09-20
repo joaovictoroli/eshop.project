@@ -1,0 +1,68 @@
+$background-color: #2e2e2e;
+$text-color: #eaeaea;
+$hover-color: #444;
+
+/* Se você tiver links dentro do cartão e quiser que eles permaneçam brancos */
+.product-card a {
+  color: #fff;
+}
+.product-card {
+  padding: 5;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 250px; /* Defina uma altura fixa para a imagem */
+  display: block;
+  margin: 0 auto;
+  object-fit: contain; /* Mantém a proporção da imagem sem cortar */
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px; /* Espaçamento entre os cards horizontais */
+}
+
+@media (max-width: 991px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card-body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+.product-card {
+  margin: 10px;
+  background-color: $background-color;
+  color: $text-color;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  .card-title,
+  .card-text {
+    text-align: center;
+  }
+}

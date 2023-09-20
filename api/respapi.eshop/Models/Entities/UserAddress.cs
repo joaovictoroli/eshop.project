@@ -2,7 +2,7 @@
 
 namespace respapi.eshop.Models.Entities
 {
-    public class UserAdress
+    public class UserAddress
     {
         public int Id { get; set; }
         public string Cep { get; set; }

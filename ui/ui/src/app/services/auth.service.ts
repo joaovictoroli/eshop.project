@@ -12,14 +12,21 @@ export class AuthService {
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const user: User | null = JSON.parse(
+      localStorage.getItem('user') || 'null'
+    );
+    if (user) {
+      this.currentUserSource.next(user);
+    }
+  }
+
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
         const user = response;
         if (user) {
           this.setCurrentUser(user);
-          this.getCurrentUserAfterChanges();
         }
       })
     );
@@ -35,29 +42,15 @@ export class AuthService {
     this.currentUserSource.next(null);
   }
 
-  getCurrentUserAfterChanges() {
-    var username = JSON.parse(localStorage.getItem('user') || '{}').username;
-    this.http
-      .get<User>(this.baseUrl + 'users/' + username)
-      .pipe(
-        map((response: User) => {
-          const user = response;
-          if (user) {
-            console.log('here');
-            console.log(response);
-            this.setCurrentUser(user);
-          }
-        })
-      )
-      .subscribe((response) => {
-        console.log(response);
-      });
-  }
-
   registerAddress(address: RegisterAddress, cep: string) {
     return this.http.post<UserAddress>(
       this.baseUrl + 'users/register-address/' + cep,
       address
     );
+  }
+
+  //get user /api/Users/{username}
+  getUserProfile(username: string) {
+    return this.http.get<User>(this.baseUrl + 'Users/' + username);
   }
 }

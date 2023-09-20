@@ -22,7 +22,7 @@ namespace respapi.eshop.Repositories
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users          
-                   .Include(p => p.Adresses)
+                   .Include(p => p.Addresses)
                    .FirstOrDefaultAsync(x => x.UserName == username);
         }
     }

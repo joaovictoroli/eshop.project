@@ -9,9 +9,9 @@ namespace respapi.eshop.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<RegisterDto, AppUser>();
-            CreateMap<AppUser, MemberDto>();
-            CreateMap<AddressDto, UserAdress>();
-            CreateMap<UserAdress, AddressDto>();
+            CreateMap<AppUser, UserDetailsDto>();
+            CreateMap<AddressDto, UserAddress>().ReverseMap();
+            // CreateMap<UserAddress, AddressDto>();
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<SubCategoryDto, SubCategory>().ReverseMap();
             CreateMap<AddCategoryDto, Category>().ReverseMap();

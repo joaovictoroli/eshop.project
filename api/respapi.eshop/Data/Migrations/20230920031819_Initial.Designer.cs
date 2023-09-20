@@ -12,8 +12,8 @@ using respapi.eshop.Data;
 namespace respapi.eshop.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230907060031_approles")]
-    partial class approles
+    [Migration("20230920031819_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,7 +166,6 @@ namespace respapi.eshop.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("KnownAs")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -232,18 +231,16 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -260,18 +257,15 @@ namespace respapi.eshop.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FileExtension")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("FileSizeInBytes")
+                    b.Property<long?>("FileSizeInBytes")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -281,32 +275,28 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
+                    b.Property<float?>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int>("SubCategoryId")
+                    b.Property<int?>("SubCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("TechnicalInfo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -342,7 +332,7 @@ namespace respapi.eshop.Data.Migrations
                     b.ToTable("SubCategories");
                 });
 
-            modelBuilder.Entity("respapi.eshop.Models.Entities.UserAdress", b =>
+            modelBuilder.Entity("respapi.eshop.Models.Entities.UserAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -386,7 +376,7 @@ namespace respapi.eshop.Data.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("UserAdresses");
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -449,8 +439,7 @@ namespace respapi.eshop.Data.Migrations
                     b.HasOne("respapi.eshop.Models.Entities.SubCategory", "SubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("SubCategory");
                 });
@@ -466,7 +455,7 @@ namespace respapi.eshop.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("respapi.eshop.Models.Entities.UserAdress", b =>
+            modelBuilder.Entity("respapi.eshop.Models.Entities.UserAddress", b =>
                 {
                     b.HasOne("respapi.eshop.Models.Entities.AppUser", "AppUser")
                         .WithMany("Adresses")

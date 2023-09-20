@@ -14,18 +14,26 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoAutocompleteDirective } from './directives/no-autocomplete.directive';
 import { FooterComponent } from './components/footer/footer.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
+  faSignOutAlt,
+  faUser,
+  faPencilAlt,
+  faTrashAlt,
+  faPlusSquare,
   faHome,
   faBoxes,
   faSignInAlt,
   faUserPlus,
   faStore,
 } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
   FaIconLibrary,
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
+import { CardProductComponent } from './components/products/card-product/card-product.component';
+import { FormsModule } from '@angular/forms';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,14 +47,19 @@ import {
     HomeComponent,
     NoAutocompleteDirective,
     FooterComponent,
+    CardProductComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
@@ -58,7 +71,13 @@ export class AppModule {
       faSignInAlt,
       faUserPlus,
       faStore,
-      faGithub
+      faGithub,
+      faSignOutAlt,
+      faUser,
+      faPencilAlt,
+      faTrashAlt,
+      faPlusSquare,
+      faHome
     );
   }
 }

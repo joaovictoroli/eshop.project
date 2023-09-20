@@ -1,29 +1,43 @@
 <div class="container p-sm-3 p-md-4 p-lg-5 mt-sm-3 mt-md-4 mt-lg-5">
   <!-- Filtros -->
   <div class="filters mb-3">
-    <input type="number" placeholder="Preço Mínimo" class="form-control" />
-    <input type="number" placeholder="Preço Máximo" class="form-control" />
-    <input type="text" placeholder="Nome" class="form-control" />
-    <select class="form-control">
-      <option value="">Categoria</option>
-      <!-- Adicione as categorias aqui -->
+    <input
+      type="number"
+      placeholder="Preço Mínimo"
+      class="form-control"
+      [(ngModel)]="priceMin"
+      min="0"
+    />
+    <input
+      type="number"
+      placeholder="Preço Máximo"
+      class="form-control"
+      [(ngModel)]="priceMax"
+      min="0"
+    />
+    <input
+      type="text"
+      placeholder="Nome"
+      class="form-control"
+      [(ngModel)]="productName"
+    />
+    <select class="form-control" [(ngModel)]="selectedCategory">
+      <!-- <option value="">Categoria</option> -->
+      <option value="" selected disabled>Categoria</option>
+      <option *ngFor="let category of categories" [value]="category.name">
+        {{ category.name }}
+      </option>
     </select>
+    <button class="btn btn-secondary" (click)="onFilter()">Filtrar</button>
   </div>
-
-  <div class="col-md-3">
-    <a
-      href="link_para_pagina_do_produto"
-      class="text-decoration-none text-dark"
-    >
-      <div class="card product-card">
-        <img src="path_to_image" alt="Nome do Produto" class="card-img-top" />
-        <div class="card-body">
-          <h5 class="card-title">Nome do Produto</h5>
-          <p class="card-text">Preço: R$00,00</p>
-        </div>
+  <!-- Filtros -->
+  <ng-container *ngIf="products">
+    <div class="products-grid">
+      <div *ngFor="let product of products">
+        <app-card-product [product]="product"></app-card-product>
       </div>
-    </a>
-  </div>
+    </div>
+  </ng-container>
 
   <!-- Paginação -->
   <nav aria-label="Page navigation" class="mt-3">

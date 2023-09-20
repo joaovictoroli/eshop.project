@@ -6,12 +6,12 @@ $hover-color: #444;
   background-color: #222;
 }
 
-.filters .form-control,
-.product-card,
-.pagination .page-link {
-  background-color: #343a40;
-  color: #ffffff;
-}
+// .filters .form-control,
+// .product-card,
+// .pagination .page-link {
+//   background-color: #343a40;
+//   color: #ffffff;
+// }
 .product-card:hover {
   background-color: #495057;
 }
@@ -31,27 +31,6 @@ $hover-color: #444;
 ::placeholder {
   color: $text-color;
 }
-.product-card {
-  background-color: $background-color;
-  color: $text-color;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s;
-    cursor: pointer;
-  }
-
-  .card-title,
-  .card-text {
-    text-align: center;
-  }
-
-  img {
-    object-fit: cover;
-    max-height: 200px;
-  }
-}
 
 .pagination .page-link {
   background-color: $background-color;
@@ -64,4 +43,24 @@ $hover-color: #444;
 
 .pagination .page-item.disabled .page-link {
   background-color: darken($background-color, 10%);
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+/* Para telas até 768px */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Para telas até 576px */
+@media (max-width: 576px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

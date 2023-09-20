@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace respapi.eshop.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class approles : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,7 @@ namespace respapi.eshop.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    KnownAs = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    KnownAs = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -59,8 +59,8 @@ namespace respapi.eshop.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,10 +73,10 @@ namespace respapi.eshop.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileSizeInBytes = table.Column<long>(type: "bigint", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileSizeInBytes = table.Column<long>(type: "bigint", nullable: true),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -190,7 +190,7 @@ namespace respapi.eshop.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAdresses",
+                name: "UserAddresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -207,9 +207,9 @@ namespace respapi.eshop.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAdresses", x => x.Id);
+                    table.PrimaryKey("PK_UserAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAdresses_AspNetUsers_AppUserId",
+                        name: "FK_UserAddresses_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -243,12 +243,12 @@ namespace respapi.eshop.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
-                    TechnicalInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubCategoryId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<float>(type: "real", nullable: true),
+                    TechnicalInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SubCategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -311,8 +311,8 @@ namespace respapi.eshop.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAdresses_AppUserId",
-                table: "UserAdresses",
+                name: "IX_UserAddresses_AppUserId",
+                table: "UserAddresses",
                 column: "AppUserId");
         }
 
@@ -341,7 +341,7 @@ namespace respapi.eshop.Data.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "UserAdresses");
+                name: "UserAddresses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -1,1 +1,69 @@
-<p>profile works!</p>
+<!-- <ng-component *ngIf="user"> -->
+<div *ngIf="user">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-8 col-lg-6">
+        <!-- Ajuste na largura para telas maiores -->
+        <!-- Contêiner da Imagem de Perfil -->
+        <div class="profile-img-container mb-4">
+          <img
+            src="assets/profile.png"
+            alt="Foto de perfil"
+            class="img-fluid rounded-circle profile-image"
+          />
+        </div>
+
+        <!-- Opções de Edição -->
+        <div class="d-flex justify-content-between mb-4">
+          <a class="btn btn-secondary btn-profile-option">
+            <i class="fas fa-edit"></i> Editar
+          </a>
+          <a class="btn btn-secondary btn-profile-option">
+            <i class="fas fa-lock"></i> Senha
+          </a>
+        </div>
+
+        <!-- Informações do Usuário -->
+        <div class="card bg-dark text-white user-info mb-4">
+          <div class="card-header">
+            <h5>Detalhes</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Nome:</strong> {{ user.knownAs }}</p>
+            <p><strong>Email:</strong> {{ user.username }}</p>
+            <!-- Outras informações do usuário -->
+          </div>
+        </div>
+
+        <!-- Endereços -->
+        <div class="card bg-dark text-white addresses mb-4">
+          <div class="card-header">
+            <h5>Endereços</h5>
+          </div>
+          <div class="card-body" *ngIf="user.addresses">
+            <ul class="list-group list-group-flush">
+              <!-- Exemplo de endereço -->
+              <li
+                class="list-group-item bg-dark text-white mb-2"
+                *ngFor="let address of user.addresses"
+              >
+                {{ address.cep }}, {{ address.uf }},
+                {{ address.bairro }}
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-light">Editar</button>
+                  <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+                </div>
+              </li>
+              <!-- Outros endereços aqui -->
+            </ul>
+            <button class="btn btn-light mt-3">
+              <fa-icon [icon]="['fas', 'plus-square']"></fa-icon> Adicionar novo
+              endereço
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </ng-component> -->
+</div>

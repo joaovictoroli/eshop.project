@@ -1,0 +1,14 @@
+<div class="product-card" *ngIf="product">
+  <a href="#" class="text-decoration-none">
+    <div class="card">
+      <img [src]="product.imageUrl" [alt]="product.name" class="card-img-top" />
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ product.name | slice : 0 : 20
+          }}{{ product.name.length > 20 ? "..." : "" }}
+        </h5>
+        <span class="card-text">Preço: R${{ product.price }}</span>
+      </div>
+    </div>
+  </a>
+</div>
