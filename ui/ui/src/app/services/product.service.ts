@@ -35,7 +35,7 @@ export class ProductService {
     );
   }
 
-  getProductsAllInOne(queryParams: QueryParams) {
+  getProductsList(queryParams: QueryParams) {
     var params = this.setParams(queryParams);
     var url = this.baseUrl + 'products';
 

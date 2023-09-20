@@ -1,0 +1,46 @@
+<div *ngIf="user">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-8 col-lg-6">
+        <div class="profile-img-container mb-4">
+          <img
+            src="assets/profile.png"
+            alt="Foto de perfil"
+            class="img-fluid rounded-circle profile-image"
+          />
+        </div>
+
+        <!-- Opções de Edição -->
+        <div class="d-flex justify-content-between mb-4">
+          <a class="btn btn-secondary btn-profile-option">
+            <fa-icon [icon]="['fas', 'edit']"></fa-icon> Editar
+          </a>
+          <a class="btn btn-secondary btn-profile-option">
+            <fa-icon [icon]="['fas', 'lock']"></fa-icon> Senha
+          </a>
+        </div>
+
+        <!-- Informações do Usuário -->
+        <div class="card bg-dark text-white user-info mb-4">
+          <div class="card-header">
+            <h5>Detalhes</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Nome:</strong> {{ user.knownAs }}</p>
+            <p><strong>Email:</strong> {{ user.username }}</p>
+            <!-- Outras informações do usuário -->
+          </div>
+        </div>
+
+        <!-- Endereços -->
+        <app-user-addresses
+          (addressToDelete)="deleteAddress($event)"
+          [addresses]="user.addresses"
+        ></app-user-addresses>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<app-register-address-modal></app-register-address-modal>

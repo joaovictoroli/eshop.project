@@ -1,0 +1,122 @@
+.btn-dark,
+.btn-outline-light {
+  background-color: #343a40; /* Padrão para o botão */
+  border-color: #343a40;
+}
+
+.btn-dark:hover,
+.btn-outline-light:hover {
+  background-color: #23272b; /* Cor para hover */
+  border-color: #23272b;
+}
+
+.user-info,
+.addresses {
+  width: 100%; /* Faz os cards ocuparem toda a largura disponível */
+  margin-bottom: 20px; /* Espaço entre os cards */
+}
+
+.btn-profile-option {
+  flex: 1;
+  margin: 0 5px; /* Margem entre os botões de edição */
+}
+
+.addresses {
+  min-height: 250px;
+}
+
+.list-group-item {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botões dentro do item da lista */
+.list-group-item .btn-group {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
+}
+
+.fa-icon:hover {
+  color: #3498db; /* Muda a cor no hover. */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável. */
+  transform: scale(1.1); /* Adiciona um leve efeito de zoom. */
+  transition: all 0.3s ease; /* Suaviza a transição. */
+}
+
+.dark-modal {
+  background-color: #333; /* Escolha a cor de sua preferência */
+  color: #fff; /* Cor do texto */
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border-color: #555; /* Ajuste a cor da borda, se necessário */
+  }
+
+  .btn-secondary {
+    background-color: #555; /* Ajuste conforme necessário */
+    border-color: #444;
+    &:hover {
+      background-color: #444;
+    }
+  }
+
+  .btn-primary {
+    background-color: #007bff; /* Cor padrão do botão primário Bootstrap */
+    border-color: #007bff;
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .modal-title {
+    color: #fff;
+  }
+
+  .btn-close {
+    color: #fff;
+    &:hover {
+      color: #999;
+    }
+  }
+}
+
+input,
+input:focus {
+  color: black;
+  background-color: #999;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-group {
+  flex: 1;
+  overflow: auto;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; // Garante que o container ocupe toda a largura
+
+  .btn {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .btn-add {
+    flex-grow: 2; // Este botão terá 2/3 da largura
+  }
+
+  .btn-todo {
+    flex-grow: 1; // Este bot
+  }
+}

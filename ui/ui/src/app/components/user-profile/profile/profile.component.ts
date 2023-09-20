@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User, UserAddress } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,13 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileComponent {
   user: User | null | undefined;
-  @Input()
-  address = {
-    cep: '',
-    uf: '',
-    bairro: '',
-    // ... outros campos do endereço
-  };
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -35,7 +29,6 @@ export class ProfileComponent {
   }
 
   loadAuthorizedUser() {
-    console.log('aqui');
     if (this.user && this.user.username) {
       this.authService.getUserProfile(this.user.username).subscribe({
         next: (user) => {
@@ -59,13 +52,10 @@ export class ProfileComponent {
       error: (error) => {
         console.error('Error deleting address:', error);
         if (error.status === 400) {
-          const errorMessage = error.error; // Deserializing JSON
+          const errorMessage = error.error;
           this.toastr.error(errorMessage);
         }
       },
     });
-  }
-  onSubmit() {
-    console.log(this.address);
   }
 }

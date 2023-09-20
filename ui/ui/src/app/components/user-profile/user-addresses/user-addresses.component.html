@@ -1,0 +1,52 @@
+<div class="card bg-dark text-white addresses mb-4">
+  <div class="card-header">
+    <h5>Endereços</h5>
+  </div>
+  <div class="card-body">
+    <ul
+      class="list-group list-group-flush"
+      *ngFor="let userAddress of addresses"
+    >
+      <!-- Exemplo de endereço -->
+
+      <li class="list-group-item bg-dark text-white mb-2">
+        <input
+          type="radio"
+          name="addressSelection"
+          [value]="userAddress.id"
+          [(ngModel)]="mainAddressId"
+        />
+        {{ userAddress.cep }}, {{ userAddress.uf }},
+        {{ userAddress.bairro }}
+        <div [ngSwitch]="userAddress.isMain">
+          <span class="badge bg-success" *ngSwitchCase="true">
+            <fa-icon [icon]="['fas', 'star']"></fa-icon> Principal
+          </span>
+          <span class="badge bg-secondary" *ngSwitchCase="false"
+            ><fa-icon [icon]="['fas', 'pencil']"></fa-icon> Externo</span
+          >
+        </div>
+        <div class="btn-group">
+          <button
+            class="btn btn-sm btn-outline-light"
+            (click)="emitDeleteEvent(userAddress.id)"
+          >
+            <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+          </button>
+        </div>
+      </li>
+    </ul>
+    <div class="button-group">
+      <button
+        class="btn btn-light btn-add"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addressModal"
+      >
+        <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
+        Adicionar novo endereço
+      </button>
+      <button class="btn btn-light btn-todo">TODO</button>
+    </div>
+  </div>
+</div>

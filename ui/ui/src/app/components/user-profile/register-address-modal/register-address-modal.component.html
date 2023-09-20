@@ -1,0 +1,46 @@
+<div
+  class="modal fade"
+  id="addressModal"
+  tabindex="-1"
+  aria-labelledby="addressModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content dark-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressModalLabel">Adicionar Endereço</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fechar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="onSubmit()">
+          <div class="form-group">
+            <label for="cep">CEP</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cep"
+              name="cep"
+              [(ngModel)]="address.cep"
+            />
+          </div>
+          <!-- Adicione outros campos do endereço aqui... -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

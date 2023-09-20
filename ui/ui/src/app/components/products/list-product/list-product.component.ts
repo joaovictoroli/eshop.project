@@ -36,29 +36,12 @@ export class ListProductComponent {
       },
     });
 
-    //add primin price max productname and selected category to queryparams
-
-    this.productService.getProductsAllInOne(this.queryParams).subscribe({
-      next: (response) => {
-        if (response.result && response.pagination) {
-          this.products = response.result;
-          this.queryParams.pageNumber = response.pagination.currentPage;
-          this.pagination = response.pagination;
-          console.log(this.pagination);
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching products:', error);
-      },
-      complete: () => {
-        console.log('Fetching products completed.');
-      },
-    });
+    this.onFilter();
   }
 
   onFilter() {
     this.queryParams.pageNumber = this.pagination?.currentPage!;
-    this.productService.getProductsAllInOne(this.queryParams).subscribe({
+    this.productService.getProductsList(this.queryParams).subscribe({
       next: (response) => {
         if (response.result && response.pagination) {
           console.log(response.result);
