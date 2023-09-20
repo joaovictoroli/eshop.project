@@ -1,6 +1,7 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Category } from 'src/app/models/categories';
+import { Pagination, QueryParams } from 'src/app/models/pagination';
 import { Product } from 'src/app/models/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -13,11 +14,8 @@ import { ProductService } from 'src/app/services/product.service';
 export class ListProductComponent {
   categories: Category[] | undefined;
   products: Product[] | undefined;
-
-  priceMin: number = 0;
-  priceMax: number = 0;
-  productName: string = '';
-  selectedCategory: string = '';
+  queryParams: QueryParams = new QueryParams();
+  pagination: Pagination | undefined;
 
   constructor(
     private productService: ProductService,
@@ -29,7 +27,6 @@ export class ListProductComponent {
     this.categoryService.getCategoriesNSubCategories().subscribe({
       next: (value) => {
         this.categories = value;
-        // console.log(this.categories);
       },
       error: (error) => {
         console.error('Error fetching products:', error);
@@ -39,10 +36,16 @@ export class ListProductComponent {
       },
     });
 
-    this.productService.getProductsAllInOne().subscribe({
-      next: (value) => {
-        this.products = value;
-        // console.log(this.products);
+    //add primin price max productname and selected category to queryparams
+
+    this.productService.getProductsAllInOne(this.queryParams).subscribe({
+      next: (response) => {
+        if (response.result && response.pagination) {
+          this.products = response.result;
+          this.queryParams.pageNumber = response.pagination.currentPage;
+          this.pagination = response.pagination;
+          console.log(this.pagination);
+        }
       },
       error: (error) => {
         console.error('Error fetching products:', error);
@@ -54,11 +57,33 @@ export class ListProductComponent {
   }
 
   onFilter() {
-    console.log({
-      priceMin: this.priceMin,
-      priceMax: this.priceMax,
-      productName: this.productName,
-      selectedCategory: this.selectedCategory,
+    this.queryParams.pageNumber = this.pagination?.currentPage!;
+    this.productService.getProductsAllInOne(this.queryParams).subscribe({
+      next: (response) => {
+        if (response.result && response.pagination) {
+          console.log(response.result);
+          this.products = response.result;
+          this.queryParams.pageNumber = response.pagination.currentPage;
+          this.pagination = response.pagination;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching products:', error);
+      },
+      complete: () => {
+        console.log('Fetching products completed.');
+      },
     });
+  }
+
+  setCurrentPage(page: number) {
+    if (page >= 1 && page <= this.pagination?.totalPages!) {
+      this.pagination!.currentPage = page;
+      this.onFilter();
+    }
+  }
+
+  getPages(): number[] {
+    return [...Array(this.pagination?.totalPages!).keys()].map((i) => i + 1);
   }
 }

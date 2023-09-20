@@ -49,3 +49,59 @@
   display: flex;
   gap: 10px; /* Espaço entre os botões */
 }
+
+.fa-icon:hover {
+  color: #3498db; /* Muda a cor no hover. */
+  cursor: pointer; /* Muda o cursor para indicar que é clicável. */
+  transform: scale(1.1); /* Adiciona um leve efeito de zoom. */
+  transition: all 0.3s ease; /* Suaviza a transição. */
+}
+
+.dark-modal {
+  background-color: #333; /* Escolha a cor de sua preferência */
+  color: #fff; /* Cor do texto */
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    border-color: #555; /* Ajuste a cor da borda, se necessário */
+  }
+
+  .btn-secondary {
+    background-color: #555; /* Ajuste conforme necessário */
+    border-color: #444;
+    &:hover {
+      background-color: #444;
+    }
+  }
+
+  .btn-primary {
+    background-color: #007bff; /* Cor padrão do botão primário Bootstrap */
+    border-color: #007bff;
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .modal-title {
+    color: #fff;
+  }
+
+  .btn-close {
+    color: #fff;
+    &:hover {
+      color: #999;
+    }
+  }
+}
+.dark-modal .modal-header,
+.dark-modal .modal-body,
+.dark-modal .modal-footer {
+  border-color: #1c1c1c; /* Uma cor ainda mais escura para a borda */
+}
+
+input,
+input:focus {
+  color: black;
+  background-color: #999;
+}

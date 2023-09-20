@@ -5,28 +5,32 @@
       type="number"
       placeholder="Preço Mínimo"
       class="form-control"
-      [(ngModel)]="priceMin"
+      [(ngModel)]="queryParams.minprice"
       min="0"
     />
     <input
       type="number"
       placeholder="Preço Máximo"
       class="form-control"
-      [(ngModel)]="priceMax"
+      [(ngModel)]="queryParams.maxprice"
       min="0"
     />
     <input
       type="text"
       placeholder="Nome"
       class="form-control"
-      [(ngModel)]="productName"
+      [(ngModel)]="queryParams.name"
     />
-    <select class="form-control" [(ngModel)]="selectedCategory">
-      <!-- <option value="">Categoria</option> -->
-      <option value="" selected disabled>Categoria</option>
-      <option *ngFor="let category of categories" [value]="category.name">
-        {{ category.name }}
-      </option>
+    <select class="form-control" [(ngModel)]="queryParams.subCategoryName">
+      <option value="" selected disabled>Sub Categoria</option>
+      <ng-container *ngFor="let category of categories">
+        <option
+          *ngFor="let subCategory of category.subCategories"
+          value="{{ subCategory.name }}"
+        >
+          {{ subCategory.name }}
+        </option>
+      </ng-container>
     </select>
     <button class="btn btn-secondary" (click)="onFilter()">Filtrar</button>
   </div>
@@ -40,11 +44,42 @@
   </ng-container>
 
   <!-- Paginação -->
-  <nav aria-label="Page navigation" class="mt-3">
-    <ul class="pagination justify-content-center">
-      <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-      <!-- Adicione os números das páginas aqui -->
-      <li class="page-item"><a class="page-link" href="#">Próxima</a></li>
-    </ul>
-  </nav>
+
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="pagination?.currentPage === 1">
+      <a class="page-link" (click)="setCurrentPage(1)">Primeiro</a>
+    </li>
+    <li class="page-item" [class.disabled]="pagination?.currentPage === 1">
+      <a
+        class="page-link"
+        (click)="setCurrentPage(pagination?.currentPage! - 1)"
+        >Anterior</a
+      >
+    </li>
+    <li
+      class="page-item"
+      *ngFor="let page of getPages()"
+      [class.active]="pagination?.currentPage === page"
+    >
+      <a class="page-link" (click)="setCurrentPage(page)">{{ page }}</a>
+    </li>
+    <li
+      class="page-item"
+      [class.disabled]="pagination?.currentPage === pagination?.totalPages"
+    >
+      <a
+        class="page-link"
+        (click)="setCurrentPage(pagination?.currentPage! + 1)"
+        >Próximo</a
+      >
+    </li>
+    <li
+      class="page-item"
+      [class.disabled]="pagination?.currentPage === pagination?.totalPages"
+    >
+      <a class="page-link" (click)="setCurrentPage(pagination?.totalPages!)"
+        >Último</a
+      >
+    </li>
+  </ul>
 </div>

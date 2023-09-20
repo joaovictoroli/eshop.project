@@ -92,7 +92,7 @@ namespace respapi.eshop.Controllers
 
             if (isDeleted == false) { return BadRequest("Something went wrong"); }
 
-            return Ok("Addres got deleted successfully");  
+            return NoContent();  
         }
 
         [HttpPost("set-main-address/{addressId}")]

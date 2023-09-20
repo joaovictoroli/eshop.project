@@ -46,7 +46,6 @@ namespace respapi.eshop.Repositories
         public async Task<bool> DeleteUserAddress(UserAddress userAdress)
         {
             _dbContext.UserAddresses.Remove(userAdress);
-            var isDeleted = await _dbContext.SaveChangesAsync();
 
             return await SaveChanges();
         }

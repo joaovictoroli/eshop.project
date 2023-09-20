@@ -16,10 +16,10 @@
         <!-- Opções de Edição -->
         <div class="d-flex justify-content-between mb-4">
           <a class="btn btn-secondary btn-profile-option">
-            <i class="fas fa-edit"></i> Editar
+            <fa-icon [icon]="['fas', 'edit']"></fa-icon> Editar
           </a>
           <a class="btn btn-secondary btn-profile-option">
-            <i class="fas fa-lock"></i> Senha
+            <fa-icon [icon]="['fas', 'lock']"></fa-icon> Senha
           </a>
         </div>
 
@@ -41,22 +41,42 @@
             <h5>Endereços</h5>
           </div>
           <div class="card-body" *ngIf="user.addresses">
-            <ul class="list-group list-group-flush">
+            <ul
+              class="list-group list-group-flush"
+              *ngFor="let userAddress of user.addresses"
+            >
               <!-- Exemplo de endereço -->
-              <li
-                class="list-group-item bg-dark text-white mb-2"
-                *ngFor="let address of user.addresses"
-              >
-                {{ address.cep }}, {{ address.uf }},
-                {{ address.bairro }}
+
+              <li class="list-group-item bg-dark text-white mb-2">
+                {{ userAddress.cep }}, {{ userAddress.uf }},
+                {{ userAddress.bairro }}
+                <div [ngSwitch]="userAddress.isMain">
+                  <span class="badge bg-success" *ngSwitchCase="true">
+                    <fa-icon [icon]="['fas', 'star']"></fa-icon> Principal
+                  </span>
+                  <span class="badge bg-secondary" *ngSwitchCase="false"
+                    ><fa-icon [icon]="['fas', 'pencil']"></fa-icon>
+                    Externo</span
+                  >
+                </div>
                 <div class="btn-group">
-                  <button class="btn btn-sm btn-outline-light">Editar</button>
-                  <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+                  <button
+                    class="btn btn-sm btn-outline-light"
+                    (click)="deleteAddress(userAddress.id)"
+                  >
+                    <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+                  </button>
                 </div>
               </li>
+
               <!-- Outros endereços aqui -->
             </ul>
-            <button class="btn btn-light mt-3">
+            <button
+              class="btn btn-light mt-3"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#addressModal"
+            >
               <fa-icon [icon]="['fas', 'plus-square']"></fa-icon> Adicionar novo
               endereço
             </button>
@@ -66,4 +86,52 @@
     </div>
   </div>
   <!-- </ng-component> -->
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addressModal"
+  tabindex="-1"
+  aria-labelledby="addressModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content dark-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressModalLabel">Adicionar Endereço</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Fechar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="onSubmit()">
+          <div class="form-group">
+            <label for="cep">CEP</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cep"
+              name="cep"
+              [(ngModel)]="address.cep"
+            />
+          </div>
+          <!-- Adicione outros campos do endereço aqui... -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

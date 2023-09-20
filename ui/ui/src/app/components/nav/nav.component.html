@@ -25,14 +25,14 @@
         class="navbar-nav ml-auto"
         *ngIf="authService.currentUser$ | async as user"
       >
-        <li class="nav-item logout">
-          <a class="nav-link" (click)="logout()"
-            ><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> Logout</a
-          >
-        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="profile"
             ><fa-icon [icon]="['fas', 'user']"></fa-icon> Profile</a
+          >
+        </li>
+        <li class="nav-item logout">
+          <a class="nav-link" (click)="logout()"
+            ><fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon> Logout</a
           >
         </li>
       </ul>

@@ -25,6 +25,9 @@ import {
   faSignInAlt,
   faUserPlus,
   faStore,
+  faLock,
+  faEdit,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -34,6 +37,9 @@ import {
 import { CardProductComponent } from './components/products/card-product/card-product.component';
 import { FormsModule } from '@angular/forms';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -56,6 +62,9 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -77,7 +86,10 @@ export class AppModule {
       faPencilAlt,
       faTrashAlt,
       faPlusSquare,
-      faHome
+      faHome,
+      faLock,
+      faEdit,
+      faStar
     );
   }
 }

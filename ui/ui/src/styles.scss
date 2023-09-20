@@ -1,6 +1,14 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+@import "node_modules/ngx-toastr/toastr";
+
 body {
-  background-color: #343a40; /* Esta é uma cor escura padrão do Bootstrap. */
+  background-color: #343a40 !important;
   color: #ffffff;
 }

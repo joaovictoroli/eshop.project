@@ -42,6 +42,11 @@ export class AuthService {
     this.currentUserSource.next(null);
   }
 
+  getUserProfile(username: string) {
+    return this.http.get<User>(this.baseUrl + 'Users/' + username);
+  }
+
+  //address
   registerAddress(address: RegisterAddress, cep: string) {
     return this.http.post<UserAddress>(
       this.baseUrl + 'users/register-address/' + cep,
@@ -49,8 +54,9 @@ export class AuthService {
     );
   }
 
-  //get user /api/Users/{username}
-  getUserProfile(username: string) {
-    return this.http.get<User>(this.baseUrl + 'Users/' + username);
+  deleteAddress(id: number) {
+    return this.http.delete(this.baseUrl + 'users/delete-address/' + id, {
+      observe: 'response',
+    });
   }
 }

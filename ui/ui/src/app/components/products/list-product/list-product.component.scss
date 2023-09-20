@@ -64,3 +64,18 @@ $hover-color: #444;
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+ul.pagination {
+  margin-top: 20px;
+}
+
+ul.pagination li.page-item.disabled a.page-link {
+  cursor: not-allowed;
+}
+
+ul.pagination li.page-item.active a.page-link {
+  background-color: #5b2c6f;
+  // color: #fff;
+  border: 1px solid #148f77;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}

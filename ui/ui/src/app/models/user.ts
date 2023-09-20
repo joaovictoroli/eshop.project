@@ -7,6 +7,7 @@ export interface User {
 }
 
 export interface UserAddress {
+  id: number;
   cep: string;
   uf: string;
   bairro: string;
@@ -14,7 +15,7 @@ export interface UserAddress {
   numero: string;
   apartamento: string;
   infoAdicional: string;
-  IsMain: boolean;
+  isMain: boolean;
 }
 
 export interface RegisterAddress {
