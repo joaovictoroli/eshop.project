@@ -34,13 +34,14 @@ import {
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { CardProductComponent } from './components/products/card-product/card-product.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
 import { UserAddressesComponent } from './components/user-profile/user-addresses/user-addresses.component';
+import { FormValidationComponent } from './components/form-validation/form-validation.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UserAddressesComponent } from './components/user-profile/user-addresses
     CardProductComponent,
     UserAddressesComponent,
     RegisterAddressModalComponent,
+    FormValidationComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,7 @@ import { UserAddressesComponent } from './components/user-profile/user-addresses
     BrowserAnimationsModule,
     CommonModule,
     ToastrModule.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

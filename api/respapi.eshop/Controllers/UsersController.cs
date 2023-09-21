@@ -43,7 +43,7 @@ namespace respapi.eshop.Controllers
 
         [HttpPost("register-adress/{cep}")]
         public async Task<ActionResult<AddressDto>> AddAdress(string cep, RegisterAdressDto registerAdress)
-        {
+        {            
             var apiresp = await _cepService.GetAdressByCep(cep);
 
             if (apiresp != null
@@ -72,7 +72,7 @@ namespace respapi.eshop.Controllers
                 if (user?.Addresses?.Count == 0) { userAddress.IsMain = true; }
 
                 await _addressRepository.AddUserAdress(userAddress);
-                return _mapper.Map<AddressDto>(userAddress);
+                return Ok(_mapper.Map<AddressDto>(userAddress));
             }
 
             return NotFound("was not possible to finish operation");

@@ -5,41 +5,81 @@
   aria-labelledby="addressModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content dark-modal">
       <div class="modal-header">
-        <h5 class="modal-title" id="addressModalLabel">Adicionar Endereço</h5>
+        <h5 class="modal-title" id="addressModalLabel">Informe o CEP</h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Fechar"
+          aria-label="Close"
         ></button>
       </div>
       <div class="modal-body">
-        <form (submit)="onSubmit()">
-          <div class="form-group">
-            <label for="cep">CEP</label>
-            <input
-              type="text"
-              class="form-control"
-              id="cep"
-              name="cep"
-              [(ngModel)]="address.cep"
-            />
-          </div>
-          <!-- Adicione outros campos do endereço aqui... -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Fechar
-            </button>
+        <div class="form-group mb-4">
+          <form (ngSubmit)="fetchCEPDetails()" autocomplete="off">
+            <label for="cep">Cep:</label>
+            <app-form-validation
+              [formControl]="$any(cepForm.controls['cep'])"
+              [label]="'somente números no cep'"
+            ></app-form-validation>
             <button type="submit" class="btn btn-primary">Enviar</button>
-          </div>
-        </form>
+          </form>
+
+          <form (ngSubmit)="onSubmit()" autocomplete="off">
+            <!-- textos -->
+            <div class="mb-4" *ngIf="isCEPFetched && dataFetched">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  {{ dataFetched.cep }}
+                </li>
+                <li class="list-group-item">UF: {{ dataFetched.uf }}</li>
+                <li class="list-group-item">
+                  Bairro: {{ dataFetched.bairro }}
+                </li>
+                <li class="list-group-item">
+                  Complemento: {{ dataFetched.complemento }}
+                </li>
+              </ul>
+              <!-- outro formulario "form-group mb-4" -->
+              <label for="cep">Numero: </label>
+              <app-form-validation
+                [formControl]="$any(aditionalForm.controls['numero'])"
+                [label]="'numero da localidade'"
+              ></app-form-validation>
+              <label for="cep">Apartamento: </label>
+              <app-form-validation
+                [formControl]="$any(aditionalForm.controls['apartamento'])"
+                [label]="'apartamento'"
+              ></app-form-validation>
+              <label for="cep">InfoAdd: </label>
+              <app-form-validation
+                [formControl]="$any(aditionalForm.controls['infoAdicional'])"
+                [label]="'infoAdicional'"
+              ></app-form-validation>
+            </div>
+            <!-- outro formulario "form-group mb-4" -->
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Fechar
+              </button>
+              <div class="text-center">
+                <button
+                  [disabled]="!aditionalForm.valid"
+                  class="btn btn-success me-2"
+                  type="submit"
+                >
+                  Enviar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

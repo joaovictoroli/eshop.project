@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { RegisterAddress, User, UserAddress } from '../models/user';
+import { User, UserAddress } from '../models/user';
 import { BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { dataFetched } from '../components/user-profile/register-address-modal/register-address-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -45,12 +46,14 @@ export class AuthService {
   getUserProfile(username: string) {
     return this.http.get<User>(this.baseUrl + 'Users/' + username);
   }
-
-  //address
+  ///api/Users/register-adress/{cep}
   registerAddress(address: RegisterAddress, cep: string) {
     return this.http.post<UserAddress>(
-      this.baseUrl + 'users/register-address/' + cep,
-      address
+      this.baseUrl + 'Users/register-adress/' + cep,
+      address,
+      {
+        observe: 'response',
+      }
     );
   }
 
@@ -58,5 +61,17 @@ export class AuthService {
     return this.http.delete(this.baseUrl + 'users/delete-address/' + id, {
       observe: 'response',
     });
+  }
+}
+
+export class RegisterAddress {
+  numero: number;
+  infoAdicional: string;
+  apartamento: number;
+
+  constructor(numero: number, infoAdicional: string, aparmatamento: number) {
+    this.numero = numero;
+    this.infoAdicional = infoAdicional;
+    this.apartamento = aparmatamento;
   }
 }

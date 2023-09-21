@@ -22,7 +22,6 @@ export class UserAddressesComponent {
       this.mainAddressId = this.addresses.find((address) => address.isMain)?.id;
       console.log('Initial mainAddressId:', this.mainAddressId);
     }
-    console.log('Initial addresses:', this.addresses);
   }
   emitDeleteEvent(id: number) {
     this.addressToDelete.emit(id);
@@ -34,7 +33,6 @@ export class UserAddressesComponent {
       this.mainAddressId = this.addresses!.find(
         (address) => address.isMain
       )?.id;
-      console.log('Main Address ID:', this.mainAddressId);
     }
   }
 }
