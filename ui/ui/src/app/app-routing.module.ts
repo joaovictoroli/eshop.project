@@ -7,12 +7,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/user-profile/profile/profile.component';
 import { UserAddressesComponent } from './components/user-profile/user-addresses/user-addresses.component';
 import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
+import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
 
 const routes: Routes = [
   { path: 'products', component: ListProductComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'product/:name', component: DetailedProductComponent },
   {
     path: 'profile',
     component: ProfileComponent,

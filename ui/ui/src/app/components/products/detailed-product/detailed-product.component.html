@@ -1,1 +1,24 @@
-<p>detailed-product works!</p>
+<div
+  *ngIf="product"
+  class="product-wrapper my-5 d-flex flex-column align-items-center"
+>
+  <img
+    [src]="product!.imageUrl"
+    alt="{{ product!.name }}"
+    class="product-image"
+  />
+  <h1 class="h2">{{ product!.name }}</h1>
+  <p class="product-description">{{ product!.description }}</p>
+  <p class="product-price">${{ product!.price }}</p>
+  <h3>Informações Técnicas</h3>
+  <p>{{ product!.technicalInfo }}</p>
+
+  <!-- Botão adicionar ao carrinho -->
+  <button class="btn add-to-cart-btn">
+    <fa-icon
+      [icon]="['fas', 'shopping-cart']"
+      class="add-to-cart-icon"
+    ></fa-icon>
+    Adicionar ao Carrinho
+  </button>
+</div>

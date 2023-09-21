@@ -8,7 +8,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/user-profile/profile/profile.component';
 import { ListProductComponent } from './components/products/list-product/list-product.component';
-import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
 import { HomeComponent } from './components/home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoAutocompleteDirective } from './directives/no-autocomplete.directive';
@@ -27,6 +26,7 @@ import {
   faLock,
   faEdit,
   faStar,
+  faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -42,6 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
 import { UserAddressesComponent } from './components/user-profile/user-addresses/user-addresses.component';
 import { FormValidationComponent } from './components/form-validation/form-validation.component';
+import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,6 @@ import { FormValidationComponent } from './components/form-validation/form-valid
     RegisterComponent,
     ProfileComponent,
     ListProductComponent,
-    DetailedProductComponent,
     HomeComponent,
     NoAutocompleteDirective,
     FooterComponent,
@@ -59,6 +59,7 @@ import { FormValidationComponent } from './components/form-validation/form-valid
     UserAddressesComponent,
     RegisterAddressModalComponent,
     FormValidationComponent,
+    DetailedProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,7 +95,8 @@ export class AppModule {
       faHome,
       faLock,
       faEdit,
-      faStar
+      faStar,
+      faShoppingCart
     );
   }
 }

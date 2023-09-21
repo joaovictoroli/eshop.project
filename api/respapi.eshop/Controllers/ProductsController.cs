@@ -78,8 +78,7 @@ namespace respapi.eshop.Controllers
             return BadRequest("Something went wrong");
         }
 
-        [HttpGet("Name={productName}")]
-
+        [HttpGet("byName")]
         public async Task<ActionResult> GetProductByName(string productName)
         {
             var product = await _productRepository.GetProductByName(productName);

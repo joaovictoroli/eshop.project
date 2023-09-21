@@ -15,6 +15,7 @@
           name="addressSelection"
           [value]="userAddress.id"
           [(ngModel)]="mainAddressId"
+          (change)="radioChanged($event, userAddress.id)"
         />
         {{ userAddress.cep }}, {{ userAddress.uf }},
         {{ userAddress.bairro }}
@@ -46,7 +47,10 @@
         <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
         Adicionar novo endereço
       </button>
-      <button class="btn btn-light btn-todo">TODO</button>
+      <button class="btn btn-light btn-todo" (click)="changeMainAddress()">
+        <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
+        Vinculo
+      </button>
     </div>
   </div>
 </div>

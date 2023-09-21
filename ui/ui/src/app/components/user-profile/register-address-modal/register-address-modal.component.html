@@ -8,17 +8,27 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content dark-modal">
       <div class="modal-header">
-        <h5 class="modal-title" id="addressModalLabel">Informe o CEP</h5>
+        <h5 class="modal-title" id="addressModalLabel" *ngIf="!isCEPFetched">
+          Informe o CEP
+        </h5>
+        <h5 class="modal-title" id="addressModalLabel" *ngIf="isCEPFetched">
+          Complete os dados:
+        </h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          #fechaModalVinculacao
         ></button>
       </div>
       <div class="modal-body">
         <div class="form-group mb-4">
-          <form (ngSubmit)="fetchCEPDetails()" autocomplete="off">
+          <form
+            (ngSubmit)="fetchCEPDetails()"
+            autocomplete="off"
+            *ngIf="!isCEPFetched"
+          >
             <label for="cep">Cep:</label>
             <app-form-validation
               [formControl]="$any(cepForm.controls['cep'])"

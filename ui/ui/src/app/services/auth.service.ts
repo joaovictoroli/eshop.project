@@ -46,11 +46,21 @@ export class AuthService {
   getUserProfile(username: string) {
     return this.http.get<User>(this.baseUrl + 'Users/' + username);
   }
-  ///api/Users/register-adress/{cep}
+
   registerAddress(address: RegisterAddress, cep: string) {
     return this.http.post<UserAddress>(
       this.baseUrl + 'Users/register-adress/' + cep,
       address,
+      {
+        observe: 'response',
+      }
+    );
+  }
+
+  setMainAdress(id: number) {
+    return this.http.put(
+      this.baseUrl + 'users/set-main-address/' + id,
+      {},
       {
         observe: 'response',
       }

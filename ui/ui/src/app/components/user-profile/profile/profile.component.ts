@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs';
+import { first, take } from 'rxjs';
 import { User, UserAddress } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileComponent {
   user: User | null | undefined;
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -57,5 +58,29 @@ export class ProfileComponent {
         }
       },
     });
+  }
+
+  addrressEdit(mainAddressId: number) {
+    console.log('Endereço principal alterado:', mainAddressId);
+    if (mainAddressId) {
+      this.authService.setMainAdress(mainAddressId!).subscribe({
+        next: (response) => {
+          if (response.status === 200) {
+            // this.toastr.success('Endereço principal alterado com sucesso.');
+            // this.loadAuthorizedUser();
+            // window.location.reload();
+            console.log('padrao no content');
+          }
+        },
+        error: (error) => {
+          if (error.status === 200) {
+            this.toastr.success('Endereço principal alterado com sucesso.');
+            this.loadAuthorizedUser();
+          } else {
+            this.toastr.info('Alguma coisa aconteceu de errado');
+          }
+        },
+      });
+    }
   }
 }

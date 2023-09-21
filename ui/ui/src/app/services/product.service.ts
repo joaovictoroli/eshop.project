@@ -3,13 +3,15 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PaginatedResult, QueryParams } from '../models/pagination';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, of, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
   baseUrl = environment.apiUrl;
+  private cacheProducts = new Map<string, Product[]>();
+
   constructor(private http: HttpClient) {}
 
   getPaginatedResult<T>(url: string, params: HttpParams, http: HttpClient) {
@@ -39,11 +41,7 @@ export class ProductService {
     var params = this.setParams(queryParams);
     var url = this.baseUrl + 'products';
 
-    return this.getPaginatedResult<Product[]>(url, params, this.http).pipe(
-      map((response) => {
-        return response;
-      })
-    );
+    return this.getPaginatedResult<Product[]>(url, params, this.http);
   }
   setParams(queryParams: QueryParams): HttpParams {
     const shouldAddParam = (value: any, conditionValue: any) =>
@@ -67,5 +65,11 @@ export class ProductService {
 
     console.log(params);
     return params;
+  }
+
+  getProduct(name: string) {
+    const url = this.baseUrl + 'products/byName';
+    let params = new HttpParams().set('productName', name);
+    return this.http.get<Product>(url, { params: params });
   }
 }

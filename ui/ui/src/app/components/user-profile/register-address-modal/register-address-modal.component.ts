@@ -3,6 +3,8 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
+  Output,
   ViewChild,
 } from '@angular/core';
 import {
@@ -30,16 +32,15 @@ export class RegisterAddressModalComponent {
   cepForm: FormGroup = new FormGroup({});
   aditionalForm: FormGroup = new FormGroup({});
   dataFetched = new dataFetched();
+  @Output() addressIdToEdit = new EventEmitter<number>();
+  @ViewChild('fechaModalVinculacao') fechaModalVinculacao!: ElementRef;
 
   isCEPFetched: boolean = false;
 
   constructor(
     private http: HttpClient,
-    private fb: FormBuilder,
-    private router: Router,
     private authService: AuthService,
-    private toastr: ToastrService,
-    private cdRef: ChangeDetectorRef
+    private toastr: ToastrService
   ) {
     this.cepForm = new FormGroup({
       cep: new FormControl<string>('', [
@@ -105,7 +106,7 @@ export class RegisterAddressModalComponent {
       (response) => {
         if (response.status === 200) {
           this.toastr.success('Endereço adicionado com sucesso.');
-          this.router.navigate(['/profile']);
+          this.closeModal();
         }
       },
       (error) => {
@@ -144,6 +145,10 @@ export class RegisterAddressModalComponent {
     } else {
       this.toastr.warning('CEP inválido. Insira um CEP válido para continuar.');
     }
+  }
+
+  closeModal() {
+    this.fechaModalVinculacao.nativeElement.click();
   }
 }
 

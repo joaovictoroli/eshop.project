@@ -95,7 +95,7 @@ namespace respapi.eshop.Controllers
             return NoContent();  
         }
 
-        [HttpPost("set-main-address/{addressId}")]
+        [HttpPut("set-main-address/{addressId}")]
         public async Task<ActionResult> SetMainAddress(int addressId)
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
