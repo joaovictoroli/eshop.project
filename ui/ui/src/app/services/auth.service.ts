@@ -33,6 +33,13 @@ export class AuthService {
     );
   }
 
+  registerUser(model: any) {
+    return this.http.post<User>(this.baseUrl + 'account/register', model, {
+      observe: 'response',
+    });
+    //set current user
+  }
+
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
@@ -41,6 +48,12 @@ export class AuthService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+  }
+
+  isUserLoggedIn(): boolean {
+    const currentUser = this.currentUserSource.getValue();
+    console.log('Current user:', currentUser); // E um log aqui para ver o valor atual do usuário quando você chama o método.
+    return !!currentUser;
   }
 
   getUserProfile(username: string) {

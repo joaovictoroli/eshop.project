@@ -3,10 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  OnInit,
   EventEmitter,
   Output,
   ViewChild,
 } from '@angular/core';
+
 import {
   FormGroup,
   FormBuilder,
@@ -20,6 +22,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddressToRegister } from 'src/app/models/user';
 import { AuthService, RegisterAddress } from 'src/app/services/auth.service';
+import { CustomValidators } from 'src/app/staticClassses/validation';
 
 declare var bootstrap: any; // Bootstrap 5
 
@@ -32,8 +35,8 @@ export class RegisterAddressModalComponent {
   cepForm: FormGroup = new FormGroup({});
   aditionalForm: FormGroup = new FormGroup({});
   dataFetched = new dataFetched();
-  @Output() addressIdToEdit = new EventEmitter<number>();
   @ViewChild('fechaModalVinculacao') fechaModalVinculacao!: ElementRef;
+  @Output() wasAdded = new EventEmitter<boolean>();
 
   isCEPFetched: boolean = false;
 
@@ -45,7 +48,7 @@ export class RegisterAddressModalComponent {
     this.cepForm = new FormGroup({
       cep: new FormControl<string>('', [
         Validators.required,
-        this.eightDigitsPatternValidator(),
+        CustomValidators.eightDigitsPattern(),
       ]),
     });
 
@@ -54,45 +57,21 @@ export class RegisterAddressModalComponent {
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(5),
-        this.numericPatternValidator(),
+        CustomValidators.numericPattern(),
       ]),
       infoAdicional: new FormControl<string>('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(20),
-        this.noSpecialCharactersValidator(),
+        CustomValidators.noSpecialCharactersExceptSpace(),
       ]),
       apartamento: new FormControl<string>('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(5),
-        this.numericPatternValidator(),
+        CustomValidators.numericPattern(),
       ]),
     });
-  }
-
-  eightDigitsPatternValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const valid = /^\d{8}$/.test(control.value);
-      return valid ? null : { notEightDigits: true };
-    };
-  }
-
-  numericPatternValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const valid = /^\d*$/.test(control.value);
-      return valid ? null : { notNumeric: true };
-    };
-  }
-
-  noSpecialCharactersValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.value) {
-        const valid = /^[a-zA-Z0-9 ]+$/.test(control.value);
-        return valid ? null : { specialCharactersFound: true };
-      }
-      return null;
-    };
   }
 
   onSubmit() {
@@ -105,14 +84,19 @@ export class RegisterAddressModalComponent {
     this.authService.registerAddress(registerAdress, cep).subscribe(
       (response) => {
         if (response.status === 200) {
-          this.toastr.success('Endereço adicionado com sucesso.');
-          this.closeModal();
+          this.emitSuccessfullyAdded();
         }
       },
       (error) => {
         this.toastr.error('Erro ao registrar endereço.');
       }
     );
+  }
+
+  emitSuccessfullyAdded() {
+    console.log('Endereço adicionado com sucesso.');
+    this.wasAdded.emit(true);
+    this.closeModal();
   }
 
   fetchCEPDetails() {

@@ -39,10 +39,11 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
-import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
+
 import { UserAddressesComponent } from './components/user-profile/user-addresses/user-addresses.component';
 import { FormValidationComponent } from './components/form-validation/form-validation.component';
 import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
+import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
 
 @NgModule({
   declarations: [

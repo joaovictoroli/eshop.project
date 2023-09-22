@@ -24,18 +24,6 @@ export class AddressToRegister {
   apartamento: number = 0;
   infoAdicional: string = '';
 
-  // constructor(
-  //   CEP: string,
-  //   numero: number,
-  //   apartamento: number,
-  //   infoAdicional: string
-  // ) {
-  //   this.CEP = CEP;
-  //   this.numero = numero;
-  //   this.apartamento = apartamento;
-  //   this.infoAdicional = infoAdicional;
-  // }
-
   constructor(data: {
     CEP: string;
     numero: number;

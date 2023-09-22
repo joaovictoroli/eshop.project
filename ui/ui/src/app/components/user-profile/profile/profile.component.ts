@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileComponent {
   user: User | null | undefined;
-  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -42,6 +41,14 @@ export class ProfileComponent {
     }
   }
 
+  addressAddedSuccessfully(wasAdded: boolean) {
+    if (wasAdded) {
+      this.loadAuthorizedUser();
+      console.log('Endereço adicionado com sucesso.');
+      window.location.reload();
+    }
+  }
+
   deleteAddress(id: number) {
     this.authService.deleteAddress(id).subscribe({
       next: (response) => {
@@ -60,7 +67,7 @@ export class ProfileComponent {
     });
   }
 
-  addrressEdit(mainAddressId: number) {
+  addressEdit(mainAddressId: number) {
     console.log('Endereço principal alterado:', mainAddressId);
     if (mainAddressId) {
       this.authService.setMainAdress(mainAddressId!).subscribe({

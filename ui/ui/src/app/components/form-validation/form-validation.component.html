@@ -28,6 +28,13 @@
   </div>
   <div
     class="invalid-feedback"
+    *ngIf="control.errors?.['specialCharactersExceptSpaceFound']"
+  >
+    O campo {{ label.toLowerCase() }} não deve conter caracteres especiais ou
+    espaços.
+  </div>
+  <div
+    class="invalid-feedback"
     *ngIf="control.errors?.['specialCharactersFound']"
   >
     O campo {{ label.toLowerCase() }} não deve conter caracteres especiais.

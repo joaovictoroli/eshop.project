@@ -8,25 +8,32 @@ import { ProfileComponent } from './components/user-profile/profile/profile.comp
 import { UserAddressesComponent } from './components/user-profile/user-addresses/user-addresses.component';
 import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
 import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: 'products', component: ListProductComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [AuthGuard],
+    data: { isGuest: true },
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [AuthGuard],
+    data: { isGuest: true },
+  },
   { path: 'product/:name', component: DetailedProductComponent },
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: { isAuth: true },
     children: [
-      {
-        path: 'addresses',
-        component: UserAddressesComponent,
-      },
-      {
-        path: 'add-address',
-        component: RegisterAddressModalComponent,
-      },
+      { path: 'addresses', component: UserAddressesComponent },
+      { path: 'add-address', component: RegisterAddressModalComponent },
     ],
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
