@@ -7,3 +7,8 @@ export interface Product {
   subCategoryId: number;
   subCategoryName: string;
 }
+
+interface CartItem {
+  product: Product;
+  quantity: number;
+}

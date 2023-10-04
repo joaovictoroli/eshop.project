@@ -3,12 +3,12 @@
     <div class="d-flex justify-content-between w-100">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="home"
+          <a class="nav-link" routerLink="home"
             ><fa-icon [icon]="['fas', 'home']"></fa-icon> Home</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="products"
+          <a class="nav-link" routerLink="products"
             ><fa-icon [icon]="['fas', 'boxes']"></fa-icon> Produtos</a
           >
         </li>
@@ -20,11 +20,37 @@
           >
         </li>
       </ul>
+      <!-- teste -->
 
+      <!-- teste -->
       <ul
         class="navbar-nav ml-auto"
         *ngIf="authService.currentUser$ | async as user"
       >
+        <div class="position-relative">
+          <li class="nav-item" ngbDropdown placement="bottom-left">
+            <a
+              class="nav-link no-caret"
+              role="button"
+              id="#teste"
+              ngbDropdownToggle
+            >
+              <fa-icon [icon]="['fas', 'shopping-cart']"></fa-icon>
+              <span
+                class="badge badge-neutral position-absolute top-0 start-100 translate-middle"
+                *ngIf="totalItems$ | async as itemsInCart"
+              >
+                {{ itemsInCart }}
+              </span>
+              <app-cart-dropdown
+                style="padding: 0 !important"
+                ngbDropdownMenu
+                aria-labelledby="teste"
+              ></app-cart-dropdown>
+            </a>
+          </li>
+        </div>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="profile"
             ><fa-icon [icon]="['fas', 'user']"></fa-icon> Profile</a
@@ -43,12 +69,12 @@
         *ngIf="!(authService.currentUser$ | async)"
       >
         <li class="nav-item">
-          <a class="nav-link" href="login"
+          <a class="nav-link" routerLink="login"
             ><fa-icon [icon]="['fas', 'sign-in-alt']"></fa-icon> Login</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="register"
+          <a class="nav-link" routerLink="register"
             ><fa-icon [icon]="['fas', 'user-plus']"></fa-icon> Registrar</a
           >
         </li>

@@ -21,3 +21,17 @@
     }
   }
 }
+
+.github-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.text-github {
+  margin-left: 6px;
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+  color: white;
+}

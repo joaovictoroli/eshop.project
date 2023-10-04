@@ -27,6 +27,9 @@ import {
   faEdit,
   faStar,
   faShoppingCart,
+  faPlus,
+  faMinus,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -44,6 +47,9 @@ import { UserAddressesComponent } from './components/user-profile/user-addresses
 import { FormValidationComponent } from './components/form-validation/form-validation.component';
 import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
 import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
+import { CartDropdownComponent } from './components/cart/cart-dropdown/cart-dropdown.component';
+import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderCheckoutComponent } from './components/order-checkout/order-checkout.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +67,8 @@ import { RegisterAddressModalComponent } from './components/user-profile/registe
     RegisterAddressModalComponent,
     FormValidationComponent,
     DetailedProductComponent,
+    CartDropdownComponent,
+    OrderCheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +81,8 @@ import { RegisterAddressModalComponent } from './components/user-profile/registe
     CommonModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
+    NgbModule,
+    NgbDropdownModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -97,7 +107,10 @@ export class AppModule {
       faLock,
       faEdit,
       faStar,
-      faShoppingCart
+      faShoppingCart,
+      faPlus,
+      faMinus,
+      faTrash
     );
   }
 }

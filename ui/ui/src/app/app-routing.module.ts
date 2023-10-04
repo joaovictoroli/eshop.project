@@ -9,6 +9,7 @@ import { UserAddressesComponent } from './components/user-profile/user-addresses
 import { RegisterAddressModalComponent } from './components/user-profile/register-address-modal/register-address-modal.component';
 import { DetailedProductComponent } from './components/products/detailed-product/detailed-product.component';
 import { AuthGuard } from './guards/auth.guard';
+import { OrderCheckoutComponent } from './components/order-checkout/order-checkout.component';
 
 const routes: Routes = [
   { path: 'products', component: ListProductComponent },
@@ -18,6 +19,12 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [AuthGuard],
     data: { isGuest: true },
+  },
+  {
+    path: 'order-checkout',
+    component: OrderCheckoutComponent,
+    canActivate: [AuthGuard],
+    data: { isAuth: true },
   },
   {
     path: 'register',

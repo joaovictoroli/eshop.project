@@ -14,7 +14,7 @@
   <p>{{ product!.technicalInfo }}</p>
 
   <!-- Botão adicionar ao carrinho -->
-  <button class="btn add-to-cart-btn">
+  <button class="btn add-to-cart-btn" (click)="addToCart()">
     <fa-icon
       [icon]="['fas', 'shopping-cart']"
       class="add-to-cart-icon"

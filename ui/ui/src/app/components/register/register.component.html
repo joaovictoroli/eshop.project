@@ -14,11 +14,13 @@
       ></app-form-validation>
       <app-form-validation
         [formControl]="$any(registerUserForm.controls['password'])"
-        [label]="'password'"
+        [label]="'senha'"
+        [type]="'password'"
       ></app-form-validation>
       <app-form-validation
         [formControl]="$any(registerUserForm.controls['confirmPassword'])"
-        [label]="'confirm password'"
+        [label]="'re-senha'"
+        [type]="'password'"
       ></app-form-validation>
 
       <button
@@ -30,7 +32,7 @@
       </button>
     </form>
     <small class="text-muted">
-      <a href="login" class="text-white">Já tem uma conta?</a></small
+      <a routerLink="/login" class="text-white">Já tem uma conta?</a></small
     >
   </div>
 </div>

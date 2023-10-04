@@ -11,6 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { shareReplay } from 'rxjs/internal/operators/shareReplay';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-nav',
@@ -18,7 +19,13 @@ import { shareReplay } from 'rxjs/internal/operators/shareReplay';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent {
-  constructor(public authService: AuthService, private router: Router) {
+  totalItems$ = this.shoppingCartService.totalItems$;
+
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private shoppingCartService: CartService
+  ) {
     library.add(faHome, faBoxes, faSignInAlt, faUserPlus, faStore, faGithub);
   }
 

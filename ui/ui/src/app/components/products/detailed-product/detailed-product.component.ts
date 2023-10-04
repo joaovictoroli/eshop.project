@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,7 +16,10 @@ export class DetailedProductComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -24,5 +30,18 @@ export class DetailedProductComponent {
         error: (error) => console.error('Error fetching product:', error),
       });
     }
+  }
+
+  addToCart() {
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        this.cartService.addItem(this.product!);
+      } else {
+        this.toastr.error(
+          'Por favor, faça login para adicionar produtos ao carrinho.',
+          'Erro'
+        );
+      }
+    });
   }
 }

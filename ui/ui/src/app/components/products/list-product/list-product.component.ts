@@ -39,8 +39,9 @@ export class ListProductComponent {
     this.onFilter();
   }
 
-  onFilter() {
-    this.queryParams.pageNumber = this.pagination?.currentPage!;
+  onFilter(page?: number) {
+    this.queryParams.pageNumber = page ?? 1;
+
     this.productService.getProductsList(this.queryParams).subscribe({
       next: (response) => {
         if (response.result && response.pagination) {
@@ -59,10 +60,10 @@ export class ListProductComponent {
     });
   }
 
-  setCurrentPage(page: number) {
+  changePage(page: number) {
     if (page >= 1 && page <= this.pagination?.totalPages!) {
       this.pagination!.currentPage = page;
-      this.onFilter();
+      this.onFilter(page);
     }
   }
 

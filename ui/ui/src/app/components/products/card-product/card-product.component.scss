@@ -21,7 +21,9 @@ $hover-color: #444;
 }
 
 .card {
-  height: 100%;
+  background-color: $background-color;
+  padding: 15px;
+
   display: flex;
   flex-direction: column;
 }
@@ -46,13 +48,11 @@ $hover-color: #444;
 }
 
 .card-body {
-  background-color: $background-color;
   color: $text-color;
 }
 
 .product-card {
   margin: 10px;
-  background-color: $background-color;
   color: $text-color;
   transition: transform 0.3s ease;
 

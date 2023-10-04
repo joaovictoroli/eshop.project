@@ -1,0 +1,64 @@
+<div class="checkout-container address-container" *ngIf="mainAdress">
+  <h1 class="mb-4 text-center">Endereço ativo:</h1>
+  <div class="address-row">
+    <div class="address-item"><strong>CEP:</strong> {{ mainAdress.cep }}</div>
+    <div class="address-item"><strong>UF:</strong> {{ mainAdress.uf }}</div>
+  </div>
+  <div class="address-row">
+    <div class="address-item">
+      <strong>Bairro:</strong> {{ mainAdress.bairro }}
+    </div>
+    <div class="address-item">
+      <strong>Complemento:</strong> {{ mainAdress.complemento }}
+    </div>
+  </div>
+  <div class="address-row">
+    <div class="address-item address-full">
+      <strong>Número:</strong> {{ mainAdress.numero }}
+      <span><strong>Apartamento:</strong> {{ mainAdress.apartamento }}</span>
+      <span
+        ><strong>Info Adicional:</strong> {{ mainAdress.infoAdicional }}</span
+      >
+    </div>
+  </div>
+</div>
+
+<div class="checkout-container items-container text-center">
+  <h2>Checkout</h2>
+  <div class="cart-details" *ngIf="cartItems$ | async as cartItems">
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <img
+        [src]="item.product.imageUrl"
+        alt="{{ item.product.name }}"
+        class="product-image"
+      />
+      <div class="product-info">
+        <span class="product-name">
+          {{ item.product.name | slice : 0 : 20 }}
+          {{ item.product.name.length > 20 ? "..." : "" }}
+        </span>
+        <div class="quantity-control">
+          <button class="quantity-btn" (click)="decreaseQuantity(item)">
+            <fa-icon [icon]="['fas', 'minus']"></fa-icon>
+          </button>
+          <span class="product-quantity">{{ item.quantity }}</span>
+          <button class="quantity-btn" (click)="increaseQuantity(item)">
+            <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+          </button>
+        </div>
+      </div>
+      <div class="product-actions">
+        <span class="product-price">${{ item.product.price }}</span>
+        <button class="delete-btn" (click)="deleteItem(item)">
+          <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="totalPrice$ | async as totalPrice">
+    <div class="total-price">Total Price: ${{ totalPrice }}</div>
+  </ng-container>
+  <div class="checkout-button-container">
+    <button class="checkout-button">Proceed to Payment</button>
+  </div>
+</div>

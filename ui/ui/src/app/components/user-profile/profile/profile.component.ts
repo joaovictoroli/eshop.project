@@ -45,7 +45,6 @@ export class ProfileComponent {
     if (wasAdded) {
       this.loadAuthorizedUser();
       console.log('Endereço adicionado com sucesso.');
-      window.location.reload();
     }
   }
 

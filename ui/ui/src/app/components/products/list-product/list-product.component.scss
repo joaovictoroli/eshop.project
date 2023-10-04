@@ -6,17 +6,12 @@ $hover-color: #444;
   background-color: #222;
 }
 
-// .filters .form-control,
-// .product-card,
-// .pagination .page-link {
-//   background-color: #343a40;
-//   color: #ffffff;
-// }
 .product-card:hover {
   background-color: #495057;
 }
 
 .filters {
+  align-items: center;
   display: flex;
   gap: 1rem;
 
@@ -51,14 +46,12 @@ $hover-color: #444;
   gap: 1rem;
 }
 
-/* Para telas até 768px */
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Para telas até 576px */
 @media (max-width: 576px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
