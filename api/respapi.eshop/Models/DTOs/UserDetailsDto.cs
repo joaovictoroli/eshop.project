@@ -2,10 +2,10 @@
 
 namespace respapi.eshop.Models.DTOs
 {
-    public class MemberDto
+    public class UserDetailsDto
     {
         public string? Username { get; set; }
         public string? KnownAs { get; set; }
-        public ICollection<AddressDto>? Adresses { get; set; }
+        public ICollection<AddressDto>? Addresses { get; set; }
     }
 }

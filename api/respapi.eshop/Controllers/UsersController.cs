@@ -29,20 +29,21 @@ namespace respapi.eshop.Controllers
 
 
         [HttpGet("{username}")]
-        public async Task<ActionResult<MemberDto>> GetUser(string username)
+        public async Task<ActionResult<UserDetailsDto>> GetUser(string username)
         {
+            Console.WriteLine("eoq");
             if (username == User.GetUsername())
             {
                 var appuser = await _userRepository.GetUserByUsernameAsync(username);
-                return _mapper.Map<MemberDto>(appuser);
+                return _mapper.Map<UserDetailsDto>(appuser);
 
             }
-            return BadRequest();
+            return BadRequest("You cannot access this user's data");
         }
 
         [HttpPost("register-adress/{cep}")]
         public async Task<ActionResult<AddressDto>> AddAdress(string cep, RegisterAdressDto registerAdress)
-        {
+        {            
             var apiresp = await _cepService.GetAdressByCep(cep);
 
             if (apiresp != null
@@ -55,7 +56,7 @@ namespace respapi.eshop.Controllers
             {
                 AppUser user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());                
 
-                UserAdress userAdress = new ()
+                UserAddress userAddress = new ()
                 {
                     Cep = apiresp.Cep,
                     Uf =  apiresp.Uf,
@@ -68,10 +69,10 @@ namespace respapi.eshop.Controllers
                     IsMain = false
                 };
 
-                if (user?.Adresses?.Count == 0) { userAdress.IsMain = true; }
+                if (user?.Addresses?.Count == 0) { userAddress.IsMain = true; }
 
-                await _addressRepository.AddUserAdress(userAdress);
-                return _mapper.Map<AddressDto>(userAdress);
+                await _addressRepository.AddUserAdress(userAddress);
+                return Ok(_mapper.Map<AddressDto>(userAddress));
             }
 
             return NotFound("was not possible to finish operation");
@@ -91,15 +92,15 @@ namespace respapi.eshop.Controllers
 
             if (isDeleted == false) { return BadRequest("Something went wrong"); }
 
-            return Ok("Addres got deleted successfully");  
+            return NoContent();  
         }
 
-        [HttpPost("set-main-address/{addressId}")]
+        [HttpPut("set-main-address/{addressId}")]
         public async Task<ActionResult> SetMainAddress(int addressId)
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var userAddress = user.Adresses!.FirstOrDefault(x=> x.Id == addressId);          
+            var userAddress = user.Addresses!.FirstOrDefault(x=> x.Id == addressId);          
 
             if (userAddress == null) { return BadRequest("Address not found"); }
 
@@ -107,7 +108,7 @@ namespace respapi.eshop.Controllers
 
             if (userAddress.IsMain) { return BadRequest("This is already your main address"); }
 
-            var currentMain = user.Adresses!.FirstOrDefault(x => x.IsMain);
+            var currentMain = user.Addresses!.FirstOrDefault(x => x.IsMain);
 
             if (currentMain == null) { return BadRequest("Main Address not found"); }
 

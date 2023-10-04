@@ -1,0 +1,20 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+@import "node_modules/ngx-toastr/toastr";
+
+@import "node_modules/font-awesome/css/font-awesome.css";
+
+body {
+  background-color: #343a40 !important;
+  color: #ffffff;
+  zoom: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}

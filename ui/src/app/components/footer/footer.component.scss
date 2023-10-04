@@ -1,0 +1,37 @@
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #333; // cor similar à do navbar
+
+  .rights {
+    color: #eaeaea;
+  }
+
+  .social-icons {
+    a {
+      color: #eaeaea;
+      margin-left: 15px;
+      font-size: 24px;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.text-github {
+  margin-left: 6px;
+  text-decoration: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+  color: white;
+}

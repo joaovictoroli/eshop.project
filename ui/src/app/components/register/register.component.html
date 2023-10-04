@@ -1,0 +1,38 @@
+<div
+  class="register-container d-flex justify-content-center align-items-center"
+>
+  <div class="register-form text-center">
+    <h2 class="mb-4 text-white">Registrar</h2>
+    <form [formGroup]="registerUserForm" (ngSubmit)="Submit()">
+      <app-form-validation
+        [formControl]="$any(registerUserForm.controls['username'])"
+        [label]="'Email'"
+      ></app-form-validation>
+      <app-form-validation
+        [formControl]="$any(registerUserForm.controls['knownAs'])"
+        [label]="'Username'"
+      ></app-form-validation>
+      <app-form-validation
+        [formControl]="$any(registerUserForm.controls['password'])"
+        [label]="'senha'"
+        [type]="'password'"
+      ></app-form-validation>
+      <app-form-validation
+        [formControl]="$any(registerUserForm.controls['confirmPassword'])"
+        [label]="'re-senha'"
+        [type]="'password'"
+      ></app-form-validation>
+
+      <button
+        type="submit"
+        class="btn btn-dark btn-block mb-3"
+        [disabled]="!registerUserForm.valid"
+      >
+        Registrar
+      </button>
+    </form>
+    <small class="text-muted">
+      <a routerLink="/login" class="text-white">Já tem uma conta?</a></small
+    >
+  </div>
+</div>

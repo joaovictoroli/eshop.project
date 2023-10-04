@@ -10,7 +10,7 @@ namespace respapi.eshop.Data
         IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<UserAdress> UserAdresses { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -33,7 +33,7 @@ namespace respapi.eshop.Data
                 .IsRequired();
 
             modelBuilder.Entity<AppUser>()
-               .HasMany(p => p.Adresses)
+               .HasMany(p => p.Addresses)
                .WithOne(c => c.AppUser)
                .HasForeignKey(c => c.AppUserId)
                .OnDelete(DeleteBehavior.Restrict);

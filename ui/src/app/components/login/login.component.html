@@ -1,0 +1,30 @@
+<div class="login-container d-flex justify-content-center align-items-center">
+  <div class="login-form text-center">
+    <h2 class="mb-4 text-white">Entrar</h2>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <div class="form-group">
+        <input
+          [(ngModel)]="model.username"
+          name="username"
+          type="text"
+          class="form-control mb-3"
+          placeholder="Digite seu e-mail"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          [(ngModel)]="model.password"
+          name="password"
+          type="password"
+          class="form-control mb-3"
+          placeholder="Digite sua senha"
+        />
+      </div>
+      <button type="submit" class="btn btn-dark btn-block mb-3">Entrar</button>
+    </form>
+    <small class="text-muted"
+      >Ainda não tem uma conta?
+      <a href="register" class="text-white">Registrar-se</a></small
+    >
+  </div>
+</div>

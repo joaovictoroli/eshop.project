@@ -1,0 +1,21 @@
+.register-container {
+  height: 100vh;
+}
+
+.register-form {
+  border: solid white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(34, 34, 34, 0.8);
+
+  .form-control {
+    border-radius: 0;
+  }
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

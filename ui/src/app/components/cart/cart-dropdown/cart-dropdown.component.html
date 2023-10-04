@@ -1,0 +1,37 @@
+<div class="rounded cart-container">
+  <ng-container *ngIf="totalItems$ | async as totalItems">
+    <div class="header">
+      <strong>Total Items: {{ totalItems }}</strong>
+    </div>
+
+    <ng-container class="items-list" *ngIf="totalItems > 0">
+      <div *ngFor="let item of cartItems$ | async" class="cart-item">
+        <img
+          [src]="item.product.imageUrl"
+          alt="{{ item.product.name }}"
+          class="product-image"
+        />
+        <span class="product-name">
+          {{
+            (item.product.name | slice : 0 : 6) +
+              (item.product.name.length > 6 ? "..." : "")
+          }}
+        </span>
+        <span class="product-quantity">x{{ item.quantity }}</span>
+        <span class="product-price">${{ item.product.price }}</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="totalPrice$ | async as totalPrice">
+      <div class="total-price">Total Price: ${{ totalPrice }}</div>
+    </ng-container>
+
+    <div class="checkout-button-container">
+      <button class="checkout-button" routerLink="order-checkout">
+        Finalizar Compra
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!(totalItems$ | async)">
+    <div class="no-items">Nenhum item no carrinho</div>
+  </ng-container>
+</div>

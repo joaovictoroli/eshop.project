@@ -14,16 +14,16 @@ namespace respapi.eshop.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<UserAdress> AddUserAdress(UserAdress userAdress)
+        public async Task<UserAddress> AddUserAdress(UserAddress userAdress)
         {
-            await _dbContext.UserAdresses.AddAsync(userAdress);
+            await _dbContext.UserAddresses.AddAsync(userAdress);
             await _dbContext.SaveChangesAsync();
             return userAdress;
         }
 
-        public async Task<bool?> ChangeMainAddress(UserAdress currentMain, UserAdress nextMain)
+        public async Task<bool?> ChangeMainAddress(UserAddress currentMain, UserAddress nextMain)
         {
-             var previousMain = await (from p in _dbContext.UserAdresses
+             var previousMain = await (from p in _dbContext.UserAddresses
                                 where p == currentMain select p)
                                 .SingleOrDefaultAsync();
 
@@ -32,7 +32,7 @@ namespace respapi.eshop.Repositories
             previousMain.IsMain = false;
 
 
-            var newMain = await (from p in _dbContext.UserAdresses
+            var newMain = await (from p in _dbContext.UserAddresses
                                   where p == nextMain
                                   select p)
                                 .SingleOrDefaultAsync();
@@ -43,17 +43,16 @@ namespace respapi.eshop.Repositories
             return await SaveChanges();
         }
 
-        public async Task<bool> DeleteUserAddress(UserAdress userAdress)
+        public async Task<bool> DeleteUserAddress(UserAddress userAdress)
         {
-            _dbContext.UserAdresses.Remove(userAdress);
-            var isDeleted = await _dbContext.SaveChangesAsync();
+            _dbContext.UserAddresses.Remove(userAdress);
 
             return await SaveChanges();
         }
 
-        public async Task<UserAdress?> GetUserAddressById(int id)
+        public async Task<UserAddress?> GetUserAddressById(int id)
         {
-            return await _dbContext.UserAdresses.FindAsync(id);
+            return await _dbContext.UserAddresses.FindAsync(id);
         }
 
         private async Task<bool> SaveChanges()
