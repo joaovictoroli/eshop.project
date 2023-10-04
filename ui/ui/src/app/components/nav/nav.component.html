@@ -21,12 +21,17 @@
         </li>
       </ul>
       <!-- teste -->
-
-      <!-- teste -->
       <ul
         class="navbar-nav ml-auto"
         *ngIf="authService.currentUser$ | async as user"
       >
+        <ng-template [appHasRole]="['Admin']">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="admin-panel"
+              ><fa-icon [icon]="['fas', 'user-shield']"></fa-icon>Admin</a
+            >
+          </li>
+        </ng-template>
         <div class="position-relative">
           <li class="nav-item" ngbDropdown placement="bottom-left">
             <a

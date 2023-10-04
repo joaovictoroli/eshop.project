@@ -12,6 +12,7 @@ export class AuthService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
+  
 
   constructor(private http: HttpClient) {
     const user: User | null = JSON.parse(
@@ -37,12 +38,6 @@ export class AuthService {
     return this.http.post<User>(this.baseUrl + 'account/register', model, {
       observe: 'response',
     });
-    //set current user
-  }
-
-  setCurrentUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
-    this.currentUserSource.next(user);
   }
 
   logout() {
@@ -84,6 +79,18 @@ export class AuthService {
     return this.http.delete(this.baseUrl + 'users/delete-address/' + id, {
       observe: 'response',
     });
+  }
+
+  setCurrentUser(user: User) {
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? (user.roles = roles) : user.roles.push(roles);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSource.next(user);
+  }
+
+  getDecodedToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }
 

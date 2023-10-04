@@ -30,6 +30,7 @@ import {
   faPlus,
   faMinus,
   faTrash,
+  faUserShield,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -50,6 +51,11 @@ import { RegisterAddressModalComponent } from './components/user-profile/registe
 import { CartDropdownComponent } from './components/cart/cart-dropdown/cart-dropdown.component';
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderCheckoutComponent } from './components/order-checkout/order-checkout.component';
+import { HasRoleDirective } from './directives/hasrole.directive';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { ListProductsComponent } from './components/admin-panel/products/list-products/list-products.component';
+import { ListCategoriesComponent } from './components/admin-panel/categories/list-categories/list-categories.component';
+import { ListSubcategoriesComponent } from './components/admin-panel/subcategories/list-subcategories/list-subcategories.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +75,11 @@ import { OrderCheckoutComponent } from './components/order-checkout/order-checko
     DetailedProductComponent,
     CartDropdownComponent,
     OrderCheckoutComponent,
+    HasRoleDirective,
+    AdminPanelComponent,
+    ListProductsComponent,
+    ListCategoriesComponent,
+    ListSubcategoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +95,7 @@ import { OrderCheckoutComponent } from './components/order-checkout/order-checko
     NgbModule,
     NgbDropdownModule,
   ],
+  exports: [NoAutocompleteDirective, HasRoleDirective],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
@@ -110,7 +122,8 @@ export class AppModule {
       faShoppingCart,
       faPlus,
       faMinus,
-      faTrash
+      faTrash,
+      faUserShield
     );
   }
 }

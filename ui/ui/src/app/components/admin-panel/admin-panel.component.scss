@@ -1,0 +1,20 @@
+.nav-link {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.nav-link.active {
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+  background-color: grey;
+  color: black;
+}
+
+.nav-link {
+  color: white;
+}
+.card {
+  margin-top: 20px;
+}
