@@ -10,38 +10,10 @@ import { ProfileComponent } from './components/user-profile/profile/profile.comp
 import { ListProductComponent } from './components/products/list-product/list-product.component';
 import { HomeComponent } from './components/home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NoAutocompleteDirective } from './directives/no-autocomplete.directive';
 import { FooterComponent } from './components/footer/footer.component';
-import {
-  faSignOutAlt,
-  faUser,
-  faPencilAlt,
-  faTrashAlt,
-  faPlusSquare,
-  faHome,
-  faBoxes,
-  faSignInAlt,
-  faUserPlus,
-  faStore,
-  faLock,
-  faEdit,
-  faStar,
-  faShoppingCart,
-  faPlus,
-  faMinus,
-  faTrash,
-  faUserShield,
-} from '@fortawesome/free-solid-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import {
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
 import { CardProductComponent } from './components/products/card-product/card-product.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 
 import { UserAddressesComponent } from './components/user-profile/user-addresses/user-addresses.component';
@@ -51,11 +23,11 @@ import { RegisterAddressModalComponent } from './components/user-profile/registe
 import { CartDropdownComponent } from './components/cart/cart-dropdown/cart-dropdown.component';
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderCheckoutComponent } from './components/order-checkout/order-checkout.component';
-import { HasRoleDirective } from './directives/hasrole.directive';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { ListProductsComponent } from './components/admin-panel/products/list-products/list-products.component';
 import { ListCategoriesComponent } from './components/admin-panel/categories/list-categories/list-categories.component';
 import { ListSubcategoriesComponent } from './components/admin-panel/subcategories/list-subcategories/list-subcategories.component';
+import { SharedModule } from './shared.module';
 
 @NgModule({
   declarations: [
@@ -66,7 +38,6 @@ import { ListSubcategoriesComponent } from './components/admin-panel/subcategori
     ProfileComponent,
     ListProductComponent,
     HomeComponent,
-    NoAutocompleteDirective,
     FooterComponent,
     CardProductComponent,
     UserAddressesComponent,
@@ -75,7 +46,6 @@ import { ListSubcategoriesComponent } from './components/admin-panel/subcategori
     DetailedProductComponent,
     CartDropdownComponent,
     OrderCheckoutComponent,
-    HasRoleDirective,
     AdminPanelComponent,
     ListProductsComponent,
     ListCategoriesComponent,
@@ -85,45 +55,15 @@ import { ListSubcategoriesComponent } from './components/admin-panel/subcategori
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FontAwesomeModule,
-    FormsModule,
-    HttpClientModule,
+    SharedModule,
     BrowserAnimationsModule,
-    CommonModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule,
     NgbModule,
     NgbDropdownModule,
   ],
-  exports: [NoAutocompleteDirective, HasRoleDirective],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(library: FaIconLibrary) {
-    library.addIcons(
-      faHome,
-      faBoxes,
-      faSignInAlt,
-      faUserPlus,
-      faStore,
-      faGithub,
-      faSignOutAlt,
-      faUser,
-      faPencilAlt,
-      faTrashAlt,
-      faPlusSquare,
-      faHome,
-      faLock,
-      faEdit,
-      faStar,
-      faShoppingCart,
-      faPlus,
-      faMinus,
-      faTrash,
-      faUserShield
-    );
-  }
-}
+export class AppModule {}
