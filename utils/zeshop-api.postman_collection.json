@@ -150,11 +150,23 @@
 				},
 				{
 					"name": "Get Product By Name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\": \"SAMSUNG Galaxy A23 (SM-A235M/DS) Dual SIM,64 GB 4GB RAM, Factory Unlocked GSM, International Version - No Warranty - (Blue)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://localhost:7011/api/products/Name=Hello",
+							"raw": "https://localhost:7011/api/Products/byName",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -162,8 +174,8 @@
 							"port": "7011",
 							"path": [
 								"api",
-								"products",
-								"Name=Hello"
+								"Products",
+								"byName"
 							]
 						}
 					},
@@ -433,7 +445,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"numero\": \"150\",\r\n\t\"apartamento\": \"212\",\r\n    \"infoAdicional\": \"bloco tal\"\r\n}",
+							"raw": "{\r\n\t\"numero\": \"150\",\r\n\t\"apartamento\": \"215\",\r\n    \"infoAdicional\": \"bloco tal\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -488,7 +500,7 @@
 				{
 					"name": "set main address",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
@@ -497,7 +509,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:7011/api/users/set-main-address/2",
+							"raw": "https://localhost:7011/api/users/set-main-address/5",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -507,7 +519,47 @@
 								"api",
 								"users",
 								"set-main-address",
-								"2"
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "order request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{eshopToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderProducts\": [\r\n    {\r\n      \"productName\": \"Intel Core i9-13900K (Latest Gen) Gaming Desktop Processor 24 cores (8 P-cores + 16 E-cores) with Integrated Graphics - Unlocked\",\r\n      \"quantity\": 3\r\n    },\r\n        {\r\n      \"productName\": \"GIGABYTE GeForce RTX 3060 Gaming OC 12G (REV2.0) Graphics Card, 3X WINDFORCE Fans, 12GB 192-bit GDDR6, GV-N3060GAMING OC-12GD Video Card\",\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7011/api/Order",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7011",
+							"path": [
+								"api",
+								"Order"
 							]
 						}
 					},

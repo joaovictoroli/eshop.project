@@ -12,8 +12,8 @@ using respapi.eshop.Data;
 namespace respapi.eshop.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231005105003_InitialOne")]
-    partial class InitialOne
+    [Migration("20231005121752_AnotherInitialOne")]
+    partial class AnotherInitialOne
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,16 +231,17 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.Category", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -257,15 +258,18 @@ namespace respapi.eshop.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FileExtension")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("FileSizeInBytes")
+                    b.Property<long>("FileSizeInBytes")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -281,7 +285,7 @@ namespace respapi.eshop.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<int?>("OrderAddressId")
+                    b.Property<int>("OrderAddressId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SubmittedAt")
@@ -291,8 +295,7 @@ namespace respapi.eshop.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
@@ -304,28 +307,33 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.OrderAddress", b =>
                 {
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Apartamento")
+                    b.Property<int>("Apartamento")
                         .HasColumnType("int");
 
                     b.Property<string>("Bairro")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cep")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Complemento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InfoAdicinal")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Numero")
+                    b.Property<int>("Numero")
                         .HasColumnType("int");
 
                     b.Property<string>("Uf")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
@@ -366,28 +374,32 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.Product", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("Price")
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int?>("SubCategoryId")
+                    b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("TechnicalInfo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -425,37 +437,42 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.UserAddress", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Apartamento")
+                    b.Property<int>("Apartamento")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AppUserId")
+                    b.Property<int>("AppUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Bairro")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cep")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Complemento")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InfoAdicinal")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Numero")
+                    b.Property<int>("Numero")
                         .HasColumnType("int");
 
                     b.Property<string>("Uf")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -566,7 +583,8 @@ namespace respapi.eshop.Data.Migrations
                     b.HasOne("respapi.eshop.Models.Entities.SubCategory", "SubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("SubCategory");
                 });
@@ -587,7 +605,8 @@ namespace respapi.eshop.Data.Migrations
                     b.HasOne("respapi.eshop.Models.Entities.AppUser", "AppUser")
                         .WithMany("Addresses")
                         .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("AppUser");
                 });
@@ -613,7 +632,8 @@ namespace respapi.eshop.Data.Migrations
 
             modelBuilder.Entity("respapi.eshop.Models.Entities.Order", b =>
                 {
-                    b.Navigation("OrderAddress");
+                    b.Navigation("OrderAddress")
+                        .IsRequired();
 
                     b.Navigation("Products");
                 });
