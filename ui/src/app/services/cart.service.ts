@@ -37,13 +37,11 @@ export class CartService {
     const currentItems = this._cartItems.getValue();
     const itemIndex = currentItems.findIndex(
       (item) => item.product.name === product.name
-    ); // considerando que 'Product' tem uma propriedade 'id'
+    );
 
     if (itemIndex !== -1) {
-      // O produto já está no carrinho, então apenas aumente a quantidade
       currentItems[itemIndex].quantity++;
     } else {
-      // Adicione o novo produto ao carrinho
       currentItems.push({ product, quantity: 1 });
     }
 
@@ -79,5 +77,11 @@ export class CartService {
       this._cartItems.next(currentItems);
       this.updateTotalItems(currentItems);
     }
+  }
+
+  clearCart() {
+    this._cartItems.next([]);
+    this._totalItems.next(0);
+    this._totalPrice.next(0);
   }
 }

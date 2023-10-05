@@ -16,6 +16,10 @@
   transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
 }
 
+.btn-close {
+  color: #777 !important;
+}
+
 .dark-modal .btn-secondary:hover {
   background-color: #555;
   border-color: #444;
@@ -37,7 +41,7 @@
 }
 
 .dark-modal .btn-close {
-  color: #aaa; /* Um cinza para não destacar muito */
+  color: white;
   transition: color 0.3s;
 }
 

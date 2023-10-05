@@ -16,7 +16,6 @@ export class ProfileComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cdRef: ChangeDetectorRef,
     private toastr: ToastrService
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
@@ -33,7 +32,6 @@ export class ProfileComponent {
       this.authService.getUserProfile(this.user.username).subscribe({
         next: (user) => {
           this.user = user;
-          this.cdRef.detectChanges();
           console.log(user.addresses);
         },
         error: (error) => console.error('Error fetching user:', error),
@@ -72,9 +70,6 @@ export class ProfileComponent {
       this.authService.setMainAdress(mainAddressId!).subscribe({
         next: (response) => {
           if (response.status === 200) {
-            // this.toastr.success('Endereço principal alterado com sucesso.');
-            // this.loadAuthorizedUser();
-            // window.location.reload();
             console.log('padrao no content');
           }
         },
