@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using respapi.eshop.Data;
 using respapi.eshop.Interfaces;
@@ -49,8 +50,9 @@ namespace respapi.eshop.Repositories
             return gotDeleted;
         }
 
-        public async Task<Image> Upload(Image image)
+        public async Task<Image?> Upload(Image image)
         {
+            if (await CheckDuplicate(image.FileName)) { return null; }
             var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images",
                 $"{image.FileName}{image.FileExtension}");
 

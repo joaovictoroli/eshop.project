@@ -46,8 +46,6 @@ namespace respapi.eshop.Extensions
                 });
             });
 
-
-
             services.AddHttpContextAccessor();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ICepService, CepService>();
@@ -56,6 +54,7 @@ namespace respapi.eshop.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;

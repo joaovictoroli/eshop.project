@@ -31,7 +31,6 @@ namespace respapi.eshop.Controllers
         [HttpGet("{username}")]
         public async Task<ActionResult<UserDetailsDto>> GetUser(string username)
         {
-            Console.WriteLine("eoq");
             if (username == User.GetUsername())
             {
                 var appuser = await _userRepository.GetUserByUsernameAsync(username);

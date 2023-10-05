@@ -19,11 +19,15 @@ namespace respapi.eshop.Repositories
             _mapper = mapper;
         }
 
-        public async Task<AppUser> GetUserByUsernameAsync(string username)
+        public async Task<AppUser?> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users          
-                   .Include(p => p.Addresses)
-                   .FirstOrDefaultAsync(x => x.UserName == username);
+            return await _context.Users
+                    .Include(p => p.Addresses)
+                    .Include(p => p.Orders)
+                        .ThenInclude(o => o.OrderAddress)
+                    .Include(p => p.Orders)
+                        .ThenInclude(o => o.Products)
+                    .FirstOrDefaultAsync(x => x.UserName == username);
         }
     }
 }
