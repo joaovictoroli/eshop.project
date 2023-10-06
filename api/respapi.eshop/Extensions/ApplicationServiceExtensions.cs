@@ -3,7 +3,9 @@ using Microsoft.OpenApi.Models;
 using respapi.eshop.Data;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Repositories;
+using respapi.eshop.Repositories.Cache;
 using respapi.eshop.Services;
+using StackExchange.Redis;
 
 namespace respapi.eshop.Extensions
 {
@@ -46,14 +48,33 @@ namespace respapi.eshop.Extensions
                 });
             });
 
+            
+            services.AddScoped<CategoryRepository>();
+            services.AddSingleton(x => ConnectionMultiplexer.Connect("localhost:5555"));
+            services.AddScoped<IDatabase>(x => x.GetRequiredService<ConnectionMultiplexer>().GetDatabase());
+            services.AddScoped<ICategoryRepository>(serviceProvider =>
+            {
+                var originalRepository = serviceProvider.GetRequiredService<CategoryRepository>();
+                var cache = serviceProvider.GetRequiredService<IDatabase>();
+                return new CachedCategoryRepository(originalRepository, cache);
+            });
+            
+            services.AddScoped<ProductRepository>();
+            services.AddScoped<IProductRepository>(serviceProvider =>
+            {
+                var originalRepository = serviceProvider.GetRequiredService<ProductRepository>();
+                var cache = serviceProvider.GetRequiredService<IDatabase>();
+                return new CachedProductRepository(originalRepository, cache);
+            });
+
             services.AddHttpContextAccessor();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ICepService, CepService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            // services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            // services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

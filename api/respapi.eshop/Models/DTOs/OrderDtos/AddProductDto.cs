@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace respapi.eshop.Models.DTOs
+namespace respapi.eshop.Models.DTOs.OrderDtos
 {
-    public class ProductDto
+    public class AddProductDto
     {
+            
+
         [Required]
         public string? Name { get; set; }
         [Required]
@@ -13,6 +16,7 @@ namespace respapi.eshop.Models.DTOs
         [Required]
         public string? TechnicalInfo { get; set; }
         public string? ImageUrl { get; set; }
-        public int? SubCategoryId { get; set; }        
+        public int? SubCategoryId { get; set; }
+        public string? SubCategoryName { get; set; } = string.Empty;    
     }
 }
