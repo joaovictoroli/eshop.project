@@ -43,6 +43,7 @@ namespace respapi.eshop.Data
             }
         }
 
+        
         private async Task SeedRolesNUsers()
         {
             var roles = new List<AppRole>
@@ -67,6 +68,19 @@ namespace respapi.eshop.Data
                 KnownAs = "Admin"
             };
 
+            var adminAddress = new UserAddress 
+            {
+                Cep = "91790-072",
+                Uf = "RS",
+                Bairro = "Restinga",
+                Complemento = "",
+                Numero = 150,
+                Apartamento = 215,
+                InfoAdicinal = "bloco tal",
+                IsMain = true,
+                AppUser = admin
+            };
+
             var userAddress = new UserAddress 
             {
                 Cep = "91790-072",
@@ -77,7 +91,7 @@ namespace respapi.eshop.Data
                 Apartamento = 215,
                 InfoAdicinal = "bloco tal",
                 IsMain = true,
-                AppUserId = 2
+                AppUser = user
             };
         
             await _userManager.CreateAsync(user, "password");
@@ -86,9 +100,8 @@ namespace respapi.eshop.Data
             await _userManager.CreateAsync(admin, "password");
             await _userManager.AddToRolesAsync(admin, new[] { "Admin" });
 
-            await _addressRepository.AddUserAdress(userAddress);
-            userAddress.AppUserId = 1;
-            await _addressRepository.AddUserAdress(userAddress);
+            await _addressRepository.AddUserAdress(adminAddress, admin.UserName);
+            await _addressRepository.AddUserAdress(userAddress, user.UserName);
         }
 
         private async Task SeedCategoriesAndSubCategories()

@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.DTOs;
 using respapi.eshop.Models.Entities;
-using respapi.eshop.Repositories;
 
 namespace respapi.eshop.Controllers
 {

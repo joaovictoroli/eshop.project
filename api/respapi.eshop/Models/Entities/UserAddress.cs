@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace respapi.eshop.Models.Entities
 {
@@ -14,6 +15,7 @@ namespace respapi.eshop.Models.Entities
         public string InfoAdicinal { get; set; }
         public bool IsMain { get; set; }
         public int AppUserId { get; set; }
+        [JsonIgnore]
         public AppUser AppUser { get; set; }
     }
 }

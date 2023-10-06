@@ -11,12 +11,11 @@ namespace respapi.eshop.Controllers;
 [Authorize]
 public class OrderController : BaseApiController
 {
-    private readonly IOrderRepository _orderRepository;
+    private readonly IQueuedOrderRepository _orderRepository;
     private readonly IUserRepository _userRepository;
     private readonly IProductRepository _productRepository;    
     private readonly IMapper _mapper;
-
-    public OrderController(IOrderRepository orderRepository ,IMapper mapper, IUserRepository userRepository, IProductRepository productRepository)
+    public OrderController(IQueuedOrderRepository orderRepository ,IMapper mapper, IUserRepository userRepository, IProductRepository productRepository)
     {
         _userRepository = userRepository;
         _orderRepository = orderRepository;
@@ -50,14 +49,13 @@ public class OrderController : BaseApiController
         {
             OrderAddress =  _mapper.Map<OrderAddress>(mainAddress),
             OrderAddressId = mainAddress.Id,
-            AppUser = appuser,
             UserId = appuser.Id,
             TotalPrice = (decimal)totalPrice!,
             SubmittedAt = DateTime.Now,
             Products = orderProducts
         };
 
-        await _orderRepository.CreateOrder(order);
+        await _orderRepository.CreateOrder(order, username);
         return _mapper.Map<OrderDto>(order);
     }
 

@@ -1,11 +1,10 @@
-using System;
 using System.Text.Json;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.DTOs;
 using respapi.eshop.Models.Entities;
 using StackExchange.Redis;
 
-namespace respapi.eshop.Repositories.Cache;
+namespace respapi.eshop.Services.Cache;
 
 public class CachedCategoryRepository : ICategoryRepository
 {
@@ -52,10 +51,9 @@ public class CachedCategoryRepository : ICategoryRepository
 
     public async Task<int> AddCategory(Category category)
     {
-        var result = await _categoryRepository.AddCategory(category);
-        
-        // Após adicionar uma categoria, podemos querer invalidar o cache relacionado a categorias.
-        _cache.KeyDelete("all-subcategories"); // Considerando que uma nova categoria pode influenciar na lista de subcategorias.
+        var result = await _categoryRepository.AddCategory(category);       
+       
+        _cache.KeyDelete("all-subcategories"); 
         
         return result;
     }
@@ -64,7 +62,6 @@ public class CachedCategoryRepository : ICategoryRepository
     {
         var result = await _categoryRepository.AddSubCategory(subCategory, categoryId);
 
-        // Após adicionar uma subcategoria, invalidamos o cache das subcategorias
         _cache.KeyDelete("all-subcategories");
 
         return result;
@@ -89,24 +86,10 @@ public class CachedCategoryRepository : ICategoryRepository
     {
         throw new NotImplementedException();
     }
-
-    // Você faria algo semelhante para outros métodos, como GetAllSubCategories, GetSubCategoryByName, etc.
-
-    // Para métodos como AddCategory, AddSubCategory, DeleteCategory e UpdateCategory, 
-    // você apenas chamaria o método correspondente em _innerRepository 
-    // e, em seguida, invalidaria o cache apropriado.
-
-    //     public async Task<int> AddCategory(Category category)
-    // {
-    //     var result = await _innerRepository.AddCategory(category);
-
-    //     // Invalidar o cache após adicionar a categoria
-    //     _cache.KeyDelete("all-categories");
-
-    //     return result;
-    // }
-
-
-
 }
+
+
+
+
+
 

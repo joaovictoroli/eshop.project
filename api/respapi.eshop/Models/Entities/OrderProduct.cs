@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace respapi.eshop.Models.Entities;
 public class OrderProduct
@@ -7,6 +8,7 @@ public class OrderProduct
     [Required]
     [ForeignKey("Order")]
     public int? OrderId { get; set; }
+    [JsonIgnore]
     public virtual Order Order { get; set; }
 
     [Required]

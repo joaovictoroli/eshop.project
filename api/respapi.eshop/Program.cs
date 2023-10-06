@@ -56,7 +56,6 @@ try
     var imageRepository = services.GetRequiredService<IImageRepository>();
     var addressRepository = services.GetRequiredService<IAddressRepository>();
 
-    //await Seed.ClearConnections(context);
     var seed = new Seed(userManager,
                         roleManager,
                         categoryRepository,
@@ -72,4 +71,4 @@ catch (Exception)
     // logger.LogError(ex, "An error occured during migration");
 }
 
-app.Run();
+await app.RunAsync();

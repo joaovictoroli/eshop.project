@@ -4,7 +4,8 @@ using respapi.eshop.Interfaces;
 using respapi.eshop.Models.Entities;
 using StackExchange.Redis;
 
-namespace respapi.eshop.Repositories.Cache;public class CachedProductRepository : IProductRepository
+namespace respapi.eshop.Services.Cache;
+public class CachedProductRepository : IProductRepository
 {
     private readonly IProductRepository _productRepository;
     private readonly IDatabase _cache;

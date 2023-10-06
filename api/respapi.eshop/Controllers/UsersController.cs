@@ -70,7 +70,7 @@ namespace respapi.eshop.Controllers
 
                 if (user?.Addresses?.Count == 0) { userAddress.IsMain = true; }
 
-                await _addressRepository.AddUserAdress(userAddress);
+                await _addressRepository.AddUserAdress(userAddress, user!.UserName);
                 return Ok(_mapper.Map<AddressDto>(userAddress));
             }
 
@@ -87,7 +87,8 @@ namespace respapi.eshop.Controllers
 
             if (userAddress.IsMain) return BadRequest("You cannot delete your main address");
 
-            var isDeleted = await _addressRepository.DeleteUserAddress(userAddress);
+            var username = User.GetUsername();
+            var isDeleted = await _addressRepository.DeleteUserAddress(userAddress, username);
 
             if (isDeleted == false) { return BadRequest("Something went wrong"); }
 
@@ -111,7 +112,7 @@ namespace respapi.eshop.Controllers
 
             if (currentMain == null) { return BadRequest("Main Address not found"); }
 
-            var isDone = await _addressRepository.ChangeMainAddress(currentMain, userAddress);
+            var isDone = await _addressRepository.ChangeMainAddress(currentMain, userAddress, user.UserName);
 
             if (isDone == true)
             {

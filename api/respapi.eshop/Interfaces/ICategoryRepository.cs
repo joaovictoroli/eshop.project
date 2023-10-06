@@ -16,6 +16,5 @@ namespace respapi.eshop.Interfaces
 
         Task<SubCategory> GetSubCategoryByName(string subCategoryName);
         Task<SubCategory> GetSubCategoryById(int categoryId);
-
     }
 }
