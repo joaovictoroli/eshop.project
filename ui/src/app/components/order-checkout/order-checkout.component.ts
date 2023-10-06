@@ -4,6 +4,9 @@ import { User, UserAddress } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/models/cartItem';
+import { ToastrService } from 'ngx-toastr';
+import { OrderService } from 'src/app/services/order.service';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-order-checkout',
@@ -19,7 +22,9 @@ export class OrderCheckoutComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private orderService: OrderService
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => (this.user = user),
@@ -54,5 +59,67 @@ export class OrderCheckoutComponent implements OnInit {
 
   deleteItem(item: CartItem) {
     this.cartService.deleteProduct(item.product);
+  }
+
+  confirmPurchase() {
+    this.cartItems$.pipe(take(1)).subscribe((cartItems) => {
+      const orderData: Order = {
+        orderProducts: cartItems.map((item) => ({
+          productName: item.product.name,
+          quantity: item.quantity,
+        })),
+      };
+
+      this.orderService.placeOrder(orderData).subscribe(
+        (response) => {
+          this.toastr.success('Pedido realizado com sucesso.');
+          this.cartService.clearCart();
+          console.log(response);
+        },
+        (error) => {
+          this.toastr.error(error.errorMessage);
+          console.error('Error placing order:', error);
+        }
+      );
+    });
+  }
+
+  deleteAddress(id: number) {
+    this.authService.deleteAddress(id).subscribe({
+      next: (response) => {
+        if (response.status === 204) {
+          this.loadAuthorizedUser();
+          this.toastr.success('Endereço deletado com sucesso.');
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting address:', error);
+        if (error.status === 400) {
+          const errorMessage = error.error;
+          this.toastr.error(errorMessage);
+        }
+      },
+    });
+  }
+
+  addressEdit(mainAddressId: number) {
+    console.log('Endereço principal alterado:', mainAddressId);
+    if (mainAddressId) {
+      this.authService.setMainAdress(mainAddressId!).subscribe({
+        next: (response) => {
+          if (response.status === 200) {
+            console.log('padrao no content');
+          }
+        },
+        error: (error) => {
+          if (error.status === 200) {
+            this.toastr.success('Endereço principal alterado com sucesso.');
+            this.loadAuthorizedUser();
+          } else {
+            this.toastr.info('Alguma coisa aconteceu de errado');
+          }
+        },
+      });
+    }
   }
 }

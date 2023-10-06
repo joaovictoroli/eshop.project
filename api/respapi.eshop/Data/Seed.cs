@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.Entities;
@@ -12,7 +13,7 @@ namespace respapi.eshop.Data
         private readonly ICategoryRepository _categoryRepository;
         private readonly IProductRepository _productRepository;
         private readonly IImageRepository _imageRepository;
-        //private readonly IAddressRepository _addressRepository;
+        private readonly IAddressRepository _addressRepository;
 
         public Seed(
 
@@ -20,8 +21,8 @@ namespace respapi.eshop.Data
             RoleManager<AppRole> roleManager,
             ICategoryRepository categoryRepository,
             IProductRepository productRepository,
-            IImageRepository imageRepository
-            //IAddressRepository addressRepository,
+            IImageRepository imageRepository,
+            IAddressRepository addressRepository
             )
         {
             _userManager = userManager;
@@ -29,19 +30,20 @@ namespace respapi.eshop.Data
             _categoryRepository = categoryRepository;
             _productRepository = productRepository;
             _imageRepository = imageRepository;
-            //_addressRepository = addressRepository;
+            _addressRepository = addressRepository;
         }
 
         public async Task SeedAsync()
         {
             if (!await _userManager.Users.AnyAsync())
             {
-                await SeedRolesNUsers();
                 await SeedCategoriesAndSubCategories();
                 await SeedProducts();
+                await SeedRolesNUsers();
             }
         }
 
+        
         private async Task SeedRolesNUsers()
         {
             var roles = new List<AppRole>
@@ -66,11 +68,40 @@ namespace respapi.eshop.Data
                 KnownAs = "Admin"
             };
 
+            var adminAddress = new UserAddress 
+            {
+                Cep = "91790-072",
+                Uf = "RS",
+                Bairro = "Restinga",
+                Complemento = "",
+                Numero = 150,
+                Apartamento = 215,
+                InfoAdicinal = "bloco tal",
+                IsMain = true,
+                AppUser = admin
+            };
+
+            var userAddress = new UserAddress 
+            {
+                Cep = "91790-072",
+                Uf = "RS",
+                Bairro = "Restinga",
+                Complemento = "",
+                Numero = 150,
+                Apartamento = 215,
+                InfoAdicinal = "bloco tal",
+                IsMain = true,
+                AppUser = user
+            };
+        
             await _userManager.CreateAsync(user, "password");
             await _userManager.AddToRolesAsync(user, new[] { "CommonUser" });
 
             await _userManager.CreateAsync(admin, "password");
             await _userManager.AddToRolesAsync(admin, new[] { "Admin" });
+
+            await _addressRepository.AddUserAdress(adminAddress, admin.UserName);
+            await _addressRepository.AddUserAdress(userAddress, user.UserName);
         }
 
         private async Task SeedCategoriesAndSubCategories()
@@ -272,6 +303,7 @@ namespace respapi.eshop.Data
                     SubCategoryId = 6
                 },
             };
+
 
             for (int i = 0; i < products.Count; i++)
             {

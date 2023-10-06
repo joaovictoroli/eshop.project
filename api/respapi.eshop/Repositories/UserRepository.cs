@@ -1,29 +1,50 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using respapi.eshop.Data;
 using respapi.eshop.Interfaces;
-using respapi.eshop.Models.DTOs;
 using respapi.eshop.Models.Entities;
 
-namespace respapi.eshop.Repositories
+namespace respapi.eshop.Repositories;
+public class UserRepository : IUserRepository
 {
-    public class UserRepository : IUserRepository
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
+
+    private readonly IUserDetailCacheService _userDetailCacheService;
+
+    public UserRepository(AppDbContext context, IMapper mapper, IUserDetailCacheService userDetailCacheService)
     {
-        private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
+        _context = context;
+        _mapper = mapper;
+        _userDetailCacheService = userDetailCacheService;
+    }
 
-        public UserRepository(AppDbContext context, IMapper mapper)
+    public async Task<AppUser?> GetUserByUsernameAsync(string username)
+    {
+        return await GetOrSetCache($"user:{username}", async () =>
         {
-            _context = context;
-            _mapper = mapper;
-        }
+            return await _context.Users
+                .Include(p => p.Addresses)
+                .Include(p => p.Orders)
+                    .ThenInclude(o => o.OrderAddress)
+                .Include(p => p.Orders)
+                    .ThenInclude(o => o.Products)
+                .Where(x => x.UserName == username).AsSplitQuery().FirstOrDefaultAsync();
+        });
+    }
 
-        public async Task<AppUser> GetUserByUsernameAsync(string username)
-        {
-            return await _context.Users          
-                   .Include(p => p.Addresses)
-                   .FirstOrDefaultAsync(x => x.UserName == username);
-        }
+        // return await _context.Users
+        //         .Include(p => p.Addresses)
+        //         .Include(p => p.Orders)
+        //             .ThenInclude(o => o.OrderAddress)
+        //         .Include(p => p.Orders)
+        //             .ThenInclude(o => o.Products)
+        //         .Where(x =>x.UserName == username).AsSplitQuery().FirstOrDefaultAsync();
+  
+
+    private async Task<T> GetOrSetCache<T>(string cacheKey, Func<Task<T>> retrievalFunc)
+    {
+        return await _userDetailCacheService.GetOrCreateAsync(cacheKey, retrievalFunc, TimeSpan.FromHours(1));
     }
 }
+

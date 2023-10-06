@@ -12,10 +12,10 @@
 
         <!-- Opções de Edição -->
         <div class="d-flex justify-content-between mb-4">
-          <a class="btn btn-secondary btn-profile-option">
+          <a class="btn btn-secondary btn-profile-option mx-2">
             <fa-icon [icon]="['fas', 'edit']"></fa-icon> Editar
           </a>
-          <a class="btn btn-secondary btn-profile-option">
+          <a class="btn btn-secondary btn-profile-option mx-2">
             <fa-icon [icon]="['fas', 'lock']"></fa-icon> Senha
           </a>
         </div>
@@ -38,6 +38,15 @@
           (addressToDelete)="deleteAddress($event)"
           [addresses]="user.addresses"
         ></app-user-addresses>
+        <button
+          class="btn btn-secondary btn-profile-option btn-add"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#addressModal"
+        >
+          <fa-icon [icon]="['fas', 'plus-square']"></fa-icon>
+          Adicionar novo endereço
+        </button>
       </div>
     </div>
   </div>

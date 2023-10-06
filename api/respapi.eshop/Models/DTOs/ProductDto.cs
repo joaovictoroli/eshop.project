@@ -13,7 +13,6 @@ namespace respapi.eshop.Models.DTOs
         [Required]
         public string? TechnicalInfo { get; set; }
         public string? ImageUrl { get; set; }
-        public int? SubCategoryId { get; set; }
-        public string? SubCategoryName { get; set; } = string.Empty;
+        public int? SubCategoryId { get; set; }        
     }
 }

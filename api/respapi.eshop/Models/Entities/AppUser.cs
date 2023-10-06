@@ -8,5 +8,6 @@ namespace respapi.eshop.Models.Entities
         public string? KnownAs { get; set; }
         public ICollection<UserAddress>? Addresses { get; set; }
         public ICollection<AppUserRole>? UserRoles { get; set; }
+        public ICollection<Order>? Orders { get; set; }
     }
 }

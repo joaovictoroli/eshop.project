@@ -1,24 +1,24 @@
 .btn-dark,
 .btn-outline-light {
-  background-color: #343a40; /* Padrão para o botão */
+  background-color: #343a40;
   border-color: #343a40;
 }
 
 .btn-dark:hover,
 .btn-outline-light:hover {
-  background-color: #23272b; /* Cor para hover */
+  background-color: #23272b;
   border-color: #23272b;
 }
 
 .user-info,
 .addresses {
-  width: 100%; /* Faz os cards ocuparem toda a largura disponível */
-  margin-bottom: 20px; /* Espaço entre os cards */
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .btn-profile-option {
   flex: 1;
-  margin: 0 5px; /* Margem entre os botões de edição */
+  margin: 0 5px;
 }
 
 .addresses {

@@ -10,18 +10,25 @@ namespace respapi.eshop.Repositories
     {
         private readonly AppDbContext _dbContext;
 
-        public AddressRepository(AppDbContext dbContext)
+        private readonly IUserDetailCacheService _userDetailCacheService;
+
+        public AddressRepository(AppDbContext dbContext, IUserDetailCacheService userDetailCacheService)
         {
             _dbContext = dbContext;
+            _userDetailCacheService = userDetailCacheService;
         }
-        public async Task<UserAddress> AddUserAdress(UserAddress userAdress)
+        public async Task<UserAddress> AddUserAdress(UserAddress userAdress, string username)
         {
             await _dbContext.UserAddresses.AddAsync(userAdress);
-            await _dbContext.SaveChangesAsync();
+            var isSaved = await _dbContext.SaveChangesAsync();
+            if (isSaved > 0)
+            {
+                await _userDetailCacheService.RemoveAsync($"user:{username}");
+            }
             return userAdress;
         }
 
-        public async Task<bool?> ChangeMainAddress(UserAddress currentMain, UserAddress nextMain)
+        public async Task<bool?> ChangeMainAddress(UserAddress currentMain, UserAddress nextMain, string username)
         {
              var previousMain = await (from p in _dbContext.UserAddresses
                                 where p == currentMain select p)
@@ -40,14 +47,26 @@ namespace respapi.eshop.Repositories
             if (newMain == null) { return false; }
             
             newMain.IsMain = true;
-            return await SaveChanges();
+            var isSaved = await SaveChanges();
+
+            if (isSaved)
+            {
+                await _userDetailCacheService.RemoveAsync($"user:{username}");
+            }
+            return isSaved;
         }
 
-        public async Task<bool> DeleteUserAddress(UserAddress userAdress)
+        public async Task<bool> DeleteUserAddress(UserAddress userAdress, string username)
         {
             _dbContext.UserAddresses.Remove(userAdress);
+            bool isSaved = await SaveChanges();
+            
+            if (isSaved)
+            {
+                await _userDetailCacheService.RemoveAsync($"user:{username}");
+            }
 
-            return await SaveChanges();
+            return isSaved;        
         }
 
         public async Task<UserAddress?> GetUserAddressById(int id)

@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
 using respapi.eshop.Data;
@@ -53,9 +54,14 @@ try
     var categoryRepository = services.GetRequiredService<ICategoryRepository>();
     var productRepository = services.GetRequiredService<IProductRepository>();
     var imageRepository = services.GetRequiredService<IImageRepository>();
+    var addressRepository = services.GetRequiredService<IAddressRepository>();
 
-    //await Seed.ClearConnections(context);
-    var seed = new Seed(userManager, roleManager, categoryRepository, productRepository, imageRepository);
+    var seed = new Seed(userManager,
+                        roleManager,
+                        categoryRepository,
+                        productRepository,
+                        imageRepository,
+                        addressRepository);
     await seed.SeedAsync();
 }
 catch (Exception)
@@ -65,4 +71,4 @@ catch (Exception)
     // logger.LogError(ex, "An error occured during migration");
 }
 
-app.Run();
+await app.RunAsync();

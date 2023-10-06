@@ -24,13 +24,11 @@
 
 .user-info,
 .addresses {
-  width: 100%; /* Faz os cards ocuparem toda a largura disponível */
-  margin-bottom: 20px; /* Espaço entre os cards */
+  width: 100%;
 }
 
 .btn-profile-option {
   flex: 1;
-  margin: 0 5px; /* Margem entre os botões de edição */
 }
 
 .addresses {
@@ -55,4 +53,9 @@
   cursor: pointer; /* Muda o cursor para indicar que é clicável. */
   transform: scale(1.1); /* Adiciona um leve efeito de zoom. */
   transition: all 0.3s ease; /* Suaviza a transição. */
+}
+
+.btn-add {
+  width: 100%;
+  margin-bottom: 15px;
 }

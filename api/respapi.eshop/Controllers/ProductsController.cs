@@ -6,6 +6,7 @@ using respapi.eshop.Extensions;
 using respapi.eshop.Helpers;
 using respapi.eshop.Interfaces;
 using respapi.eshop.Models.DTOs;
+using respapi.eshop.Models.DTOs.OrderDtos;
 using respapi.eshop.Models.Entities;
 
 namespace respapi.eshop.Controllers
@@ -41,7 +42,7 @@ namespace respapi.eshop.Controllers
 
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-product")]
-        public async Task<ActionResult<ProductDto>> AddProduct([FromForm] ProductDto productDto, [FromForm] ImageUploadDto imageDto)
+        public async Task<ActionResult<ProductDto>> AddProduct([FromForm] AddProductDto productDto, [FromForm] ImageUploadDto imageDto)
         {
             ValidateFileUpload(imageDto);
 
