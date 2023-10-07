@@ -28,15 +28,9 @@ export class ProfileComponent {
   }
 
   loadAuthorizedUser() {
-    if (this.user && this.user.username) {
-      this.authService.getUserProfile(this.user.username).subscribe({
-        next: (user) => {
-          this.user = user;
-          console.log(user.addresses);
-        },
-        error: (error) => console.error('Error fetching user:', error),
-      });
-    }
+    this.authService.getUserProfile(this.user!.username).subscribe({
+      next: (user) => (this.user = user),
+    });
   }
 
   addressAddedSuccessfully(wasAdded: boolean) {

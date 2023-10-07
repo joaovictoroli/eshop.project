@@ -8,6 +8,7 @@ public class OrderDto
     public int? UserId { get; set; }
     public ICollection<OrderProductDto>? Products { get; set; }
     public OrderAddressDto? OrderAddress { get; set; }
+    public DateTime SubmittedAt { get; set; }
     public decimal TotalPrice { get; set; }
 }
 

@@ -7,6 +7,7 @@ import { CartItem } from 'src/app/models/cartItem';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/services/order.service';
 import { Order } from 'src/app/models/order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-checkout',
@@ -24,7 +25,8 @@ export class OrderCheckoutComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private toastr: ToastrService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router: Router
   ) {
     this.authService.currentUser$.pipe(take(1)).subscribe({
       next: (user) => (this.user = user),
@@ -70,10 +72,16 @@ export class OrderCheckoutComponent implements OnInit {
         })),
       };
 
-      this.orderService.placeOrder(orderData).subscribe(
+      if (orderData.orderProducts.length === 0) {
+        this.toastr.error('Adicione produtos ao carrinho antes de finalizar.');
+        return;
+      }
+
+      this.orderService.createOrder(orderData).subscribe(
         (response) => {
           this.toastr.success('Pedido realizado com sucesso.');
           this.cartService.clearCart();
+          this.router.navigate(['/profile']);
           console.log(response);
         },
         (error) => {

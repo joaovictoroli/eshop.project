@@ -1,0 +1,52 @@
+<div class="card bg-dark text-white addresses mb-4 text-center shadow-lg">
+  <div class="card-header">
+    <h5 class="mb-4">Suas Ordens:</h5>
+
+    <div class="mt-2" *ngIf="Orders">
+      <div *ngFor="let order of Orders" class="mb-4 order-card">
+        <div class="border-bottom mb-3">
+          <p class="mb-2 font-weight-bold order-date">
+            Ordem: {{ order.submittedAt | date : "dd/MM/yy" }}
+          </p>
+          <div
+            *ngFor="let products of order.products"
+            class="mb-3 product-details"
+          >
+            <div
+              class="row align-items-center mb-2 link"
+              routerLink="/product/{{ products.productName }}"
+            >
+              <div class="col-md-3">
+                <img
+                  src="{{ products.productImageUrl }}"
+                  alt="{{ products.productName }}"
+                  class="img-fluid max-size-img"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="mb-2 product-name">
+                  <strong>
+                    {{
+                      products.productName.length > 20
+                        ? (products.productName | slice : 0 : 20) + "..."
+                        : products.productName
+                    }}
+                  </strong>
+                </div>
+                <div class="mb-1 product-price">
+                  Preço: {{ products.price }}
+                </div>
+                <div class="mb-2 product-quantity">
+                  Quantidade: {{ products.quantity }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center bg-success mb-2 totalPrice">
+            Total: ${{ order.totalPrice }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

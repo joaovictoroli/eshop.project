@@ -33,15 +33,17 @@ export class DetailedProductComponent {
   }
 
   addToCart() {
-    this.authService.currentUser$.subscribe((user) => {
-      if (user) {
-        this.cartService.addItem(this.product!);
-      } else {
-        this.toastr.error(
-          'Por favor, faça login para adicionar produtos ao carrinho.',
-          'Erro'
-        );
-      }
-    });
+    this.authService.currentUser$
+      .subscribe((user) => {
+        if (user) {
+          this.cartService.addItem(this.product!);
+        } else {  
+          this.toastr.error(
+            'Por favor, faça login para adicionar produtos ao carrinho.',
+            'Erro'
+          );
+        }
+      })
+      .unsubscribe();
   }
 }

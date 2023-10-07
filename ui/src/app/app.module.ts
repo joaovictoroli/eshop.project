@@ -28,6 +28,8 @@ import { ListProductsComponent } from './components/admin-panel/products/list-pr
 import { ListCategoriesComponent } from './components/admin-panel/categories/list-categories/list-categories.component';
 import { ListSubcategoriesComponent } from './components/admin-panel/subcategories/list-subcategories/list-subcategories.component';
 import { SharedModule } from './shared.module';
+import { UserOrdersComponent } from './components/user-profile/user-orders/user-orders.component';
+import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { SharedModule } from './shared.module';
     ListProductsComponent,
     ListCategoriesComponent,
     ListSubcategoriesComponent,
+    UserOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,11 @@ import { SharedModule } from './shared.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
