@@ -29,8 +29,7 @@ import { ListCategoriesComponent } from './components/admin-panel/categories/lis
 import { ListSubcategoriesComponent } from './components/admin-panel/subcategories/list-subcategories.component';
 import { SharedModule } from './shared.module';
 import { UserOrdersComponent } from './components/user-profile/user-orders/user-orders.component';
-import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
-import { BadrequestInterceptor } from './interceptors/badrequest.interceptor';
+import { HttpStatusInterceptor } from './interceptors/httpstatus.interceptor';
 import { AddCategoryComponent } from './components/admin-panel/add-category/add-category.component';
 import { AddSubcategoryComponent } from './components/admin-panel/add-subcategory/add-subcategory.component';
 
@@ -73,12 +72,7 @@ import { AddSubcategoryComponent } from './components/admin-panel/add-subcategor
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UnauthorizedInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: BadrequestInterceptor,
+      useClass: HttpStatusInterceptor,
       multi: true,
     },
   ],

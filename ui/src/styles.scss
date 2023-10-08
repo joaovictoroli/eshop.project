@@ -19,5 +19,25 @@ body {
   overflow-x: hidden;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+select,
+input,
+.form-group {
+  background-color: #999;
+}
+
+select:focus,
+input:focus,
+.form-group:focus {
+  background-color: #999;
+  outline: none;
+  box-shadow: none;
+}
