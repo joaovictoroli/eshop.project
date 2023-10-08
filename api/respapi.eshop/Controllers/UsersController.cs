@@ -100,7 +100,7 @@ namespace respapi.eshop.Controllers
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var userAddress = user.Addresses!.FirstOrDefault(x=> x.Id == addressId);          
+            var userAddress = user.Addresses!.FirstOrDefault(x=> x.Id == addressId);       
 
             if (userAddress == null) { return BadRequest("Address not found"); }
 

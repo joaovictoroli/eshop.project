@@ -30,6 +30,7 @@ import { ListSubcategoriesComponent } from './components/admin-panel/subcategori
 import { SharedModule } from './shared.module';
 import { UserOrdersComponent } from './components/user-profile/user-orders/user-orders.component';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
+import { BadrequestInterceptor } from './interceptors/badrequest.interceptor';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,11 @@ import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UnauthorizedInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BadrequestInterceptor,
       multi: true,
     },
   ],

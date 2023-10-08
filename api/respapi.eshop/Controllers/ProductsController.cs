@@ -65,6 +65,11 @@ namespace respapi.eshop.Controllers
 
                 var product = _mapper.Map<Product>(productDto);
 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 if (!productDto.SubCategoryName.IsNullOrEmpty())
                 {
                     var subCategory = await _categoryRepository.GetSubCategoryByName(productDto.SubCategoryName);

@@ -18,6 +18,9 @@ export class AuthService {
     const user: User | null = JSON.parse(
       localStorage.getItem('user') || 'null'
     );
+    if (user) {
+      this.setCurrentUser(user);
+    }
   }
 
   login(model: any) {

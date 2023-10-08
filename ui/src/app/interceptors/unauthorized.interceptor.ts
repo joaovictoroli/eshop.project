@@ -9,10 +9,14 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class UnauthorizedInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -21,7 +25,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if (err.status === 401) {
-          console.log('Unauthorized');
+          this.showSnackBar(err);
           this.authService.logout();
         } else if (err.status === 403) {
           console.log('never');
@@ -30,5 +34,15 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
         return throwError(err);
       })
     );
+  }
+
+  private showSnackBar(err: any) {
+    let errorMessage = err.error.message || err.error || 'Unknown error';
+    this.snackBar.open(`Error: ${errorMessage}`, 'Fechar', {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+    });
   }
 }
