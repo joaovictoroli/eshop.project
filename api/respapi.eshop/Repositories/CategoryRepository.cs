@@ -18,30 +18,91 @@ namespace respapi.eshop.Repositories
             _mapper = mapper;
         }
 
-        public async Task<int> AddCategory(Category category)
+        public async Task<string> AddCategory(Category category)
         {
+            int duplicated = await CheckDuplicate(category.Name);
+            if (duplicated == 1) {
+                return "category name is duplicated";
+            }            
             _dbContext.Categories.Add(category);
             var gotAdded = await _dbContext.SaveChangesAsync();
-            return gotAdded;
+            if (gotAdded == 0) { return "Something went wrong."; }
+            return "Added";
         }
 
-        public async Task<int> AddSubCategory(SubCategory subCategory, int categoryId)
+        public async Task<string> AddSubCategory(SubCategory subCategory, int categoryId)
         {
             int gotAdded = 0;
             var category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == categoryId);
-            if (category != null)
-            {
-                subCategory.Category = category;        
-                _dbContext.SubCategories.Add(subCategory);
-                gotAdded = await _dbContext.SaveChangesAsync();
-                return gotAdded;
+            var duplicated = await CheckDuplicateSubCategory(subCategory.Name);
+
+            if (duplicated == 1) {
+                return "subcategory name is duplicated";
             }
-            return gotAdded;
+            if (category == null)
+            {
+                return "category not found";
+            } 
+            subCategory.Category = category;        
+            _dbContext.SubCategories.Add(subCategory);
+            gotAdded = await _dbContext.SaveChangesAsync();
+            if (gotAdded == 0) { return "Something went wrong."; }
+            return "Added";
         }
 
-        public Task<Category> DeleteCategory(int id)
+        public async Task<string> DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            int gotDeleted = 0;
+            var category = await _dbContext.Categories
+                            .Include(c => c.SubCategories)
+                            .ThenInclude(sc => sc.Products)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+            
+            if (category == null) return "Category not found";
+            if (category.SubCategories != null && category.SubCategories.Any())
+            {
+                if (category.SubCategories.Any(sc => sc.Products != null && sc.Products.Any()))
+                {
+                    return "There are products linked to this category.";
+                }
+                return "There are subcategories linked to this category";
+            }
+
+            if (category != null)
+            {
+                try {
+                    _dbContext.Categories.Remove(category);
+                    gotDeleted = await _dbContext.SaveChangesAsync();    
+                } catch (Exception ex) {
+                    return "Something went wrong";
+                }              
+            }
+            return "Deleted";
+        }
+
+        public async Task<string> DeleteSubCategory(int id)
+        {
+            int gotDeleted = 0;
+            var subCategory = await _dbContext.SubCategories
+                                        .Include(c => c.Products)
+                                        .FirstOrDefaultAsync(x => x.Id == id);
+            if (subCategory == null) return "SubCategory not found";
+
+            if (subCategory.Products != null && subCategory.Products.Any())
+            {
+                return "There are products linked to this subcategory.";
+            }
+
+            if (subCategory != null)
+            {
+                try {
+                    _dbContext.SubCategories.Remove(subCategory);
+                gotDeleted = await _dbContext.SaveChangesAsync();       
+                } catch (Exception ex) {
+                    return "Something went wrong";
+                }            
+            }
+            return "Deleted";
         }
 
         public async Task<List<CategoryDto>> GetAllCategories()
@@ -55,20 +116,32 @@ namespace respapi.eshop.Repositories
             return await _dbContext.SubCategories.ToListAsync();
         }
 
-        public Task<SubCategory> GetSubCategoryById(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<SubCategory> GetSubCategoryByName(string subCategoryName)
         {
             var subCategory = await _dbContext.SubCategories.FirstOrDefaultAsync(x=> x.Name == subCategoryName);
             return subCategory;
         }
 
-        public Task<Category> UpdateCategory(Category category)
-        {
-            throw new NotImplementedException();
+        private async Task<int> CheckDuplicate(string categoryName) {
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(
+                                            x => x.Name.ToLower() == categoryName.ToLower());
+            if (category != null)
+            {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        private async Task<int> CheckDuplicateSubCategory(string subCategoryName) {
+            var subCategory = await _dbContext.SubCategories.FirstOrDefaultAsync(
+                                    x => x.Name.ToLower() == subCategoryName.ToLower());
+
+            if (subCategory != null)
+            {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 }

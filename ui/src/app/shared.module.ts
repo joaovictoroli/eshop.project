@@ -29,6 +29,8 @@ import { HasRoleDirective } from './directives/hasrole.directive'; // Ensure the
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [NoAutocompleteDirective, HasRoleDirective],
@@ -41,6 +43,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatTableModule,
+    MatTabsModule,
   ],
 })
 export class SharedModule {

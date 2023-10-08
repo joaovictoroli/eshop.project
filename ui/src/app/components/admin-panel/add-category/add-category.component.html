@@ -1,0 +1,21 @@
+<form class="mt-5" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <app-form-validation
+    [formControl]="$any(categoryForm.controls['name'])"
+    [label]="'Nome'"
+    [type]="'text'"
+  ></app-form-validation>
+
+  <app-form-validation
+    [formControl]="$any(categoryForm.controls['description'])"
+    [label]="'Descrição'"
+    [type]="'text'"
+  ></app-form-validation>
+
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="categoryForm.invalid"
+  >
+    Adicionar
+  </button>
+</form>

@@ -24,13 +24,15 @@ import { CartDropdownComponent } from './components/cart/cart-dropdown/cart-drop
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderCheckoutComponent } from './components/order-checkout/order-checkout.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
-import { ListProductsComponent } from './components/admin-panel/products/list-products/list-products.component';
-import { ListCategoriesComponent } from './components/admin-panel/categories/list-categories/list-categories.component';
-import { ListSubcategoriesComponent } from './components/admin-panel/subcategories/list-subcategories/list-subcategories.component';
+import { ListProductsComponent } from './components/admin-panel/products/list-products.component';
+import { ListCategoriesComponent } from './components/admin-panel/categories/list-categories.component';
+import { ListSubcategoriesComponent } from './components/admin-panel/subcategories/list-subcategories.component';
 import { SharedModule } from './shared.module';
 import { UserOrdersComponent } from './components/user-profile/user-orders/user-orders.component';
 import { UnauthorizedInterceptor } from './interceptors/unauthorized.interceptor';
 import { BadrequestInterceptor } from './interceptors/badrequest.interceptor';
+import { AddCategoryComponent } from './components/admin-panel/add-category/add-category.component';
+import { AddSubcategoryComponent } from './components/admin-panel/add-subcategory/add-subcategory.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { BadrequestInterceptor } from './interceptors/badrequest.interceptor';
     ListCategoriesComponent,
     ListSubcategoriesComponent,
     UserOrdersComponent,
+    AddCategoryComponent,
+    AddSubcategoryComponent,
   ],
   imports: [
     BrowserModule,

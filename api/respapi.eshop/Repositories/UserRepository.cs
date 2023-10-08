@@ -31,16 +31,7 @@ public class UserRepository : IUserRepository
                     .ThenInclude(o => o.Products)
                 .Where(x => x.UserName == username).AsSplitQuery().FirstOrDefaultAsync();
         });
-    }
-
-        // return await _context.Users
-        //         .Include(p => p.Addresses)
-        //         .Include(p => p.Orders)
-        //             .ThenInclude(o => o.OrderAddress)
-        //         .Include(p => p.Orders)
-        //             .ThenInclude(o => o.Products)
-        //         .Where(x =>x.UserName == username).AsSplitQuery().FirstOrDefaultAsync();
-  
+    }  
 
     private async Task<T> GetOrSetCache<T>(string cacheKey, Func<Task<T>> retrievalFunc)
     {

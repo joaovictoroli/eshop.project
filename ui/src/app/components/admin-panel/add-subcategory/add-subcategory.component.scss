@@ -1,0 +1,22 @@
+.mt-5 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.categorySelect {
+  margin-bottom: 10px;
+}
+
+select,
+input,
+.form-group {
+  background-color: #999;
+}
+
+select:focus,
+input:focus,
+.form-group:focus {
+  background-color: #999;
+  outline: none;
+  box-shadow: none;
+}
