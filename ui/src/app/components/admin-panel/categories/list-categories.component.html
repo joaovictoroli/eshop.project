@@ -1,0 +1,32 @@
+<mat-table [dataSource]="categories" class="dark-table text-center">
+  <!-- Nome da Categoria -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+    <mat-cell *matCellDef="let category"> {{ category.name }} </mat-cell>
+  </ng-container>
+
+  <!-- Descrição da Categoria -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+    <mat-cell *matCellDef="let category"> {{ category.description }} </mat-cell>
+  </ng-container>
+
+  <!-- Coluna para Deletar -->
+  <ng-container matColumnDef="delete">
+    <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+    <mat-cell *matCellDef="let category">
+      <fa-icon
+        [icon]="['fas', 'trash-alt']"
+        (click)="onDelete(category)"
+      ></fa-icon>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Header e Rows -->
+  <mat-header-row
+    *matHeaderRowDef="['name', 'description', 'delete']"
+  ></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: ['name', 'description', 'delete']"
+  ></mat-row>
+</mat-table>

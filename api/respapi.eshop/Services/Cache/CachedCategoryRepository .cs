@@ -49,32 +49,28 @@ public class CachedCategoryRepository : ICategoryRepository
         return subCategories;
     }
 
-    public async Task<int> AddCategory(Category category)
+    public async Task<string> AddCategory(Category category)
     {
-        var result = await _categoryRepository.AddCategory(category);       
+        var result = await _categoryRepository.AddCategory(category);
        
-        _cache.KeyDelete("all-subcategories"); 
+         _cache.KeyDelete("all-categories");
         
         return result;
     }
 
-    public async Task<int> AddSubCategory(SubCategory subCategory, int categoryId)
+    public async Task<string> AddSubCategory(SubCategory subCategory, int categoryId)
     {
         var result = await _categoryRepository.AddSubCategory(subCategory, categoryId);
-
+        _cache.KeyDelete("all-categories"); 
         _cache.KeyDelete("all-subcategories");
 
         return result;
     }
-
-    public Task<Category> UpdateCategory(Category category)
+    public async Task<string> DeleteCategory(int id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<Category> DeleteCategory(int id)
-    {
-        throw new NotImplementedException();
+        var result = await _categoryRepository.DeleteCategory(id);
+        _cache.KeyDelete("all-categories"); 
+        return result;
     }
 
     public Task<SubCategory> GetSubCategoryByName(string subCategoryName)
@@ -82,14 +78,11 @@ public class CachedCategoryRepository : ICategoryRepository
         throw new NotImplementedException();
     }
 
-    public Task<SubCategory> GetSubCategoryById(int categoryId)
+    public async Task<string> DeleteSubCategory(int id)
     {
-        throw new NotImplementedException();
+        var result = await _categoryRepository.DeleteSubCategory(id);
+        _cache.KeyDelete("all-categories"); 
+        _cache.KeyDelete("all-subcategories");
+        return result;
     }
-}
-
-
-
-
-
-
+} 

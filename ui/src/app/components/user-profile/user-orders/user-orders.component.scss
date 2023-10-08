@@ -1,0 +1,39 @@
+$max-img-width: 150px;
+$max-img-height: 100px;
+$primary-color: #000;
+$secondary-color: #fff;
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.max-size-img {
+  max-width: $max-img-width;
+  max-height: $max-img-height;
+}
+
+.totalPrice {
+  font-size: 20px;
+  font-weight: bold;
+  color: $primary-color;
+  padding: 10px 0;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($color: #28a745, $amount: 5%);
+  }
+}
+
+.order-card:hover {
+  background-color: rgba($color: $secondary-color, $alpha: 0.1);
+}
+
+.product-details:hover {
+  background-color: rgba($color: $primary-color, $alpha: 0.05);
+}
+
+.link {
+  cursor: pointer;
+}

@@ -6,7 +6,9 @@ namespace respapi.eshop.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        [Required]
+        [MinLength(3), MaxLength(15)]
+        public string Name { get; set; }        
         public string? Description { get; set; }
         public ICollection<SubCategory>? SubCategories { get; set; }
     }

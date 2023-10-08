@@ -4,6 +4,7 @@ import { User, UserAddress } from '../models/user';
 import { BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { dataFetched } from '../components/user-profile/register-address-modal/register-address-modal.component';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,14 +13,13 @@ export class AuthService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
-  
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cartService: CartService) {
     const user: User | null = JSON.parse(
       localStorage.getItem('user') || 'null'
     );
     if (user) {
-      this.currentUserSource.next(user);
+      this.setCurrentUser(user);
     }
   }
 
@@ -41,18 +41,21 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('user');
+    console.log('Logout');
+    this.cartService.clearCart();
     this.currentUserSource.next(null);
+    localStorage.removeItem('user');
   }
 
   isUserLoggedIn(): boolean {
     const currentUser = this.currentUserSource.getValue();
-    console.log('Current user:', currentUser); // E um log aqui para ver o valor atual do usuário quando você chama o método.
+    console.log('Current user:', currentUser);
     return !!currentUser;
   }
 
   getUserProfile(username: string) {
     return this.http.get<User>(this.baseUrl + 'Users/' + username);
+    // return this.http.get<User>(this.baseUrl + 'Users/' + username);
   }
 
   registerAddress(address: RegisterAddress, cep: string) {

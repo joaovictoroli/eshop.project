@@ -51,11 +51,6 @@ namespace respapi.eshop.Extensions
                 });
             });
     
-            //rabbitmq dependency injection
-            services.AddSingleton<IMessageQueueService, RabbitMQService>();
-
-
-
             //connect to redis port
             services.AddSingleton(x => ConnectionMultiplexer.Connect("localhost:5555"));
             services.AddScoped<IDatabase>(x => x.GetRequiredService<ConnectionMultiplexer>().GetDatabase());
@@ -69,13 +64,8 @@ namespace respapi.eshop.Extensions
                 var categoryRepository = new CategoryRepository(dbContext, mapper);
 
                 var cache = serviceProvider.GetRequiredService<IDatabase>();
-                var cachedRepo = new CachedCategoryRepository(categoryRepository, cache);
-
-                var messageQueueService = serviceProvider.GetRequiredService<IMessageQueueService>();
-                return new QueuedCategoryRepository(cachedRepo, messageQueueService);
+                return new CachedCategoryRepository(categoryRepository, cache);
             });
-
-
             
             services.AddScoped<ProductRepository>();
 
@@ -85,17 +75,15 @@ namespace respapi.eshop.Extensions
                 var productRepository = new ProductRepository(dbContext);
 
                 var cache = serviceProvider.GetRequiredService<IDatabase>();
-                var cachedRepo = new CachedProductRepository(productRepository, cache);
-
-                var messageQueueService = serviceProvider.GetRequiredService<IMessageQueueService>();
-                return new QueuedProductRepository(cachedRepo, messageQueueService);
+                return new CachedProductRepository(productRepository, cache);
             });
 
-            
-            services.AddHostedService<OrderWorker>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<IQueuedOrderRepository, QueuedOrderRepository>();
+            //rabbitmq dependency injection
+            services.AddSingleton<IMessageQueueService, RabbitMQService>();
 
+            services.AddHostedService<OrderWorker>();
+            services.AddScoped<IQueuedOrderRepository, QueuedOrderRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserDetailCacheService, UserDetailCacheService>();
 
             services.AddHttpContextAccessor();
@@ -103,10 +91,7 @@ namespace respapi.eshop.Extensions
             services.AddScoped<ICepService, CepService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
-            // services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
-            // services.AddScoped<ICategoryRepository, CategoryRepository>();
-            // services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;

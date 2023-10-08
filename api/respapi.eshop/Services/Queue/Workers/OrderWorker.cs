@@ -49,7 +49,7 @@ public class OrderWorker : IHostedService
                 {
                     Console.WriteLine("Sending request to db...");
                     Console.WriteLine($"Processed order to user with ID: {orderMessage.Order.UserId}");
-                    var _orderRepository = scope.ServiceProvider.GetRequiredService<IOrderRepository>();          
+                    var _orderRepository = scope.ServiceProvider.GetRequiredService<IOrderRepository>();    
                     await _orderRepository.CreateOrder(orderMessage.Order, orderMessage.Username);
                 }
             }

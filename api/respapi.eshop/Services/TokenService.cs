@@ -32,13 +32,15 @@ namespace respapi.eshop.Services
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
-
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.UtcNow.AddHours(5),
+                NotBefore = DateTime.UtcNow,
                 SigningCredentials = creds
             };
+
 
             var tokenHandler = new JwtSecurityTokenHandler();
 

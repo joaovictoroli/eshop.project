@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,9 @@ namespace respapi.eshop.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private static readonly List<string> TokenBlacklist = new List<string>();
 
-        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper)
+        public AccountController(UserManager<AppUser> userManager,ITokenService tokenService, IMapper mapper)
         {
             _userManager = userManager;
             _tokenService = tokenService;
@@ -28,6 +30,11 @@ namespace respapi.eshop.Controllers
 
             var user = _mapper.Map<AppUser>(registerDto);
 
+           if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             user.UserName = registerDto.Username!.ToLower();
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -56,7 +63,7 @@ namespace respapi.eshop.Controllers
 
             var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            if (!result) return Unauthorized("Invalid Password");
+            if (!result) return Unauthorized("Invalid Credentials");
             ;
             return new UserDto
             {
@@ -65,6 +72,7 @@ namespace respapi.eshop.Controllers
                 KnownAs = user.KnownAs,
             };
         }
+
         private async Task<bool> UserExists(string username)
         {
             return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());

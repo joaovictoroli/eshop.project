@@ -26,12 +26,12 @@ public class OrderController : BaseApiController
     [HttpPost]
     public async Task<ActionResult<OrderDto>> CreateOrder(AddOrderDto addOrder)
     {
-        if (addOrder.OrderProducts is null) { return BadRequest("Products are required");}
+        if (addOrder.OrderProducts is null || addOrder.OrderProducts.Count == 0) { return BadRequest("Products are required");}
 
         var username = User.GetUsername();
         var appuser = await _userRepository.GetUserByUsernameAsync(username);
         var mainAddress = appuser.Addresses?.Where(x => x.IsMain == true).FirstOrDefault();
-
+        
         if (mainAddress is null) { return BadRequest("Main address not found"); }        
 
         float? totalPrice = null;

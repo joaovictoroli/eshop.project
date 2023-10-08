@@ -1,0 +1,14 @@
+.dark-table {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 2px solid #333; /* Altere a cor se necessário */
+}
+
+.dark-table .mat-header-row {
+  background-color: #333;
+  color: white;
+}
+
+fa-icon {
+  color: black;
+}

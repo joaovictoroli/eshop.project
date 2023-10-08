@@ -6,6 +6,18 @@ export interface Category {
 }
 
 export interface SubCategory {
+  id: number;
+  name: string;
+  description: string;
+  categoryId: number;
+}
+
+export interface AddCategory {
+  name: string;
+  description: string;
+}
+
+export interface AddSubCategory {
   name: string;
   description: string;
   categoryId: number;

@@ -4,6 +4,7 @@ export interface User {
   knownAs: string;
   roles: string[];
   addresses: UserAddress[];
+  orders: UserOrder[];
 }
 
 export interface UserAddress {
@@ -16,6 +17,32 @@ export interface UserAddress {
   apartamento: string;
   infoAdicional: string;
   isMain: boolean;
+}
+
+export interface UserOrder {
+  orderId: number;
+  userId: number;
+  products: UserOrderProduct[];
+  orderAddress: UserOrderAddress;
+  totalPrice: number;
+  submittedAt: Date;
+}
+
+export interface UserOrderProduct {
+  quantity: number;
+  price: number;
+  productName: string;
+  productImageUrl: string;
+}
+
+export interface UserOrderAddress {
+  cep: string;
+  uf: string;
+  bairro: string;
+  complemento: string;
+  numero: number;
+  apartamento: number;
+  infoAdicinal: string;
 }
 
 export class AddressToRegister {
