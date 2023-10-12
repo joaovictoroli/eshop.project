@@ -23,27 +23,24 @@
         ></button>
       </div>
       <div class="modal-body">
-        <div class="form-group mb-4">
+        <div class="form-group bg-dark-purple mb-4">
           <form
             (ngSubmit)="fetchCEPDetails()"
             autocomplete="off"
             *ngIf="!isCEPFetched"
           >
-            <label for="cep">Cep:</label>
             <app-form-validation
               [formControl]="$any(cepForm.controls['cep'])"
-              [label]="'somente números no cep'"
+              [label]="'CEP'"
             ></app-form-validation>
             <button type="submit" class="btn btn-primary">Enviar</button>
           </form>
 
           <form (ngSubmit)="onSubmit()" autocomplete="off">
             <!-- textos -->
-            <div class="mb-4" *ngIf="isCEPFetched && dataFetched">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  {{ dataFetched.cep }}
-                </li>
+            <div class="mb-" *ngIf="isCEPFetched && dataFetched">
+              <ul class="list-group mb-4">
+                <li class="list-group-item">CEP: {{ dataFetched.cep }}</li>
                 <li class="list-group-item">UF: {{ dataFetched.uf }}</li>
                 <li class="list-group-item">
                   Bairro: {{ dataFetched.bairro }}
@@ -53,20 +50,18 @@
                 </li>
               </ul>
               <!-- outro formulario "form-group mb-4" -->
-              <label for="cep">Numero: </label>
               <app-form-validation
                 [formControl]="$any(aditionalForm.controls['numero'])"
-                [label]="'numero da localidade'"
+                [label]="'Numero'"
               ></app-form-validation>
-              <label for="cep">Apartamento: </label>
               <app-form-validation
                 [formControl]="$any(aditionalForm.controls['apartamento'])"
-                [label]="'apartamento'"
+                [label]="'Apartamento'"
               ></app-form-validation>
-              <label for="cep">InfoAdd: </label>
+
               <app-form-validation
                 [formControl]="$any(aditionalForm.controls['infoAdicional'])"
-                [label]="'infoAdicional'"
+                [label]="'Informação Adicional'"
               ></app-form-validation>
             </div>
             <!-- outro formulario "form-group mb-4" -->

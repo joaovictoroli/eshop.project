@@ -15,6 +15,9 @@
     color: #ddd;
   }
 }
+.no-arrow::after {
+  display: none;
+}
 
 .position-absolute {
   display: flex;
@@ -27,7 +30,7 @@
 
   @media (max-width: 576px) {
     top: -0.25rem;
-    left: -0.25rem; // Mude de 'right' para 'left'
+    left: -0.25rem;
     min-width: 1rem;
     height: 1rem;
     font-size: 0.6rem;
@@ -42,13 +45,13 @@
 
     &:hover {
       .badge-neutral {
-        background-color: #a8dadc; // Um tom de azul suave no hover
-        color: #fafafa; // Um branco mais claro no hover
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); // Sombra suave no hover
+        background-color: #a8dadc;
+        color: #fafafa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
 
       fa-icon {
-        color: #a8dadc; // Mudar a cor do ícone no hover para coincidir com o badge
+        color: #a8dadc;
       }
     }
   }
@@ -61,20 +64,27 @@
   }
 
   a:hover .badge-neutral {
-    background-color: #5992b5; // Um azul um pouco mais escuro ao passar o mouse
-    color: #fafafa; // Um branco um pouco mais claro ao passar o mouse
+    background-color: #5992b5;
+    color: #fafafa;
   }
   fa-icon {
-    color: #f1f1f1; // A cor padrão do ícone é um branco um pouco mais claro
-    transition: color 0.3s ease-in-out; // Transição suave da cor do ícone
+    color: #f1f1f1;
+    transition: color 0.3s ease-in-out;
   }
 }
 
-.no-caret::after {
-  display: none;
+.custom-cart-dropdown {
+  background-color: #2c2c2c;
+  overflow-y: auto;
+  overflow-y: auto;
+  right: 0;
+  left: auto !important;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border: 1px solid #555;
 }
 
-.dropdown-menu {
-  max-width: 90vw; /* ajuste conforme necessário */
-  overflow-x: auto;
+.navbar {
+  overflow: visible !important;
 }

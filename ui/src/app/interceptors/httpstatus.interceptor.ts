@@ -30,8 +30,10 @@ export class HttpStatusInterceptor implements HttpInterceptor {
       tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           console.log('URL atual:', this.router.url);
-          // Para rotas de autenticação
-          if (!this.router.url.startsWith('/product')) {
+          if (
+            !this.router.url.startsWith('/product') &&
+            !this.router.url.startsWith('/profile')
+          ) {
             const message =
               event.body?.message || 'Operação realizada com sucesso!';
             this.snackBar.open(message, 'Fechar', {
@@ -46,21 +48,17 @@ export class HttpStatusInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let errorMessage =
           error.error.message || error.error || 'Unknown error';
-        if (error.status === 401) {
+        if (error.status === 401 || error.status === 400) {
           this.snackBar.open(`Error: ${errorMessage}`, 'Fechar', {
             duration: 3000,
             panelClass: ['mat-toolbar', 'mat-warn'],
             verticalPosition: 'bottom',
             horizontalPosition: 'center',
           });
-          this.authService.logout();
-        } else if (error.status === 400) {
-          this.snackBar.open(`Error: ${errorMessage}`, 'Fechar', {
-            duration: 3000,
-            panelClass: ['mat-toolbar', 'mat-warn'],
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-          });
+
+          if (error.status === 401) {
+            this.authService.logout();
+          }
         } else if (error.status === 403) {
           console.log('never');
         }

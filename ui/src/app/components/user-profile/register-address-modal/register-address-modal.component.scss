@@ -1,19 +1,21 @@
 .dark-modal {
-  background-color: #222; /* Mais escuro para um contraste suave */
-  color: #eee; /* Um cinza mais claro para o texto */
+  background-color: #222;
+  color: #eee;
 }
 
 .dark-modal .modal-header,
 .dark-modal .modal-body,
 .dark-modal .modal-footer {
   border-color: #1c1c1c;
-  padding: 15px 20px; /* Mais espaço interno para ventilação */
 }
 
+.bg-dark-purple {
+  background-color: #222;
+}
 .dark-modal .btn-secondary {
   background-color: #444;
   border-color: #333;
-  transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .btn-close {
@@ -28,7 +30,7 @@
 .dark-modal .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
-  transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .dark-modal .btn-primary:hover {
@@ -37,7 +39,7 @@
 
 .dark-modal .modal-title {
   color: #fff;
-  font-weight: 500; /* Fonte um pouco mais grossa */
+  font-weight: 500;
 }
 
 .dark-modal .btn-close {
@@ -52,27 +54,27 @@
 .dark-modal input,
 .dark-modal input:focus {
   color: black;
-  background-color: #555; /* Um pouco mais escuro */
-  border-color: #444; /* Cor da borda mais escura */
-  border-radius: 5px; /* Bordas arredondadas para uma sensação mais moderna */
-  transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
+  background-color: #555;
+  border-color: #444;
+  border-radius: 5px;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .dark-modal input:focus {
-  background-color: #666; /* Um pouco mais claro no foco para destaque */
+  background-color: #666;
   border-color: #555;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Um pequeno brilho para o foco */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .dark-modal .input-group {
-  gap: 10px; /* Espaço entre elementos */
+  gap: 10px;
 }
 
 .btn-search {
   background-color: #666;
   color: white;
   border-color: #555;
-  transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .btn-search:hover {
@@ -82,12 +84,11 @@
 
 .modal-content {
   min-height: 500px;
-  border-radius: 10px; /* Adiciona bordas arredondadas para um look moderno */
-  overflow: hidden; /* Esconde conteúdo que possa estender as bordas */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Adiciona uma sombra para dar profundidade */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Novo estilo para separação de seções e melhor visualização */
 .dark-modal .form-group {
   margin-bottom: 20px;
 }
@@ -97,4 +98,8 @@ li:focus {
   color: black;
   background-color: #999;
   border-color: #666;
+}
+
+form {
+  background-color: 999;
 }

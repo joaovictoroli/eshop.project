@@ -45,14 +45,12 @@ export class ProfileComponent {
       next: (response) => {
         if (response.status === 204) {
           this.loadAuthorizedUser();
-          this.toastr.success('Endereço deletado com sucesso.');
         }
       },
       error: (error) => {
         console.error('Error deleting address:', error);
         if (error.status === 400) {
           const errorMessage = error.error;
-          this.toastr.error(errorMessage);
         }
       },
     });
@@ -63,16 +61,9 @@ export class ProfileComponent {
     if (mainAddressId) {
       this.authService.setMainAdress(mainAddressId!).subscribe({
         next: (response) => {
-          if (response.status === 200) {
-            console.log('padrao no content');
-          }
-        },
-        error: (error) => {
-          if (error.status === 200) {
+          if (response.status === 204) {
             this.toastr.success('Endereço principal alterado com sucesso.');
             this.loadAuthorizedUser();
-          } else {
-            this.toastr.info('Alguma coisa aconteceu de errado');
           }
         },
       });

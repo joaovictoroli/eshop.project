@@ -46,6 +46,18 @@ $hover-color: #444;
   gap: 1rem;
 }
 
+@media (min-width: 1000px) {
+  .products-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 999px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -68,7 +80,6 @@ ul.pagination li.page-item.disabled a.page-link {
 
 ul.pagination li.page-item.active a.page-link {
   background-color: #5b2c6f;
-  // color: #fff;
   border: 1px solid #148f77;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
