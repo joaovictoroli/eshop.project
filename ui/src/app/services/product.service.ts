@@ -73,8 +73,7 @@ export class ProductService {
     return this.http.get<Product>(url, { params: params });
   }
 
-  addProduct(product: Product) {
-    const url = this.baseUrl + 'products';
-    return this.http.post(url, product);
+  addProduct(data: FormData) {
+    return this.http.post(`${this.baseUrl}products/add-product`, data);
   }
 }

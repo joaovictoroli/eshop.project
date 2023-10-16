@@ -27,7 +27,24 @@
     [formControl]="$any(addProductForm.controls['image'])"
     [label]="'image'"
     [type]="'file'"
+    (change)="onFileChange($event)"
   ></app-form-validation>
+
+  <div class="form-group categorySelect">
+    <select
+      class="form-control"
+      id="categorySelect"
+      formControlName="subCategoryName"
+    >
+      <option value="">Selecione Categoria</option>
+      <option
+        *ngFor="let subCagategory of subCategories"
+        [value]="subCagategory.name"
+      >
+        {{ subCagategory.id }} - {{ subCagategory.name }}
+      </option>
+    </select>
+  </div>
 
   <button
     class="btn btn-primary"
