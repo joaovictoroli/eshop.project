@@ -12,8 +12,8 @@ using respapi.eshop.Data;
 namespace respapi.eshop.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231008103727_AnotherInitialOne")]
-    partial class AnotherInitialOne
+    [Migration("20231016201639_AnotherInitialMigrate")]
+    partial class AnotherInitialMigrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

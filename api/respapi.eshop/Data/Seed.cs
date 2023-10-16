@@ -248,7 +248,7 @@ namespace respapi.eshop.Data
                     ImageUrl = "",
                     Price = 419.00f,
                     TechnicalInfo = "Package Dimensions\t6.85 x 3.54 x 1.1 inches\r\nItem Weight\t6.2 ounces\r\nASIN\tB09QLF6B5K\r\nItem model number\tGalaxy S21 FE 5G\r\nBatteries\t1 Lithium Ion batteries required. (included)",
-                    SubCategoryId = 3
+                    SubCategoryId = 4
                 },
 
                 new Product

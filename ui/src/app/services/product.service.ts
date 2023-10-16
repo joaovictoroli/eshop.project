@@ -72,4 +72,9 @@ export class ProductService {
     let params = new HttpParams().set('productName', name);
     return this.http.get<Product>(url, { params: params });
   }
+
+  addProduct(product: Product) {
+    const url = this.baseUrl + 'products';
+    return this.http.post(url, product);
+  }
 }

@@ -9,13 +9,8 @@ namespace respapi.eshop.Interfaces
         Task<string> AddSubCategory(SubCategory subCategoryn, int categoryId);
         Task<List<CategoryDto>> GetAllCategories();
         Task<string> DeleteCategory(int id);
-
-        Task<string> DeleteSubCategory(int id);
-        
-        // sub categories
+        Task<string> DeleteSubCategory(int id);    
         Task<List<SubCategory>> GetAllSubCategories();
-
-
         Task<SubCategory> GetSubCategoryByName(string subCategoryName);
     }
 }

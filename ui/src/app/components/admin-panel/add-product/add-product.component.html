@@ -1,0 +1,39 @@
+<form class="mt-5" [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+  <app-form-validation
+    [formControl]="$any(addProductForm.controls['name'])"
+    [label]="'Nome'"
+    [type]="'text'"
+  ></app-form-validation>
+
+  <app-form-validation
+    [formControl]="$any(addProductForm.controls['description'])"
+    [label]="'Descrição'"
+    [type]="'text'"
+  ></app-form-validation>
+
+  <app-form-validation
+    [formControl]="$any(addProductForm.controls['price'])"
+    [label]="'price'"
+    [type]="'number'"
+  ></app-form-validation>
+
+  <app-form-validation
+    [formControl]="$any(addProductForm.controls['technicalInfo'])"
+    [label]="'technicalInfo'"
+    [type]="'text'"
+  ></app-form-validation>
+
+  <app-form-validation
+    [formControl]="$any(addProductForm.controls['image'])"
+    [label]="'image'"
+    [type]="'file'"
+  ></app-form-validation>
+
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="addProductForm.invalid"
+  >
+    Adicionar
+  </button>
+</form>

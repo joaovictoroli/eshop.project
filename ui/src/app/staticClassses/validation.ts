@@ -44,4 +44,14 @@ export class CustomValidators {
         : { notMatching: true };
     };
   }
+
+  static decimalNumber(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value) {
+        const valid = /^[0-9]*\.?[0-9]+$/.test(control.value);
+        return valid ? null : { invalidDecimal: true };
+      }
+      return null;
+    };
+  }
 }

@@ -16,11 +16,13 @@ namespace respapi.eshop.Helpers
             CreateMap<SubCategoryDto, SubCategory>().ReverseMap();
             CreateMap<AddCategoryDto, Category>().ReverseMap();
             CreateMap<CategoryDto, Category>().ReverseMap();
+            CreateMap<AddProductDto, Product>().ReverseMap();
+
 
             CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<UserAddress, OrderAddress>().ReverseMap();
             CreateMap<OrderProduct, OrderProductDto>().ReverseMap();
-             CreateMap<OrderAddress, OrderAddressDto>().ReverseMap();
+            CreateMap<OrderAddress, OrderAddressDto>().ReverseMap();
         }
     }
 }

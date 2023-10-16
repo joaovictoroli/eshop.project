@@ -33,21 +33,7 @@ public class CachedCategoryRepository : ICategoryRepository
         return categories;
     }
 
-    public async Task<List<SubCategory>> GetAllSubCategories()
-    {
-        var cacheKey = "all-subcategories";
-
-        var cachedSubCategories = _cache.StringGet(cacheKey);
-        if (!cachedSubCategories.IsNullOrEmpty)
-        {
-            return JsonSerializer.Deserialize<List<SubCategory>>(cachedSubCategories);
-        }
-
-        var subCategories = await _categoryRepository.GetAllSubCategories();
-        _cache.StringSet(cacheKey, JsonSerializer.Serialize(subCategories), TimeSpan.FromHours(1));
-
-        return subCategories;
-    }
+ 
 
     public async Task<string> AddCategory(Category category)
     {
@@ -73,9 +59,27 @@ public class CachedCategoryRepository : ICategoryRepository
         return result;
     }
 
-    public Task<SubCategory> GetSubCategoryByName(string subCategoryName)
+    public async Task<SubCategory> GetSubCategoryByName(string subCategoryName)
     {
-        throw new NotImplementedException();
+        var cacheKey = "all-subcategories";
+
+        List<SubCategory> allSubCategories;
+
+    
+        var cachedSubCategories = _cache.StringGet(cacheKey);
+        if (!cachedSubCategories.IsNullOrEmpty)
+        {
+            allSubCategories = JsonSerializer.Deserialize<List<SubCategory>>(cachedSubCategories);
+        }
+        else
+        {
+
+            allSubCategories = await _categoryRepository.GetAllSubCategories();
+            _cache.StringSet(cacheKey, JsonSerializer.Serialize(allSubCategories), TimeSpan.FromHours(1));
+        }
+
+       return allSubCategories.FirstOrDefault(subCat => subCat.Name.Equals(subCategoryName, StringComparison.OrdinalIgnoreCase));
+
     }
 
     public async Task<string> DeleteSubCategory(int id)
@@ -84,5 +88,10 @@ public class CachedCategoryRepository : ICategoryRepository
         _cache.KeyDelete("all-categories"); 
         _cache.KeyDelete("all-subcategories");
         return result;
+    }
+
+    public Task<List<SubCategory>> GetAllSubCategories()
+    {
+        throw new NotImplementedException();
     }
 } 
