@@ -115,16 +115,8 @@ export class OrderCheckoutComponent implements OnInit {
     if (mainAddressId) {
       this.authService.setMainAdress(mainAddressId!).subscribe({
         next: (response) => {
-          if (response.status === 200) {
-            console.log('padrao no content');
-          }
-        },
-        error: (error) => {
-          if (error.status === 200) {
-            this.toastr.success('Endereço principal alterado com sucesso.');
+          if (response.status === 204) {
             this.loadAuthorizedUser();
-          } else {
-            this.toastr.info('Alguma coisa aconteceu de errado');
           }
         },
       });

@@ -124,7 +124,7 @@ namespace respapi.eshop.Controllers
 
             if (gotDeleted == 0) { return NotFound("Something went wrong with Product."); }           
 
-            return Ok("Product got deleted");
+            return NoContent();
         }
 
         private void ValidateFileUpload(ImageUploadDto request)

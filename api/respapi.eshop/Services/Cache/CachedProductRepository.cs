@@ -20,7 +20,14 @@ public class CachedProductRepository : IProductRepository
     {
         var result = await _productRepository.AddProduct(product);
 
-        _cache.KeyDelete("all-products");
+        var endpoint = _cache.Multiplexer.GetEndPoints().First();
+        var server = _cache.Multiplexer.GetServer(endpoint);
+        var keys = server.Keys(pattern: "all-products*").ToArray();
+
+        foreach (var key in keys)
+        {
+            _cache.KeyDelete(key);
+        }
 
         return result;
     }
@@ -30,8 +37,7 @@ public class CachedProductRepository : IProductRepository
 
         var cachedProducts = _cache.StringGet(cacheKey);
         if (!cachedProducts.IsNullOrEmpty)
-        {
-            // Usando o conversor diretamente aqui
+        {           
             return JsonSerializer.Deserialize<PagedList<Product>>(cachedProducts, new JsonSerializerOptions
             {
                 Converters = { new PagedListConverter<Product>() }
@@ -81,9 +87,14 @@ public class CachedProductRepository : IProductRepository
     public async Task<int> DeleteProductById(int productId)
     {
         var result = await _productRepository.DeleteProductById(productId);
-        _cache.KeyDelete($"product-id:{productId}");
+        var endpoint = _cache.Multiplexer.GetEndPoints().First();
+        var server = _cache.Multiplexer.GetServer(endpoint);
+        var keys = server.Keys(pattern: "all-products*").ToArray();
 
-        _cache.KeyDelete("all-products");
+        foreach (var key in keys)
+        {
+            _cache.KeyDelete(key);
+        }
 
         return result;
     }

@@ -13,19 +13,19 @@
 
   <app-form-validation
     [formControl]="$any(addProductForm.controls['price'])"
-    [label]="'price'"
+    [label]="'Preço'"
     [type]="'number'"
   ></app-form-validation>
 
   <app-form-validation
     [formControl]="$any(addProductForm.controls['technicalInfo'])"
-    [label]="'technicalInfo'"
+    [label]="'Informação Técnica'"
     [type]="'text'"
   ></app-form-validation>
 
   <app-form-validation
     [formControl]="$any(addProductForm.controls['image'])"
-    [label]="'image'"
+    [label]="'Imagem'"
     [type]="'file'"
     (change)="onFileChange($event)"
   ></app-form-validation>
@@ -47,7 +47,7 @@
   </div>
 
   <button
-    class="btn btn-primary"
+    class="btn btn-primary mt-3"
     type="submit"
     [disabled]="addProductForm.invalid"
   >

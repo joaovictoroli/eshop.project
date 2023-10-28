@@ -76,4 +76,8 @@ export class ProductService {
   addProduct(data: FormData) {
     return this.http.post(`${this.baseUrl}products/add-product`, data);
   }
+
+  deleteProduct(id: number) {
+    return this.http.delete(`${this.baseUrl}products/delete-product/${id}`);
+  }
 }

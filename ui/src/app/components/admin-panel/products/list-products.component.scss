@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+  margin-top: 8px;
+  border: solid black 1px;
+}
+
+.filters {
+  display: flex;
+  align-items: stretch;
+}
+
+mat-form-field {
+  flex: 1;
+  display: flex;
+}
+
+button {
+  height: 500px;
+  display: flex;
+}
+
+mat-form-field {
+  margin-right: 5px;
+}
+
+fa-icon {
+  color: black;
+}

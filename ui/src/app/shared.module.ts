@@ -31,6 +31,11 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [NoAutocompleteDirective, HasRoleDirective],
@@ -45,6 +50,11 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSnackBarModule,
     MatTableModule,
     MatTabsModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatFormFieldModule,
   ],
 })
 export class SharedModule {

@@ -19,8 +19,7 @@ export class ListProductComponent {
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService,
-    private cd: ChangeDetectorRef
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit() {
