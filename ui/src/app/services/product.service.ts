@@ -72,4 +72,8 @@ export class ProductService {
     let params = new HttpParams().set('productName', name);
     return this.http.get<Product>(url, { params: params });
   }
+
+  addProduct(data: FormData) {
+    return this.http.post(`${this.baseUrl}products/add-product`, data);
+  }
 }

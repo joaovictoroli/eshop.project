@@ -92,7 +92,7 @@ namespace respapi.eshop.Controllers
 
             if (isDeleted == false) { return BadRequest("Something went wrong"); }
 
-            return NoContent();  
+            return NoContent();
         }
 
         [HttpPut("set-main-address/{addressId}")]
@@ -116,10 +116,10 @@ namespace respapi.eshop.Controllers
 
             if (isDone == true)
             {
-                return Ok("Main address changed successfully");
+                return NoContent();
             } else
             {
-                return Ok("Something went wrong");
+                return BadRequest("Something went wrong");
             }
 
         }

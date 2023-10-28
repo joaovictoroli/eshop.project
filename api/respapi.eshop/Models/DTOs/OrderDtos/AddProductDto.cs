@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace respapi.eshop.Models.DTOs.OrderDtos;
 public class AddProductDto
-{
-        
-
+{       
     [Required]
     [MinLength(4, ErrorMessage = "The length of {0} must be at least {1} characters.")]
     [MaxLength(250, ErrorMessage = "The length of {0} cannot be more than {1} characters.")]
@@ -18,7 +16,7 @@ public class AddProductDto
     public float? Price { get; set; }
     [Required]
     public string? TechnicalInfo { get; set; }
-    public string? ImageUrl { get; set; }
-    public int? SubCategoryId { get; set; }
     public string? SubCategoryName { get; set; } = string.Empty;    
+    [Required]
+    public IFormFile File { get; set; }
 }

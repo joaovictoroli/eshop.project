@@ -1,9 +1,8 @@
 .profile-img-container {
   width: 200px;
   height: 200px;
-  margin: 0 auto 20px; /* Centralizar horizontalmente e adicionar espaço inferior */
+  margin: 0 auto 20px;
 }
-
 .profile-image {
   width: 100%;
   height: 100%;
@@ -12,13 +11,13 @@
 
 .btn-dark,
 .btn-outline-light {
-  background-color: #343a40; /* Padrão para o botão */
+  background-color: #343a40;
   border-color: #343a40;
 }
 
 .btn-dark:hover,
 .btn-outline-light:hover {
-  background-color: #23272b; /* Cor para hover */
+  background-color: #23272b;
   border-color: #23272b;
 }
 
@@ -42,17 +41,16 @@
   align-items: center;
 }
 
-/* Botões dentro do item da lista */
 .list-group-item .btn-group {
   display: flex;
-  gap: 10px; /* Espaço entre os botões */
+  gap: 10px;
 }
 
 .fa-icon:hover {
-  color: #3498db; /* Muda a cor no hover. */
-  cursor: pointer; /* Muda o cursor para indicar que é clicável. */
-  transform: scale(1.1); /* Adiciona um leve efeito de zoom. */
-  transition: all 0.3s ease; /* Suaviza a transição. */
+  color: #3498db;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
 
 .btn-add {

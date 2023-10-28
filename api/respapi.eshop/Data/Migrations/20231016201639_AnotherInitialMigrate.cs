@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace respapi.eshop.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AnotherInitialOne : Migration
+    public partial class AnotherInitialMigrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

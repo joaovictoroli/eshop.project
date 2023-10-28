@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg custom-navbar">
+<nav class="navbar navbar-expand-lg custom-navbar position-relative">
   <div class="container-fluid">
     <div class="d-flex justify-content-between w-100">
       <ul class="navbar-nav mr-auto">
@@ -32,10 +32,10 @@
             >
           </li>
         </ng-template>
-        <div class="position-relative">
+        <div>
           <li class="nav-item" ngbDropdown placement="bottom-left">
             <a
-              class="nav-link no-caret"
+              class="nav-link no-caret no-arrow"
               role="button"
               id="#teste"
               ngbDropdownToggle
@@ -48,7 +48,7 @@
                 {{ itemsInCart }}
               </span>
               <app-cart-dropdown
-                style="padding: 0 !important"
+                class="dropdown-menu custom-cart-dropdown"
                 ngbDropdownMenu
                 aria-labelledby="teste"
               ></app-cart-dropdown>

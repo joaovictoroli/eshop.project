@@ -101,7 +101,14 @@
       aria-labelledby="nav-products-tab"
       tabindex="0"
     >
-      <app-list-product></app-list-product>
+      <mat-tab-group>
+        <mat-tab label="Lista de Produtos"
+          ><app-list-product></app-list-product>
+        </mat-tab>
+        <mat-tab label="Criar Produto">
+          <app-add-product [categories]="categories"></app-add-product>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

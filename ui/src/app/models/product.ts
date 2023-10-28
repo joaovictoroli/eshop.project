@@ -12,3 +12,12 @@ interface CartItem {
   product: Product;
   quantity: number;
 }
+
+interface AddProductDto {
+  name: string;
+  descescription: string;
+  price: number;
+  technicalInfo: string;
+  subCategoryId: number;
+  image: File;
+}

@@ -42,18 +42,20 @@ namespace respapi.eshop.Controllers
 
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-product")]
-        public async Task<ActionResult<ProductDto>> AddProduct([FromForm] AddProductDto productDto, [FromForm] ImageUploadDto imageDto)
+        public async Task<ActionResult<ProductDto>> AddProduct([FromForm] AddProductDto productDto
+        // , [FromForm] ImageUploadDto imageDto
+        )
         {
-            ValidateFileUpload(imageDto);
+            ValidateFileUpload(productDto.File);
 
             if (ModelState.IsValid)
             {
                 var image = new Image
                 {
-                    File = imageDto.File,
-                    FileExtension = Path.GetExtension(imageDto.File.FileName),
-                    FileSizeInBytes = imageDto.File.Length,
-                    FileName = Path.GetFileNameWithoutExtension(imageDto.File.FileName)
+                    File = productDto.File,
+                    FileExtension = Path.GetExtension(productDto.File.FileName),
+                    FileSizeInBytes = productDto.File.Length,
+                    FileName = Path.GetFileNameWithoutExtension(productDto.File.FileName)
                 };
 
                 bool isDuplicate = await _imageRepository.CheckDuplicate(image.FileName);
@@ -61,9 +63,10 @@ namespace respapi.eshop.Controllers
                 if (isDuplicate) { return BadRequest("Already has a file with this name"); }
 
                 var persistedImage = await _imageRepository.Upload(image);
-                productDto.ImageUrl = persistedImage.FilePath;
-
+ 
                 var product = _mapper.Map<Product>(productDto);
+
+                product.ImageUrl = persistedImage.FilePath;
 
                 if (!ModelState.IsValid)
                 {
@@ -73,7 +76,7 @@ namespace respapi.eshop.Controllers
                 if (!productDto.SubCategoryName.IsNullOrEmpty())
                 {
                     var subCategory = await _categoryRepository.GetSubCategoryByName(productDto.SubCategoryName);
-                    if (subCategory != null) { product.SubCategory = subCategory; product.SubCategoryId = subCategory.Id; }
+                    if (subCategory != null) { product.SubCategoryId = subCategory.Id; }
                 } else { return BadRequest("No SubCategory was found"); }
 
                 await _productRepository.AddProduct(product);
@@ -134,6 +137,21 @@ namespace respapi.eshop.Controllers
             }
 
             if (request.File.Length > 10485760)
+            {
+                ModelState.AddModelError("file", "File size more than 10MB, please upload a smaller size file.");
+            }
+        }
+
+        private void ValidateFileUpload(IFormFile file)
+        {
+            var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
+
+            if (!allowedExtensions.Contains(Path.GetExtension(file.FileName)))
+            {
+                ModelState.AddModelError("file", "Unsupported file extension");
+            }
+
+            if (file.Length > 10485760)
             {
                 ModelState.AddModelError("file", "File size more than 10MB, please upload a smaller size file.");
             }

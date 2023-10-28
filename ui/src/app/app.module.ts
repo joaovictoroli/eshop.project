@@ -32,6 +32,7 @@ import { UserOrdersComponent } from './components/user-profile/user-orders/user-
 import { HttpStatusInterceptor } from './interceptors/httpstatus.interceptor';
 import { AddCategoryComponent } from './components/admin-panel/add-category/add-category.component';
 import { AddSubcategoryComponent } from './components/admin-panel/add-subcategory/add-subcategory.component';
+import { AddProductComponent } from './components/admin-panel/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AddSubcategoryComponent } from './components/admin-panel/add-subcategor
     UserOrdersComponent,
     AddCategoryComponent,
     AddSubcategoryComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
