@@ -47,7 +47,7 @@ public class CachedCategoryRepository : ICategoryRepository
     public async Task<string> AddSubCategory(SubCategory subCategory, int categoryId)
     {
         var result = await _categoryRepository.AddSubCategory(subCategory, categoryId);
-        _cache.KeyDelete("all-categories"); 
+        _cache.KeyDelete("all-categories");
         _cache.KeyDelete("all-subcategories");
 
         return result;
