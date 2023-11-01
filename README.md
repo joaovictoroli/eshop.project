@@ -17,6 +17,7 @@ Desenvolver um e-commerce que, além de ser uma plataforma de vendas funcional, 
 ## Diagrama de Atividades
 
 Efetuar Compra
+
 ![Diagrama de Atividades](utils/diagrams/atividade_compra.png)
 
 Atividade de usuarios, guets, admin
@@ -31,7 +32,7 @@ Atividade de usuarios, guets, admin
 
 - **História 1**: Como um visitante (guest), quero visualizar os produtos disponíveis para conhecer as opções que a loja oferece.
 
-- **História 2 **: Como um visitante (guest), quero poder me autenticar e criar uma conta para realizar compras e aproveitar ofertas exclusivas.
+- **História 2**: Como um visitante (guest), quero poder me autenticar e criar uma conta para realizar compras e aproveitar ofertas exclusivas.
 
 - **História 3**: Como um usuário autenticado, quero adicionar produtos ao meu carrinho para posteriormente finalizar a compra.
 
