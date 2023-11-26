@@ -6,9 +6,7 @@ Este e-commerce é um laboratório prático voltado para o estudo e aplicação 
 
 ## Vídeo
 
-[![Nome do Vídeo](http://img.youtube.com/vi/ID_DO_SEU_VIDEO/0.jpg)](http://www.youtube.com/watch?v=ID_DO_SEU_VIDEO)
-
-> EM DESENVOLVIMENTO.
+[![Assista à apresentação](https://img.youtube.com/vi/8XBfyjSVrls/0.jpg)](https://www.youtube.com/watch?v=8XBfyjSVrls)
 
 ## Objetivo
 
